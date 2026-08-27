@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>용인특례시 파크골프협회 - 공식 포털</title>
+  
+  <!-- SEO 및 카카오톡/네이버 블로그 공유 (OG Tag) -->
+  <meta name="description" content="용인특례시 파크골프협회 공식 포털 - 수지·포곡·기흥 구장 안내, 동호인 직거래 장터, 라운딩 조인, 스윙 클리닉">
+  <meta name="keywords" content="용인파크골프, 용인특례시파크골프협회, 수지아르피아파크골프장, 포곡파크골프장, 기흥호수공원파크골프장, 파크골프레슨, 파크골프조인">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="용인특례시 파크골프협회 공식 포털">
+  <meta property="og:description" content="관내 3대 구장 운영정보, 회원 직거래 장터, 라운딩 조인, 무료 스윙 분석 및 레슨">
+  <meta property="og:image" content="https://yongin-parkgolf.netlify.app/og-image.jpg">
+  <meta property="og:url" content="https://yongin-parkgolf.netlify.app/">
+  
+  <!-- 모바일 웹앱(PWA) 지원 메타 태그 -->
+  <meta name="theme-color" content="#064e3b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="용인파크골프">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; word-break: keep-all; }
+    /* 계좌 복사 토스트 애니메이션 */
+    #toast {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 pb-16 md:pb-0">
+
+  <!-- 복사 완료 알림 토스트 (Toast) -->
+  <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl text-xs md:text-sm font-bold z-[100] opacity-0 pointer-events-none transform -translate-y-4 border border-emerald-500 flex items-center gap-2">
+    <span>✅</span> <span id="toast-message">계좌번호가 복사되었습니다!</span>
+  </div>
+
+  <!-- 1. 최상단 공식 네트워크 & 실시간 기상/개장 상태 티커 -->
+  <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <!-- 개장 상태 신호등: 정상(emerald), 우천대기(amber), 휴장(red) -->
+        <span class="bg-emerald-600 text-white font-bold px-2 py-0.5 rounded text-[10px] animate-pulse">🟢 정상개장</span>
+        <span>⛳ <strong>수지 · 포곡 · 기흥:</strong> 전 구장 정상 운영 중</span>
+      </div>
+      <div class="flex items-center gap-3 text-xs">
+        <a href="tel:01088822945" class="text-amber-300 font-bold hover:underline">📞 사무국: 010-8882-2945</a>
+        <span class="text-slate-700">|</span>
+        <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="text-slate-300 hover:text-white">공식 카페 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 메인 공식 헤더 -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="bg-emerald-800 text-white p-2.5 rounded-xl text-xl font-bold shadow-sm">⛳</div>
+        <div>
+          <h1 class="text-lg md:text-2xl font-black text-slate-900 tracking-tight leading-tight">
+            용인특례시 파크골프협회
+          </h1>
+          <p class="text-[11px] md:text-xs text-emerald-800 font-bold">Yongin Special City Park Golf Association</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 text-white font-bold px-4 py-2 rounded-lg text-xs md:text-sm hover:bg-emerald-900 transition shadow">
+          회원 커뮤니티 입장 ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- 네비게이션 -->
+    <nav class="bg-emerald-900 text-white border-t border-emerald-950">
+      <div class="max-w-6xl mx-auto px-4 flex justify-between md:justify-start gap-3 md:gap-7 text-xs md:text-sm font-bold py-2.5 overflow-x-auto whitespace-nowrap">
+        <a href="#course-section" class="hover:text-amber-300 transition">용인 3대 구장안내</a>
+        <a href="#info-section" class="hover:text-amber-300 transition text-amber-200">📋 이용규정 & 요금</a>
+        <a href="#market-section" class="hover:text-amber-300 transition">🤝 장터 & 조인매칭</a>
+        <a href="#swing-clinic" class="hover:text-amber-300 transition text-red-300">🎯 1:1 스윙클리닉</a>
+        <a href="#academy-section" class="hover:text-amber-300 transition">온라인 영상레슨</a>
+        <a href="#notice-section" class="hover:text-amber-300 transition">공지 & 투명계좌</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 3. 메인 히어로 배너 -->
+  <section class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 text-white py-10 md:py-12 px-4">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+      <div class="md:col-span-2 space-y-3">
+        <span class="inline-block bg-emerald-700/80 text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-600">
+          수지 · 처인 · 기흥 110만 용인시민의 생활체육
+        </span>
+        <h2 class="text-2xl md:text-4xl font-black leading-tight">
+          건강과 화합의 녹색 필드,<br class="hidden md:inline"> 용인 파크골프 공식 포털
+        </h2>
+        <p class="text-xs md:text-sm text-emerald-100 max-w-xl leading-relaxed">
+          관내 3대 구장 제원, 회원 직거래 장터, 실전 동영상 레슨 및 1:1 스윙 교정 지원
+        </p>
+      </div>
+      <div class="bg-white/10 backdrop-blur p-4 rounded-2xl border border-white/20 text-xs space-y-2">
+        <div class="font-bold text-amber-300 text-sm pb-1 border-b border-white/20 flex items-center gap-1.5">
+          <span>⛳</span> 관내 구장 정기휴장 안내
+        </div>
+        <div class="flex justify-between py-0.5">
+          <span class="text-slate-200">수지 아르피아 (9홀)</span>
+          <span class="text-amber-300 font-bold">매주 화요일 휴장</span>
+        </div>
+        <div class="flex justify-between py-0.5">
+          <span class="text-slate-200">포곡 유운리 (9홀)</span>
+          <span class="text-amber-300 font-bold">매주 월요일 휴장</span>
+        </div>
+        <div class="flex justify-between py-0.5">
+          <span class="text-slate-200">기흥호수공원 (14홀)</span>
+          <span class="text-emerald-300 font-bold">정상 운영</span>
+        </div>
+        <a href="tel:01088822945" class="block text-center mt-2 bg-amber-400 text-slate-950 font-black py-2.5 rounded-lg hover:bg-amber-300 transition shadow">
+          📞 사무국 가입 상담 (010-8882-2945)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 메인 콘텐츠 그리드 -->
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+
+    <!-- 4-1. 용인특례시 3대 파크골프장 상세 안내 -->
+    <section id="course-section" class="bg-white p-5 md:p-7 rounded-2xl shadow-sm border border-gray-200">
+      <div class="flex items-center justify-between mb-5 pb-3 border-b">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">⛳</span>
+            <h3 class="text-lg md:text-xl font-bold text-slate-900">용인특례시 공식 파크골프장 안내</h3>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">수지구 · 처인구 · 기흥구 관내 주요 공공 파크골프장 제원 및 길찾기</p>
+        </div>
+        <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full">3대 구장 운영</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 수지 아르피아 -->
+        <div class="p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start">
+              <h4 class="font-bold text-base text-emerald-950">수지 아르피아 파크골프장</h4>
+              <span class="bg-emerald-700 text-white text-[11px] px-2 py-0.5 rounded font-bold">수지구 9홀</span>
+            </div>
+            <p class="text-gray-700 text-xs mt-2.5">📍 <strong>위치:</strong> 수지구 포은대로 499 (죽전동)</p>
+            <p class="text-gray-600 text-xs mt-1">🕒 <strong>운영:</strong> 09:00 ~ 18:00</p>
+            <p class="text-red-600 text-xs mt-1 font-semibold">🚫 <strong>휴장:</strong> 매주 화요일</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-emerald-100 flex gap-2">
+            <a href="https://map.naver.com/v5/search/아르피아파크골프장" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-white text-emerald-800 text-xs font-bold py-2 rounded-lg border border-emerald-300 hover:bg-emerald-50 transition">
+              네이버 길찾기
+            </a>
+            <a href="https://map.kakao.com/link/search/아르피아파크골프장" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-amber-300 text-slate-950 text-xs font-bold py-2 rounded-lg hover:bg-amber-400 transition">
+              카카오맵
+            </a>
+          </div>
+        </div>
+
+        <!-- 포곡 유운리 -->
+        <div class="p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start">
+              <h4 class="font-bold text-base text-emerald-950">포곡(유운리) 파크골프장</h4>
+              <span class="bg-emerald-700 text-white text-[11px] px-2 py-0.5 rounded font-bold">처인구 9홀</span>
+            </div>
+            <p class="text-gray-700 text-xs mt-2.5">📍 <strong>위치:</strong> 처인구 포곡읍 유운리 357-1</p>
+            <p class="text-gray-600 text-xs mt-1">🕒 <strong>운영:</strong> 09:00 ~ 18:00 (2순환 18홀)</p>
+            <p class="text-red-600 text-xs mt-1 font-semibold">🚫 <strong>휴장:</strong> 매주 월요일</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-emerald-100 flex gap-2">
+            <a href="https://map.naver.com/v5/search/포곡파크골프장" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-white text-emerald-800 text-xs font-bold py-2 rounded-lg border border-emerald-300 hover:bg-emerald-50 transition">
+              네이버 길찾기
+            </a>
+            <a href="https://map.kakao.com/link/search/포곡파크골프장" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-amber-300 text-slate-950 text-xs font-bold py-2 rounded-lg hover:bg-amber-400 transition">
+              카카오맵
+            </a>
+          </div>
+        </div>
+
+        <!-- 기흥호수공원 -->
+        <div class="p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start">
+              <h4 class="font-bold text-base text-emerald-950">기흥호수공원 파크골프장</h4>
+              <span class="bg-emerald-700 text-white text-[11px] px-2 py-0.5 rounded font-bold">기흥구 14홀</span>
+            </div>
+            <p class="text-gray-700 text-xs mt-2.5">📍 <strong>위치:</strong> 기흥구 하갈동 일원</p>
+            <p class="text-gray-600 text-xs mt-1">🕒 <strong>운영:</strong> 09:00 ~ 18:00</p>
+            <p class="text-blue-600 text-xs mt-1 font-semibold">✨ <strong>특징:</strong> 신규 개관 현대식 코스</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-emerald-100 flex gap-2">
+            <a href="https://map.naver.com/v5/search/기흥호수공원파크골프장" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-white text-emerald-800 text-xs font-bold py-2 rounded-lg border border-emerald-300 hover:bg-emerald-50 transition">
+              네이버 길찾기
+            </a>
+            <a href="https://map.kakao.com/link/search/기흥호수공원파크골프장" target="_blank" rel="noopener noreferrer" class="flex-1 text-center bg-amber-300 text-slate-950 text-xs font-bold py-2 rounded-lg hover:bg-amber-400 transition">
+              카카오맵
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-2. 이용 규정 & 구장 예약 가이드 (신규 추가 섹션) -->
+    <section id="info-section" class="bg-white p-5 md:p-7 rounded-2xl shadow-sm border border-gray-200">
+      <div class="flex items-center gap-2 mb-4 pb-3 border-b">
+        <span class="text-2xl">📋</span>
+        <div>
+          <h3 class="text-lg md:text-xl font-bold text-slate-900">구장 이용안내 & 필수 준수사항</h3>
+          <p class="text-xs text-gray-500 mt-0.5">안전하고 즐거운 라운딩을 위해 회원 여러분께서 꼭 확인해주실 사항입니다.</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+          <h4 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-1">📌 이용 대상 & 복장</h4>
+          <ul class="space-y-1.5 text-gray-600 leading-relaxed">
+            <li>• 용인시민 및 파크골프 동호인 누구나</li>
+            <li>• <strong>복장:</strong> 운동화/파크골프화 필수 (구두/힐 금지)</li>
+            <li>• <strong>장비:</strong> 공인 클럽 및 공(마크 부착) 착용</li>
+          </ul>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+          <h4 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-1">⏰ 운영 및 예약 요령</h4>
+          <ul class="space-y-1.5 text-gray-600 leading-relaxed">
+            <li>• 현장 도착 순서 또는 지정 예약제 운영</li>
+            <li>• 1조 4인 기준 플레이 원칙 준수</li>
+            <li>• 동절기/하절기 일몰 시간에 따른 운영 변경</li>
+          </ul>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+          <h4 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-1">⚠️ 필드 안전 수칙</h4>
+          <ul class="space-y-1.5 text-gray-600 leading-relaxed">
+            <li>• 앞 조가 다음 티박스로 이동 후 샷 진행</li>
+            <li>• 벙커 및 잔디 훼손 방지 매너 준수</li>
+            <li>• 잔디 보호 기간 정기 휴장 확인 필수</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-3. 동호인 중고장터 & 라운딩 조인 매칭 -->
+    <section id="market-section" class="bg-white p-5 md:p-7 rounded-2xl shadow-sm border border-gray-200">
+      <div class="flex items-center justify-between mb-5 pb-3 border-b">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🤝</span>
+          <div>
+            <h3 class="text-lg md:text-xl font-bold text-slate-900">동호인 장비 직거래 장터 & 라운딩 조인</h3>
+            <p class="text-xs text-gray-500 mt-0.5">용인 파크골프 회원 간 장비 직거래 및 동반 라운딩 매칭 게시판</p>
+          </div>
+        </div>
+        <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="text-xs bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg hover:bg-amber-300 transition">
+          장터 글쓰기 ↗
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 중고장터 영역 -->
+        <div class="p-4 bg-amber-50/40 rounded-xl border border-amber-200">
+          <div class="flex justify-between items-center mb-3">
+            <h4 class="font-bold text-sm text-amber-950 flex items-center gap-1.5">
+              <span>🛍️</span> 회원 장비 직거래 장터
+            </h4>
+            <span class="text-[11px] text-amber-800 font-semibold">실시간 매물</span>
+          </div>
+          <div class="space-y-2 text-xs">
+            <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="block p-2.5 bg-white rounded-lg border border-amber-100 hover:border-amber-300 transition">
+              <div class="flex justify-between items-center">
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">팝니다</span>
+                <span class="font-semibold text-gray-800 ml-2 truncate flex-1">혼마 파크골프 4스타 클럽 + 전용 파우치</span>
+                <span class="text-emerald-700 font-bold ml-2">35만원</span>
+              </div>
+            </a>
+            <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="block p-2.5 bg-white rounded-lg border border-amber-100 hover:border-amber-300 transition">
+              <div class="flex justify-between items-center">
+                <span class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">팝니다</span>
+                <span class="font-semibold text-gray-800 ml-2 truncate flex-1">미즈노 파크골프 공 3피스 4구 세트 (미사용)</span>
+                <span class="text-emerald-700 font-bold ml-2">5만원</span>
+              </div>
+            </a>
+            <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="block p-2.5 bg-white rounded-lg border border-amber-100 hover:border-amber-300 transition">
+              <div class="flex justify-between items-center">
+                <span class="bg-amber-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">삽니다</span>
+                <span class="font-semibold text-gray-800 ml-2 truncate flex-1">초보 입문용 국산 피닉스 클럽 구해봅니다.</span>
+                <span class="text-gray-400 ml-2">가격협의</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 라운딩 조인 영역 -->
+        <div class="p-4 bg-emerald-50/40 rounded-xl border border-emerald-200">
+          <div class="flex justify-between items-center mb-3">
+            <h4 class="font-bold text-sm text-emerald-950 flex items-center gap-1.5">
+              <span>⛳</span> 라운딩 조인 & 동반자 찾기
+            </h4>
+            <span class="text-[11px] text-emerald-800 font-semibold">실시간 모집</span>
+          </div>
+          <div class="space-y-2 text-xs">
+            <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="block p-2.5 bg-white rounded-lg border border-emerald-100 hover:border-emerald-300 transition">
+              <div class="flex justify-between items-center">
+                <span class="bg-emerald-700 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">포곡</span>
+                <span class="font-semibold text-gray-800 ml-2 truncate flex-1">이번 주 금요일 오전 9시 포곡 2분 조인 모십니다.</span>
+                <span class="text-red-600 font-bold ml-2">2명 모집</span>
+              </div>
+            </a>
+            <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="block p-2.5 bg-white rounded-lg border border-emerald-100 hover:border-emerald-300 transition">
+              <div class="flex justify-between items-center">
+                <span class="bg-emerald-700 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">수지</span>
+                <span class="font-semibold text-gray-800 ml-2 truncate flex-1">내일 오후 아르피아 9홀 가볍게 도실 초보 동반자 환영</span>
+                <span class="text-emerald-700 font-bold ml-2">1명 모집</span>
+              </div>
+            </a>
+            <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="block p-2.5 bg-white rounded-lg border border-emerald-100 hover:border-emerald-300 transition">
+              <div class="flex justify-between items-center">
+                <span class="bg-emerald-700 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">기흥</span>
+                <span class="font-semibold text-gray-800 ml-2 truncate flex-1">기흥호수공원 주말 오전 라운딩 함께하실 분</span>
+                <span class="text-gray-400 ml-2">마감임박</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-4. 1:1 맞춤 스윙 영상 분석 클리닉 -->
+    <section id="swing-clinic" class="bg-slate-900 text-white p-5 md:p-7 rounded-2xl shadow-lg border border-slate-800">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="bg-red-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full animate-bounce">무료 클리닉</span>
+            <h3 class="text-lg md:text-2xl font-black">🎯 1:1 맞춤 스윙 영상 분석실</h3>
+          </div>
+          <p class="text-xs md:text-sm text-slate-300 mt-1">
+            티샷, 어드레스, 퍼팅 영상을 보내주시면 맞춤 원포인트 레슨을 전해드립니다.
+          </p>
+        </div>
+        <span class="text-xs text-amber-300 font-semibold bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 self-start md:self-auto">
+          용인 동호인 전원 무료 참여
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 flex flex-col justify-between">
+          <div>
+            <h4 class="font-bold text-sm text-amber-300 flex items-center gap-1.5 mb-1.5">
+              <span>💬</span> 방법 1. 카톡으로 영상 전송
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              스마트폰으로 촬영한 스윙 영상을 카카오톡으로 바로 전송하세요.
+            </p>
+          </div>
+          <!-- ⚠️ 아래 open.kakao.com 주소를 생성하신 오픈채팅방 URL로 교체해 주세요 -->
+          <a href="https://open.kakao.com" target="_blank" rel="noopener noreferrer" class="mt-4 block text-center bg-yellow-400 text-slate-950 font-black py-2.5 rounded-lg text-xs hover:bg-yellow-300 transition shadow">
+            카톡으로 영상 보내기 ↗
+          </a>
+        </div>
+
+        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 flex flex-col justify-between">
+          <div>
+            <h4 class="font-bold text-sm text-emerald-300 flex items-center gap-1.5 mb-1.5">
+              <span>📝</span> 방법 2. 공식 카페 게시판
+            </h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              공식 카페 '스윙 분석' 코너에 올려 동호인들과 의견을 나눠보세요.
+            </p>
+          </div>
+          <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="mt-4 block text-center bg-emerald-700 text-white font-bold py-2.5 rounded-lg text-xs hover:bg-emerald-600 transition shadow">
+            카페 게시판에 올리기 ↗
+          </a>
+        </div>
+
+        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700">
+          <h4 class="font-bold text-sm text-white flex items-center gap-1.5 mb-1.5">
+            <span>💡</span> 영상 촬영 요령
+          </h4>
+          <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+            <li>• <strong>길이:</strong> 10~15초 내외 (셋업~피니시)</li>
+            <li>• <strong>각도:</strong> 정면(배꼽 높이) 또는 타깃 후방</li>
+            <li>• <strong>기재사항:</strong> 구력 및 주요 고민(슬라이스 등)</li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-[11px] text-slate-400 text-center">
+        ※ 접수된 영상 중 우수 사례는 협회 공식 유튜브 채널 맞춤 레슨 콘텐츠로 제작되어 공유될 수 있습니다.
+      </p>
+    </section>
+
+    <!-- 4-5. 온라인 영상 레슨실 -->
+    <section id="academy-section" class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-200">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b">
+        <div class="flex items-center gap-2">
+          <span class="text-xl text-red-600">🎬</span>
+          <h3 class="text-base md:text-lg font-bold text-slate-900">파크골프 실전 영상 레슨실</h3>
+          <span class="bg-red-100 text-red-700 text-[10px] font-bold px-2 py-0.5 rounded-full">공식 강좌</span>
+        </div>
+        <!-- ⚠️ 아래 youtube.com 주소를 협회 채널 주소로 교체해 주세요 -->
+        <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="text-xs bg-red-50 text-red-600 font-semibold px-3 py-1 rounded-lg border border-red-200 hover:bg-red-100 transition">
+          유튜브 채널 구독 ↗
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-center">
+        <div class="lg:col-span-2 relative w-full overflow-hidden rounded-xl bg-black shadow-inner" style="padding-top: 56.25%;">
+          <iframe 
+            class="absolute top-0 left-0 w-full h-full border-0" 
+            src="https://www.youtube.com/embed/videoseries?list=PLrEnWoR732-B41U6W0H3f5n3N5Wd86n_G" 
+            title="파크골프 레슨 영상" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="space-y-2.5 text-xs">
+          <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-100">
+            <span class="text-emerald-800 font-bold">[기본 과정]</span>
+            <p class="font-bold text-gray-900 mt-0.5 text-sm">그립 잡는 법 & 어드레스 정렬</p>
+            <p class="text-gray-500 mt-1">방향성과 안정성을 좌우하는 기초 파지법</p>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-xl border border-gray-200">
+            <span class="text-blue-700 font-bold">[심화 과정]</span>
+            <p class="font-bold text-gray-900 mt-0.5 text-sm">티샷 80m 돌파 몸통 회전법</p>
+            <p class="text-gray-500 mt-1">팔 힘을 빼고 체중 이동으로 치는 비결</p>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-xl border border-gray-200">
+            <span class="text-amber-700 font-bold">[실전 스코어]</span>
+            <p class="font-bold text-gray-900 mt-0.5 text-sm">롱퍼팅 거리감 & 백스윙 크기</p>
+            <p class="text-gray-500 mt-1">3퍼트를 없애는 실전 거리 조절 공식</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-6. 공지사항 & 투명 전용계좌 (원터치 계좌복사 적용) -->
+    <section id="notice-section" class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-200">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📢</span>
+          <h3 class="text-base md:text-lg font-bold text-slate-900">협회 공식 공지 & 투명 재정 계좌</h3>
+        </div>
+        <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="text-xs text-emerald-800 font-bold hover:underline">
+          공식 카페 전체보기 ↗
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5 text-xs">
+        <div class="p-3 bg-red-50/50 rounded-xl border border-red-100 flex justify-between items-center">
+          <div>
+            <span class="text-red-700 font-bold">[대회 공지]</span>
+            <p class="font-bold text-gray-900 mt-0.5 text-sm">용인특례시 대표선수 선발대회 요강</p>
+          </div>
+          <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="bg-white border px-2.5 py-1 rounded text-gray-700 font-bold hover:bg-gray-50">보기</a>
+        </div>
+        <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 flex justify-between items-center">
+          <div>
+            <span class="text-emerald-700 font-bold">[인력 모집]</span>
+            <p class="font-bold text-gray-900 mt-0.5 text-sm">대회 공인 심판(기록원) 양성 모집</p>
+          </div>
+          <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="bg-white border px-2.5 py-1 rounded text-gray-700 font-bold hover:bg-gray-50">보기</a>
+        </div>
+      </div>
+
+      <!-- 원터치 복사 계좌 영역 -->
+      <div id="bank-section" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 계좌 1 -->
+        <div class="p-4 bg-amber-50/80 rounded-xl border border-amber-200 relative">
+          <div class="flex justify-between items-center">
+            <span class="text-[11px] font-bold text-amber-900 bg-amber-200 px-2 py-0.5 rounded">일반 연회비 / 입회비</span>
+            <span class="text-xs text-gray-500">MG 새마을금고</span>
+          </div>
+          <div class="flex justify-between items-center mt-2">
+            <p class="text-lg font-black text-gray-900 tracking-tight">9002-2057-1310-0</p>
+            <button onclick="copyAccount('9002-2057-1310-0', '일반 연회비 계좌')" class="bg-amber-400 text-slate-950 font-bold text-xs px-3 py-1.5 rounded-lg hover:bg-amber-300 transition shadow-sm active:scale-95">
+              계좌복사
+            </button>
+          </div>
+          <p class="text-[11px] text-gray-600 mt-1">예금주: 용인특례시파크골프협회</p>
+        </div>
+
+        <!-- 계좌 2 -->
+        <div class="p-4 bg-emerald-50/80 rounded-xl border border-emerald-200 relative">
+          <div class="flex justify-between items-center">
+            <span class="text-[11px] font-bold text-emerald-900 bg-emerald-200 px-2 py-0.5 rounded">대회 참가비 전용</span>
+            <span class="text-xs text-gray-500">MG 새마을금고</span>
+          </div>
+          <div class="flex justify-between items-center mt-2">
+            <p class="text-lg font-black text-gray-900 tracking-tight">9002-2082-8891-3</p>
+            <button onclick="copyAccount('9002-2082-8891-3', '대회 참가비 계좌')" class="bg-emerald-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg hover:bg-emerald-600 transition shadow-sm active:scale-95">
+              계좌복사
+            </button>
+          </div>
+          <p class="text-[11px] text-gray-600 mt-1">예금주: 용인특례시파크골프협회</p>
+        </div>
+      </div>
+      <p class="text-[11px] text-gray-500 mt-2 text-center">※ 회비 납부 시 반드시 <strong>[성명 + 클럽명]</strong>을 기재해 주시기 바랍니다.</p>
+    </section>
+
+    <!-- 4-7. 패밀리 사이트 -->
+    <section class="bg-white p-4 rounded-xl border border-gray-200 text-center">
+      <div class="flex flex-wrap justify-center gap-2 md:gap-3 text-[11px] font-semibold text-gray-600">
+        <a href="https://www.kpga7330.com" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gray-50 rounded-lg border hover:bg-emerald-50 transition font-bold text-emerald-800">(사)대한파크골프협회 ↗</a>
+        <a href="https://www.yisports.or.kr" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gray-50 rounded-lg border hover:bg-emerald-50 transition">용인특례시체육회</a>
+        <a href="https://www.yongin.go.kr" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gray-50 rounded-lg border hover:bg-emerald-50 transition">용인특례시청</a>
+        <a href="https://www.parkgolftoday.com" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gray-50 rounded-lg border hover:bg-emerald-50 transition">파크골프투데이 ↗</a>
+        <a href="http://www.yonginilbo.com" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-gray-50 rounded-lg border hover:bg-emerald-50 transition">용인신문</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 모바일 하단 고정 전화걸기 퀵버튼 (시니어 배려 Floating Button) -->
+  <div class="md:hidden fixed bottom-4 right-4 z-50">
+    <a href="tel:01088822945" class="flex items-center gap-2 bg-emerald-700 text-white font-black text-xs px-4 py-3 rounded-full shadow-2xl border-2 border-amber-300 active:scale-95 transition">
+      <span class="text-base animate-bounce">📞</span>
+      <span>사무국 전화연결</span>
+    </a>
+  </div>
+
+  <!-- 5. 푸터 -->
+  <footer class="bg-slate-900 text-slate-400 py-8 px-4 text-center text-xs">
+    <div class="max-w-6xl mx-auto space-y-2">
+      <p class="text-white font-bold text-sm">용인특례시 파크골프협회 (Yongin Special City Park Golf Association)</p>
+      <p>사무국 가입문의: 010-8882-2945 · 경기도 용인특례시 파크골프 동호인 연합</p>
+      <p class="text-slate-500 pt-2 border-t border-slate-800 text-[11px]">
+        © 2026 Yongin Special City Park Golf Association. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- 원터치 복사 스크립트 -->
+  <script>
+    function copyAccount(accNumber, accName) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(accNumber).then(showToast).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+
+      function fallbackCopy() {
+        const textarea = document.createElement('textarea');
+        textarea.value = accNumber;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {
+          alert('계좌번호: ' + accNumber);
+        }
+        document.body.removeChild(textarea);
+      }
+
+      function showToast() {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-message');
+        toastMsg.innerText = accName + ' (' + accNumber + ') 복사완료!';
+        toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        
+        setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+        }, 2500);
+      }
+    }
+  </script>
+
+</body>
+</html>
