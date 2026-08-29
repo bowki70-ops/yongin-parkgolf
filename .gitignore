@@ -1,0 +1,7 @@
+chrome_profile_notebooklm/
+__pycache__/
+*.bak
+.netlify/
+portfolio.db
+scratch/
+shorts_disaster_sample.mp4

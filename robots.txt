@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://yongin-parkgolf.netlify.app/sitemap.xml
