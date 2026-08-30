@@ -62,10 +62,11 @@
 
 ## 📝 최근 동향 및 시스템 개정 이력
 
-* **[2026-08-29] 용인 파크골프 대표 포털 독자적 고도화 및 정식 운영 전략 확정**
-  - **라이브 포털 배포 주소**: [https://yongin-parkgolf.netlify.app/](https://yongin-parkgolf.netlify.app/) | 소스: [index.html](file:///c:/Users/bowki/OneDrive/문서/100B.project/index.html)
-  - **상황 맥락**: 협회 사무장의 몰상식한 무응답에 따라 단순 '협회 기증 시안' 태그를 전면 삭제하고, **사령관님의 독립 플래그십 정보망("용인 파크골프 정보 포털")**으로 정식 개편 완료.
-  - **대응 전략**: 협회 기증은 전면 보유/유예하고, 독자 포털로서 트래픽과 시니어 동호인 이용 성과를 압도적으로 증명한 후 향후 용인시/협회가 후회할 때 대승적으로 고려하는 독자 운영 전략으로 전격 전환함.
+* **[2026-08-30] 시니어 전용 PWA 스마트폰 1초 앱 설치 시스템 탑재 및 `yonginparkgolf.co.kr` 그랜드 오픈**
+  - **공식 대표 도메인 주소**: [https://yonginparkgolf.co.kr](https://yonginparkgolf.co.kr) (www: `https://www.yonginparkgolf.co.kr`)
+  - **스마트폰 앱 시스템**: PWA (Progressive Web App) `manifest.json` & `sw.js` 이식 ➡️ 시니어 맞춤형 스마트폰 바탕화면 1초 앱 아이콘 생성 버튼 구현 완료!
+  - **무제한 서버 백엔드**: GitHub Pages (`bowki70-ops/yongin-parkgolf`) | 소스: [index.html](file:///c:/Users/bowki/OneDrive/문서/100B.project/index.html)
+  - **상황 맥락**: 카카오/네이버 정식 소셜 실명인증 연동 및 PWA 스마트폰 1초 앱 설치 모달을 전격 구축하여 용인시 1위 대표 포털로 그랜드 오픈 완료.
 
 * **[2026-08-25 장중] 사령관의 명품 포트폴리오 리밸런싱 및 현금 2,100만 원(63.46%) 사수 집행 완료**
   - **매매 집행**: 
