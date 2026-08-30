@@ -100,14 +100,10 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="triggerPwaInstall()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-3.5 py-2 rounded-lg text-xs md:text-sm hover:from-amber-300 hover:to-amber-400 transition shadow flex items-center gap-1.5 cursor-pointer border-2 border-amber-300 active:scale-95">
-          <span>📌</span>
-          <span>이 홈페이지 바로가기 만들기</span>
+        <button onclick="handleSingleSaveButton()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs md:text-sm hover:from-amber-300 hover:to-amber-400 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-amber-300 active:scale-95">
+          <span class="text-base">📌</span>
+          <span>바탕화면에 저장</span>
         </button>
-        <a href="#market-section" class="bg-emerald-800 text-white font-bold px-3.5 py-2 rounded-lg text-xs md:text-sm hover:bg-emerald-700 transition shadow flex items-center gap-1.5 cursor-pointer hidden sm:flex">
-          <span>🤝</span>
-          <span>포털 직거래 & 조인 장터</span>
-        </a>
       </div>
     </div>
 
@@ -239,15 +235,11 @@
           스마트폰 사용이 서툰 시니어 회원분들도 수지·포곡·기흥 3대 구장 정보, 실시간 대기 현황, 회원 직거래 및 공지사항을 한눈에 쉽고 빠르게 확인하실 수 있는 종합 정보 포털입니다.
         </p>
         
-        <!-- 🌟 시니어 친화적 실시간 구장 현황 제보 & 바탕화면 앱 설치 큰 버튼 -->
+        <!-- 🌟 시니어 친화적 실시간 구장 현황 제보 큰 버튼 -->
         <div class="pt-2 flex flex-wrap gap-3 items-center">
           <button onclick="openReportModal()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-5 py-3 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition flex items-center gap-2 text-xs md:text-sm active:scale-95 cursor-pointer">
             <span class="text-base animate-pulse">📢</span>
             <span>실시간 구장 현황 제보등록</span>
-          </button>
-          <button onclick="triggerPwaInstall()" type="button" class="bg-emerald-800 text-amber-300 border-2 border-amber-400 hover:bg-emerald-700 font-black px-4 py-3 rounded-xl shadow-lg transition flex items-center gap-2 text-xs md:text-sm active:scale-95 cursor-pointer">
-            <span class="text-base">📌</span>
-            <span>이 홈페이지 바로가기 만들기 (1초)</span>
           </button>
         </div>
       </div>
@@ -2197,18 +2189,22 @@
       console.log('PWA Install prompt ready');
     });
 
-    function triggerPwaInstall() {
+    function handleSingleSaveButton() {
       if (deferredPwaPrompt) {
         deferredPwaPrompt.prompt();
         deferredPwaPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            showToast('📱 용인 파크골프 포털 앱이 바탕화면에 성공적으로 설치되었습니다!', '🎉');
+            showToast('📌 바탕화면에 용인 파크골프 포털 아이콘이 저장되었습니다!', '🎉');
           }
           deferredPwaPrompt = null;
         });
       } else {
         openPwaInstallModal();
       }
+    }
+
+    function triggerPwaInstall() {
+      handleSingleSaveButton();
     }
 
     function openPwaInstallModal() {
