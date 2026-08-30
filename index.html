@@ -100,9 +100,9 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="handleSingleSaveButton()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs md:text-sm hover:from-amber-300 hover:to-amber-400 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-amber-300 active:scale-95">
-          <span class="text-base">📌</span>
-          <span>바탕화면에 저장</span>
+        <button onclick="triggerPwaInstall()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:from-amber-300 hover:to-amber-400 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-amber-300 active:scale-95">
+          <span class="text-base">📱</span>
+          <span>스마트폰 앱 바로가기 설치</span>
         </button>
       </div>
     </div>
@@ -235,11 +235,15 @@
           스마트폰 사용이 서툰 시니어 회원분들도 수지·포곡·기흥 3대 구장 정보, 실시간 대기 현황, 회원 직거래 및 공지사항을 한눈에 쉽고 빠르게 확인하실 수 있는 종합 정보 포털입니다.
         </p>
         
-        <!-- 🌟 시니어 친화적 실시간 구장 현황 제보 큰 버튼 -->
+        <!-- 🌟 시니어 친화적 실시간 구장 현황 제보 & 스마트폰 앱 1초 설치 큰 버튼 -->
         <div class="pt-2 flex flex-wrap gap-3 items-center">
           <button onclick="openReportModal()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-5 py-3 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition flex items-center gap-2 text-xs md:text-sm active:scale-95 cursor-pointer">
             <span class="text-base animate-pulse">📢</span>
             <span>실시간 구장 현황 제보등록</span>
+          </button>
+          <button onclick="triggerPwaInstall()" type="button" class="bg-emerald-800 text-amber-300 border-2 border-amber-400 hover:bg-emerald-700 font-black px-4 py-3 rounded-xl shadow-lg transition flex items-center gap-2 text-xs md:text-sm active:scale-95 cursor-pointer">
+            <span class="text-base">📱</span>
+            <span>스마트폰 바탕화면에 앱 1초 설치</span>
           </button>
         </div>
       </div>
@@ -2232,52 +2236,49 @@
     }
   </script>
 
-  <!-- 🌟 시니어 전용 스마트폰 & PC 바탕화면 바로가기 1초 설치 모달 -->
+  <!-- 🌟 시니어 전용 모바일 스마트폰 바로가기 1초 설치 모달 (안드로이드 & 아이폰) -->
   <div id="pwaInstallModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white w-full max-w-lg rounded-2xl p-5 md:p-6 shadow-2xl space-y-4 text-gray-800 border-2 border-emerald-500 animate-fadeIn">
       <div class="flex justify-between items-center pb-3 border-b border-gray-200">
         <div class="flex items-center gap-2">
-          <span class="text-2xl">📌</span>
-          <h3 class="text-lg md:text-xl font-black text-slate-900">이 홈페이지 바로가기 만들기</h3>
+          <span class="text-2xl">📱</span>
+          <h3 class="text-lg md:text-xl font-black text-slate-900">스마트폰 바탕화면에 앱 바로가기 설치</h3>
         </div>
         <button onclick="closePwaInstallModal()" class="text-gray-400 hover:text-gray-700 font-bold text-xl px-2">✕</button>
       </div>
 
       <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200 text-xs md:text-sm space-y-2 text-emerald-950">
         <p class="font-bold text-emerald-900 flex items-center gap-1.5 text-sm">
-          <span>⛳</span> <span>매번 주소 입력 없이 바탕화면 아이콘 툭 터치!</span>
+          <span>⛳</span> <span>매번 주소 입력 없이 스마트폰 바탕화면 앱 아이콘 툭 터치!</span>
         </p>
-        <p class="text-gray-700 leading-relaxed">바탕화면에 <strong class="text-emerald-800">[⛳ 용인파크골프]</strong> 아이콘을 만드시면, 매번 주소를 치실 필요 없이 가장 빠르고 편리하게 접속하실 수 있습니다.</p>
+        <p class="text-gray-700 leading-relaxed">스마트폰 바탕화면에 <strong class="text-emerald-800">[⛳ 용인파크골프]</strong> 전용 앱 아이콘을 설치하시면 주소창 없이 가장 빠르고 편리하게 여실 수 있습니다.</p>
       </div>
 
-      <!-- 브라우저별 10초 바로가기 설치 가이드 -->
+      <!-- 모바일 스마트폰 기기별 설치 안내 카드 -->
       <div class="space-y-3 text-xs">
-        <div class="p-3.5 bg-green-50 rounded-xl border-2 border-green-300">
-          <p class="font-black text-green-950 text-sm flex items-center justify-between">
-            <span>🐋 네이버 웨일(Naver Whale) 브라우저 이용 시</span>
-            <span class="bg-green-600 text-white text-[10px] px-2 py-0.5 rounded font-black">웨일 사용자</span>
+        <div class="p-3.5 bg-amber-50 rounded-xl border-2 border-amber-300">
+          <p class="font-black text-amber-950 text-sm flex items-center justify-between">
+            <span>📱 갤럭시/안드로이드 (크롬/네이버/삼성인터넷)</span>
+            <span class="bg-amber-400 text-slate-950 text-[10px] px-2 py-0.5 rounded font-black">추천</span>
           </p>
-          <ol class="list-decimal list-inside space-y-1.5 mt-2 text-gray-800 font-bold leading-relaxed">
-            <li>웨일 창 맨 우측 상단 <strong class="text-green-800 bg-white px-1.5 py-0.5 rounded border border-green-300">⋮ (점 3개)</strong> 메뉴를 클릭합니다.</li>
-            <li><strong class="text-green-800">기타 도구 ➔ [바로가기 만들기...]</strong>를 클릭합니다.</li>
-            <li><strong class="text-green-800">[새 창으로 열기]</strong> 체크 후 <strong class="text-green-800 font-black">[만들기]</strong>를 누르면 윈도우 바탕화면에 바로 생성됩니다!</li>
+          <ol class="list-decimal list-inside space-y-1 mt-2 text-gray-800 font-bold leading-relaxed">
+            <li>아래 <strong class="text-amber-900 font-bold">[바탕화면에 앱 바로 설치]</strong> 버튼을 터치합니다.</li>
+            <li>화면에 뜨는 <strong class="text-amber-900 font-bold">[설치]</strong> 또는 <strong class="text-amber-900 font-bold">[홈 화면에 추가]</strong>를 터치하면 끝!</li>
           </ol>
         </div>
 
-        <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-300">
-          <p class="font-black text-amber-950 text-sm flex items-center justify-between">
-            <span>🌐 구글 크롬(Chrome) / 갤럭시 스마트폰</span>
-            <span class="bg-amber-400 text-slate-950 text-[10px] px-2 py-0.5 rounded font-black">크롬/모바일</span>
-          </p>
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-300">
+          <p class="font-black text-slate-900 text-sm">🍎 아이폰 (Safari 브라우저)</p>
           <ol class="list-decimal list-inside space-y-1 mt-2 text-gray-700 font-medium">
-            <li>아래 <strong class="text-amber-900 font-bold">[1초 자동 설치]</strong> 버튼을 누르시면 화면 가운데 뜨는 <strong class="text-amber-900 font-bold">[설치]</strong>를 클릭해 주세요!</li>
+            <li>사파리 화면 하단의 <strong class="text-blue-700 font-bold">[공유 ↗]</strong> 버튼을 터치합니다.</li>
+            <li>메뉴를 아래로 내려 <strong class="text-slate-900 font-bold">[홈 화면에 추가 ➕]</strong>를 터치합니다.</li>
           </ol>
         </div>
       </div>
 
       <div class="pt-2 flex gap-2 justify-end">
-        <button onclick="executePwaInstallPrompt()" class="w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-3 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition text-sm active:scale-95 flex items-center justify-center gap-2">
-          <span>📌</span> <span>1초 자동 설치 팝업 호출하기</span>
+        <button onclick="executePwaInstallPrompt()" class="w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-3.5 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition text-sm active:scale-95 flex items-center justify-center gap-2">
+          <span>📱</span> <span>스마트폰 바탕화면에 앱 바로 설치 (1초)</span>
         </button>
       </div>
     </div>
