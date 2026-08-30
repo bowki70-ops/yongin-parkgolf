@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko" class="text-[18px]">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>용인 파크골프 정보 포털 | 용인특례시 파크골프 대표 종합 정보망</title>
-  
+  <!-- 공식 신규 대표 도메인 강제 이체 리다이렉트 스크립트 -->
+  <script>
+    if (window.location.hostname !== 'yonginparkgolf.co.kr' && 
+        window.location.hostname !== 'www.yonginparkgolf.co.kr' && 
+        window.location.hostname !== 'localhost' && 
+        window.location.hostname !== '127.0.0.1') {
+      window.location.replace('https://yonginparkgolf.co.kr' + window.location.pathname + window.location.search + window.location.hash);
+    }
+  </script>
+
   <!-- SEO 및 카카오톡/네이버 블로그 공유 (OG Tag) -->
   <meta name="naver-site-verification" content="492b50e759cf1f29079e1cbaff6dc538f13e47f5" />
   <meta name="description" content="용인 파크골프 정보 포털 - 수지·포곡·기흥 3대 구장 실시간 운영현황, 날씨, 회원 중고장터, 조인, 레슨 정보">

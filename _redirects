@@ -1,0 +1,3 @@
+# Force 301 redirect all old Netlify domain traffic to official yonginparkgolf.co.kr domain
+https://yongin-parkgolf.netlify.app/* https://yonginparkgolf.co.kr/:splat 301!
+http://yongin-parkgolf.netlify.app/* https://yonginparkgolf.co.kr/:splat 301!
