@@ -2200,21 +2200,11 @@
     });
 
     function handleSingleSaveButton() {
-      if (deferredPwaPrompt) {
-        deferredPwaPrompt.prompt();
-        deferredPwaPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            showToast('📌 바탕화면에 용인 파크골프 포털 아이콘이 저장되었습니다!', '🎉');
-          }
-          deferredPwaPrompt = null;
-        });
-      } else {
-        openPwaInstallModal();
-      }
+      openPwaInstallModal();
     }
 
     function triggerPwaInstall() {
-      handleSingleSaveButton();
+      openPwaInstallModal();
     }
 
     function openPwaInstallModal() {
@@ -2225,19 +2215,33 @@
       document.getElementById('pwaInstallModal').classList.add('hidden');
     }
 
+    function copyPortalLinkToClipboard() {
+      const dummy = document.createElement('textarea');
+      document.body.appendChild(dummy);
+      dummy.value = 'https://yonginparkgolf.co.kr';
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+      showToast('📋 포털 공식 주소(https://yonginparkgolf.co.kr)가 복사되었습니다! 카카오톡에 붙여넣기 해주세요.', '🎉');
+      closePwaInstallModal();
+    }
+
     function executePwaInstallPrompt() {
       if (deferredPwaPrompt) {
-        deferredPwaPrompt.prompt();
-        deferredPwaPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            showToast('📱 용인 파크골프 포털 앱이 바탕화면에 성공적으로 설치되었습니다!', '🎉');
-          }
-          deferredPwaPrompt = null;
-        });
+        try {
+          deferredPwaPrompt.prompt();
+          deferredPwaPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              showToast('📱 용인 파크골프 포털 앱이 바탕화면에 성공적으로 설치되었습니다!', '🎉');
+            }
+            deferredPwaPrompt = null;
+          });
+        } catch(e) {
+          copyPortalLinkToClipboard();
+        }
         closePwaInstallModal();
       } else {
-        showToast('💡 바탕화면 앱 설치 팝업을 호출했습니다. 화면 가운데 [설치] 버튼을 클릭해 주세요!', '📱');
-        closePwaInstallModal();
+        copyPortalLinkToClipboard();
       }
     }
   </script>
@@ -2248,43 +2252,24 @@
       <div class="flex justify-between items-center pb-3 border-b border-gray-200">
         <div class="flex items-center gap-2">
           <span class="text-2xl">📱</span>
-          <h3 class="text-lg md:text-xl font-black text-slate-900">스마트폰 바탕화면에 앱 바로가기 설치</h3>
+          <h3 class="text-lg md:text-xl font-black text-slate-900">스마트폰 바탕화면에 앱 아이콘 추가</h3>
         </div>
         <button onclick="closePwaInstallModal()" class="text-gray-400 hover:text-gray-700 font-bold text-xl px-2">✕</button>
       </div>
 
       <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200 text-xs md:text-sm space-y-2 text-emerald-950">
         <p class="font-bold text-emerald-900 flex items-center gap-1.5 text-sm">
-          <span>⛳</span> <span>매번 주소 입력 없이 스마트폰 바탕화면 앱 아이콘 툭 터치!</span>
+          <span>⛳</span> <span>매번 주소 입력 없이 바탕화면 앱 아이콘 툭 터치!</span>
         </p>
-        <p class="text-gray-700 leading-relaxed">스마트폰 바탕화면에 <strong class="text-emerald-800">[⛳ 용인파크골프]</strong> 전용 앱 아이콘을 설치하시면 주소창 없이 가장 빠르고 편리하게 여실 수 있습니다.</p>
+        <p class="text-gray-700 leading-relaxed">스마트폰 화면 우측 상단/하단의 <strong class="text-emerald-900 bg-white px-1.5 py-0.5 rounded border border-emerald-400">⋮ (점 3개)</strong> 또는 <strong class="text-blue-700 bg-white px-1.5 py-0.5 rounded border border-blue-300">[공유 ↗]</strong>를 터치한 후 <strong class="text-emerald-800 font-bold">[홈 화면에 추가 ➕]</strong>를 터치하시면 스마트폰 바탕화면에 아이콘이 생성됩니다!</p>
       </div>
 
-      <!-- 모바일 스마트폰 기기별 설치 안내 카드 -->
-      <div class="space-y-3 text-xs">
-        <div class="p-3.5 bg-amber-50 rounded-xl border-2 border-amber-300">
-          <p class="font-black text-amber-950 text-sm flex items-center justify-between">
-            <span>📱 갤럭시/안드로이드 (크롬/네이버/삼성인터넷)</span>
-            <span class="bg-amber-400 text-slate-950 text-[10px] px-2 py-0.5 rounded font-black">추천</span>
-          </p>
-          <ol class="list-decimal list-inside space-y-1 mt-2 text-gray-800 font-bold leading-relaxed">
-            <li>아래 <strong class="text-amber-900 font-bold">[바탕화면에 앱 바로 설치]</strong> 버튼을 터치합니다.</li>
-            <li>화면에 뜨는 <strong class="text-amber-900 font-bold">[설치]</strong> 또는 <strong class="text-amber-900 font-bold">[홈 화면에 추가]</strong>를 터치하면 끝!</li>
-          </ol>
-        </div>
-
-        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-300">
-          <p class="font-black text-slate-900 text-sm">🍎 아이폰 (Safari 브라우저)</p>
-          <ol class="list-decimal list-inside space-y-1 mt-2 text-gray-700 font-medium">
-            <li>사파리 화면 하단의 <strong class="text-blue-700 font-bold">[공유 ↗]</strong> 버튼을 터치합니다.</li>
-            <li>메뉴를 아래로 내려 <strong class="text-slate-900 font-bold">[홈 화면에 추가 ➕]</strong>를 터치합니다.</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="pt-2 flex gap-2 justify-end">
-        <button onclick="executePwaInstallPrompt()" class="w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-3.5 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition text-sm active:scale-95 flex items-center justify-center gap-2">
-          <span>📱</span> <span>스마트폰 바탕화면에 앱 바로 설치 (1초)</span>
+      <div class="pt-2 flex flex-col gap-2">
+        <button onclick="executePwaInstallPrompt()" class="w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-3 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition text-xs md:text-sm active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+          <span>📱</span> <span>1초 자동 설치 팝업 호출</span>
+        </button>
+        <button onclick="copyPortalLinkToClipboard()" class="w-full bg-slate-900 text-white font-bold py-3 rounded-xl shadow border border-slate-700 hover:bg-slate-800 transition text-xs md:text-sm active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+          <span>📋</span> <span>주소 복사하기 (카카오톡 나와의 채팅에 저장)</span>
         </button>
       </div>
     </div>
