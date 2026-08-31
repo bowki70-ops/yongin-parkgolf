@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko" class="text-[18px]">
 <head>
+  <!-- 🌟 [필수] 모바일 반응형 뷰포트 메타 태그 (모바일 줌아웃 개미글씨 원천 방지) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+
   <!-- 공식 신규 대표 도메인 안전 리다이렉트 스크립트 -->
   <script>
     // Netlify SSL 인증서 자동 발급 및 DNS 전파 대기 기간 안전 접속 처리
@@ -80,15 +83,33 @@
     html.font-scale-160 .text-base { font-size: 1.45rem !important; line-height: 1.85 !important; font-weight: 800 !important; }
     html.font-scale-160 button, html.font-scale-160 a { min-height: 52px !important; font-size: 1.05rem !important; }
 
-    /* 모바일 6080 시니어 눈 피로 방지 1단 와이드 + 넉넉한 여백 (Visual Calmness) */
-    @media (max-width: 640px) {
-      /* 다단 그리드를 시원한 1단 풀사이즈 카드로 통일하여 어지럼증 및 눈 피로 100% 방지 */
-      .grid-cols-2, .grid-cols-3, .grid-cols-4,
+    /* 🌟 모바일 6080 시니어 전용 1단 와이드 레이아웃 & 첫 화면 구장 현황 노출 (@media max-width: 768px) */
+    @media (max-width: 768px) {
+      html { font-size: 16px !important; }
+      body { font-size: 16px !important; line-height: 1.75 !important; }
+
+      /* 3대 구장 현황, 로드맵, 정보 카드의 grid/flex를 1열 (1 Column, width: 100%) 세로 배치 강제 */
+      .grid, .grid-cols-2, .grid-cols-3, .grid-cols-4,
+      [class*="grid-cols-"],
       html.font-scale-130 .grid-cols-2, html.font-scale-130 .grid-cols-3, html.font-scale-130 .grid-cols-4,
       html.font-scale-160 .grid-cols-2, html.font-scale-160 .grid-cols-3, html.font-scale-160 .grid-cols-4 {
         grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        width: 100% !important;
       }
-      /* 구장 카드, 로드맵, 정보 상자 모바일 시원한 숨통 패딩 (20px 이상) */
+
+      /* 모바일 본문 폰트 기본 16px 이상, 제목 20px 이상, 터치 버튼 최소 48px 이상 확보 */
+      h1, h2, h3 { font-size: 1.25rem !important; line-height: 1.4 !important; } /* 20px+ */
+      p, li, span, label { font-size: 1.0rem !important; line-height: 1.7 !important; } /* 16px+ */
+      button, a.btn, select, input, .touch-option { min-height: 48px !important; }
+
+      /* 홍보 배너 영역 패딩 대폭 축소 -> 스크롤 없이 첫 화면에 3대 구장 현황 카드 바로 노출 */
+      .hero-banner-sec {
+        padding-top: 0.75rem !important;
+        padding-bottom: 0.75rem !important;
+      }
+      .hero-desc-text {
+        display: none !important; /* 첫 화면에 3대 구장 현황을 올리기 위해 긴 파라그래프 텍스트 축소 */
+      }
       .p-3, .p-4, .p-5, .p-6 {
         padding: 1.25rem !important;
       }
