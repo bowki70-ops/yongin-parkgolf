@@ -79,12 +79,12 @@
     <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-2">
       <div class="flex items-center gap-2.5 flex-wrap">
         <span class="bg-emerald-600 text-white font-bold px-2 py-0.5 rounded text-[10px] animate-pulse">LIVE</span>
-        <span>⛳ <strong id="header-status-summary">포곡·수지·기흥: 전 구장 정상 개장 중</strong></span>
+        <span>⛳ <strong id="header-status-summary">포곡·수지·기흥: 개장 현황 확인 중...</strong></span>
         <span class="text-slate-700 hidden sm:inline">|</span>
         <span class="bg-slate-800 text-amber-300 px-2.5 py-0.5 rounded-full border border-slate-700 flex items-center gap-1.5 font-semibold text-[11px]">
-          <span>🌤️ 용인시 23°C</span>
+          <span id="weather-temp">🌤️ 용인시 --°C</span>
           <span class="text-slate-600">•</span>
-          <span>미세먼지 <strong class="text-emerald-400">🟢 좋음</strong></span>
+          <span>미세먼지 <strong id="weather-dust-val" class="text-emerald-400">🟢 좋음</strong></span>
         </span>
       </div>
       <div class="flex items-center gap-3 text-xs">
@@ -227,7 +227,7 @@
           <span class="bg-emerald-700/80 text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-600 flex items-center gap-1.5">
             <span>🟢 실시간 운영 정보</span>
             <span class="text-slate-300">|</span>
-            <span>최종 업데이트: 2026.08.29</span>
+            <span id="live-update-date">최종 업데이트: 2026.08.31</span>
           </span>
           <span class="bg-amber-400 text-slate-950 text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-xs">
             ⭐ 용인시 대표 파크골프 포털
@@ -262,15 +262,15 @@
         </div>
         <div class="flex justify-between items-center py-1 border-b border-slate-800">
           <span class="text-white font-bold text-xs">수지 아르피아 (9홀)</span>
-          <span class="text-amber-300 font-bold bg-amber-950/90 px-2.5 py-1 rounded-lg border border-amber-500/50 text-[11px]">매주 화요일 휴장</span>
+          <span id="suji-rest-badge" class="text-amber-300 font-bold bg-amber-950/90 px-2.5 py-1 rounded-lg border border-amber-500/50 text-[11px]">매주 화요일 휴장</span>
         </div>
         <div class="flex justify-between items-center py-1 border-b border-slate-800">
           <span class="text-white font-bold text-xs">포곡 유운리 (9홀/18홀)</span>
-          <span class="text-amber-300 font-bold bg-amber-950/90 px-2.5 py-1 rounded-lg border border-amber-500/50 text-[11px]">매주 월요일 휴장</span>
+          <span id="pogok-rest-badge" class="text-amber-300 font-bold bg-amber-950/90 px-2.5 py-1 rounded-lg border border-amber-500/50 text-[11px]">매주 월요일 휴장</span>
         </div>
         <div class="flex justify-between items-center py-1 border-b border-slate-800">
           <span class="text-white font-bold text-xs">기흥 호수공원 (14홀)</span>
-          <span class="text-amber-300 font-bold bg-amber-950/90 px-2.5 py-1 rounded-lg border border-amber-500/50 text-[11px]">매주 월요일 휴장</span>
+          <span id="giheung-rest-badge" class="text-amber-300 font-bold bg-amber-950/90 px-2.5 py-1 rounded-lg border border-amber-500/50 text-[11px]">매주 월요일 휴장</span>
         </div>
         <div class="pt-2 text-[11.5px] space-y-1">
           <p class="font-bold flex items-center gap-1 text-emerald-400">🟢 입장 방식: 100% 현장 선착순 무료</p>
@@ -333,7 +333,7 @@
                 <button onclick="copyAddress('수지구 포은대로 499', '수지 아르피아')" class="shrink-0 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-bold text-[10.5px] px-2 py-0.5 rounded border border-emerald-300 transition">주소복사 📋</button>
               </div>
               <p class="text-gray-700 font-semibold">🕒 <strong>운영:</strong> 06:00 ~ 20:00</p>
-              <p class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 화요일 정기 휴장</p>
+              <p id="suji-card-rest" class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 화요일 정기 휴장</p>
               <div class="pt-1.5 border-t border-gray-100">
                 <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 용인시민 100% 현장 선착순</span>
               </div>
@@ -381,7 +381,7 @@
                 <button onclick="copyAddress('처인구 포곡읍 삼계리 671', '포곡 유운리')" class="shrink-0 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-bold text-[10.5px] px-2 py-0.5 rounded border border-emerald-300 transition">주소복사 📋</button>
               </div>
               <p class="text-gray-700 font-semibold">🕒 <strong>운영:</strong> 06:00 ~ 19:00 (마감 18:20)</p>
-              <p class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 월요일 정기 휴장</p>
+              <p id="pogok-card-rest" class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 월요일 정기 휴장</p>
               <div class="pt-1.5 border-t border-gray-100">
                 <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 용인시민 100% 현장 선착순</span>
               </div>
@@ -429,7 +429,7 @@
                 <button onclick="copyAddress('기흥구 하갈동 138-1', '기흥 호수공원')" class="shrink-0 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-bold text-[10.5px] px-2 py-0.5 rounded border border-emerald-300 transition">주소복사 📋</button>
               </div>
               <p class="text-gray-700 font-semibold">🕒 <strong>운영:</strong> 06:00 ~ 18:00</p>
-              <p class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 월요일 정기 휴장</p>
+              <p id="giheung-card-rest" class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 월요일 정기 휴장</p>
               <div class="pt-1.5 border-t border-gray-100">
                 <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 용인시민 100% 현장 선착순</span>
               </div>
@@ -708,8 +708,101 @@
       </p>
     </section>
 
-    <!-- 4-5. 파크골프 공식 시청각 영상 레슨실 (유튜브 1초 직통 바로보기) -->
-    <section id="academy-section" class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-200">
+    <!-- 4-5. 파크골프 입문 8단계 핵심 가이드 & 시청각 영상 레슨실 -->
+    <section id="academy-section" class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-200 space-y-6">
+      <!-- 🔰 파크골프 입문 8단계 로드맵 -->
+      <div class="bg-gradient-to-r from-emerald-900 to-teal-950 text-white p-5 md:p-6 rounded-2xl shadow-md border border-emerald-700">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-emerald-700/80">
+          <span class="text-2xl md:text-3xl">🔰</span>
+          <div>
+            <h3 class="text-lg md:text-xl font-black text-amber-300">초보자 한눈에 탈출! 파크골프 입문 8단계 로드맵</h3>
+            <p class="text-xs text-emerald-100 mt-0.5">처음 시작하시는 동호인 회원님도 8단계만 읽으시면 바로 용인 3대 구장에서 신나게 첫 라운딩을 즐기실 수 있습니다.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <!-- 1단계 -->
+          <div class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">1단계</span>
+              <span class="text-[11px] text-emerald-200">기초준비</span>
+            </div>
+            <h4 class="font-bold text-white text-sm">복장 & 신발 준비</h4>
+            <p class="text-emerald-100 text-[11px] leading-snug">밑창이 평평한 운동화나 파크골프화, 모자, 장갑만 갖추면 준비 끝!</p>
+          </div>
+
+          <!-- 2단계 -->
+          <div class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">2단계</span>
+              <span class="text-[11px] text-emerald-200">장비선택</span>
+            </div>
+            <h4 class="font-bold text-white text-sm">클럽 & 공 선택</h4>
+            <p class="text-emerald-100 text-[11px] leading-snug">나에게 맞는 헤드 무게의 86cm 파크골프 클럽과 3피스 공 선택하기</p>
+          </div>
+
+          <!-- 3단계 -->
+          <div class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">3단계</span>
+              <span class="text-[11px] text-emerald-200">기초자세</span>
+            </div>
+            <h4 class="font-bold text-white text-sm">그립 & 어드레스</h4>
+            <p class="text-emerald-100 text-[11px] leading-snug">손가락에 힘을 빼고 편안하게 잡는 베이스볼 또는 오버래핑 그립</p>
+          </div>
+
+          <!-- 4단계 -->
+          <div class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">4단계</span>
+              <span class="text-[11px] text-emerald-200">스윙요령</span>
+            </div>
+            <h4 class="font-bold text-white text-sm">티샷 & 몸통 스윙</h4>
+            <p class="text-emerald-100 text-[11px] leading-snug">공을 쓸어치듯 낮고 길게 팔과 몸통 회전으로 안정적인 비거리</p>
+          </div>
+
+          <!-- 5단계 -->
+          <div class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">5단계</span>
+              <span class="text-[11px] text-emerald-200">퍼팅정밀</span>
+            </div>
+            <h4 class="font-bold text-white text-sm">퍼팅 & 거리감</h4>
+            <p class="text-emerald-100 text-[11px] leading-snug">홀컵까지 경사와 잔디 결을 확인하고 시계추 운동처럼 스트로크</p>
+          </div>
+
+          <!-- 6단계 -->
+          <div class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">6단계</span>
+              <span class="text-[11px] text-emerald-200">경기규칙</span>
+            </div>
+            <h4 class="font-bold text-white text-sm">핵심 경기 룰 & OB</h4>
+            <p class="text-emerald-100 text-[11px] leading-snug">OB 구역 2벌타 처리 및 안전을 위한 선타자 투구 순서 지키기</p>
+          </div>
+
+          <!-- 7단계 -->
+          <div class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">7단계</span>
+              <span class="text-[11px] text-emerald-200">구장에티켓</span>
+            </div>
+            <h4 class="font-bold text-white text-sm">동호인 매너 & 마크</h4>
+            <p class="text-emerald-100 text-[11px] leading-snug">다른 회원공 진로 방해 시 볼마크 하기 및 즐거운 인사와 배려</p>
+          </div>
+
+          <!-- 8단계 -->
+          <div class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs">
+            <div class="flex items-center justify-between">
+              <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">8단계</span>
+              <span class="text-[11px] text-emerald-200">용인3대구장</span>
+            </div>
+            <h4 class="font-bold text-white text-sm">첫 방문 신분증 챙기기</h4>
+            <p class="text-emerald-100 text-[11px] leading-snug">수지·포곡·기흥 방문 전 신분증과 등본을 꼭 지참하고 출발!</p>
+          </div>
+        </div>
+      </div>
+
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4 pb-3 border-b">
         <div class="flex items-center gap-2">
           <span class="text-2xl text-red-600">📺</span>
@@ -2189,26 +2282,173 @@
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW reg fail:', err));
       }
+
+      // 🌟 실시간 요일별 휴장 현황 및 기상/미세먼지 자동 연동
+      updateLiveStatusAndWeather();
     });
+
+    // 🌟 자동 날짜, 휴장 여부, 실시간 기상/미세먼지 업데이트 로직
+    function updateLiveStatusAndWeather() {
+      const now = new Date();
+      const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+      const currentDay = now.getDay(); // 0: 일, 1: 월, 2: 화...
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const date = String(now.getDate()).padStart(2, '0');
+      const dateStr = `${year}.${month}.${date}`;
+
+      // 1. 날짜 표시 동적 업데이트
+      const liveDateElem = document.getElementById('live-update-date');
+      if (liveDateElem) liveDateElem.innerText = `최종 업데이트: ${dateStr}`;
+
+      // 2. 상단 휴장 상태 티커 및 각 구장별 휴장 상태 자동 판별
+      const headerStatus = document.getElementById('header-status-summary');
+      const sujiRestBadge = document.getElementById('suji-rest-badge');
+      const pogokRestBadge = document.getElementById('pogok-rest-badge');
+      const giheungRestBadge = document.getElementById('giheung-rest-badge');
+
+      const sujiCardRest = document.getElementById('suji-card-rest');
+      const pogokCardRest = document.getElementById('pogok-card-rest');
+      const giheungCardRest = document.getElementById('giheung-card-rest');
+
+      if (currentDay === 1) { // 월요일 (포곡 & 기흥 정기휴장)
+        if (headerStatus) {
+          headerStatus.innerHTML = `<span class="text-amber-300 font-bold">⚠️ 오늘 월요일 정기휴장:</span> <span class="text-red-400 font-bold">포곡·기흥 휴장</span> <span class="text-slate-400">|</span> <span class="text-emerald-300 font-bold">수지 아르피아 정상개장</span>`;
+        }
+        if (pogokRestBadge) {
+          pogokRestBadge.innerHTML = `🔴 오늘(월) 정기휴장`;
+          pogokRestBadge.className = `text-red-300 font-bold bg-red-950/90 px-2.5 py-1 rounded-lg border border-red-500 text-[11px]`;
+        }
+        if (giheungRestBadge) {
+          giheungRestBadge.innerHTML = `🔴 오늘(월) 정기휴장`;
+          giheungRestBadge.className = `text-red-300 font-bold bg-red-950/90 px-2.5 py-1 rounded-lg border border-red-500 text-[11px]`;
+        }
+        if (sujiRestBadge) {
+          sujiRestBadge.innerHTML = `🟢 오늘(월) 정상개장`;
+          sujiRestBadge.className = `text-emerald-300 font-bold bg-emerald-950/90 px-2.5 py-1 rounded-lg border border-emerald-500 text-[11px]`;
+        }
+
+        if (pogokCardRest) {
+          pogokCardRest.innerHTML = `🚫 <strong>휴장:</strong> <span class="text-red-600 font-bold">오늘 월요일 정기 휴장일입니다</span>`;
+        }
+        if (giheungCardRest) {
+          giheungCardRest.innerHTML = `🚫 <strong>휴장:</strong> <span class="text-red-600 font-bold">오늘 월요일 정기 휴장일입니다</span>`;
+        }
+        if (sujiCardRest) {
+          sujiCardRest.innerHTML = `🚫 <strong>휴장:</strong> <span class="text-emerald-700 font-bold">오늘 월요일 정상 개장 중</span> (매주 화요일 휴장)`;
+        }
+      } else if (currentDay === 2) { // 화요일 (수지 정기휴장)
+        if (headerStatus) {
+          headerStatus.innerHTML = `<span class="text-amber-300 font-bold">⚠️ 오늘 화요일 정기휴장:</span> <span class="text-red-400 font-bold">수지 아르피아 휴장</span> <span class="text-slate-400">|</span> <span class="text-emerald-300 font-bold">포곡·기흥 정상개장</span>`;
+        }
+        if (sujiRestBadge) {
+          sujiRestBadge.innerHTML = `🔴 오늘(화) 정기휴장`;
+          sujiRestBadge.className = `text-red-300 font-bold bg-red-950/90 px-2.5 py-1 rounded-lg border border-red-500 text-[11px]`;
+        }
+        if (pogokRestBadge) {
+          pogokRestBadge.innerHTML = `🟢 오늘(화) 정상개장`;
+          pogokRestBadge.className = `text-emerald-300 font-bold bg-emerald-950/90 px-2.5 py-1 rounded-lg border border-emerald-500 text-[11px]`;
+        }
+        if (giheungRestBadge) {
+          giheungRestBadge.innerHTML = `🟢 오늘(화) 정상개장`;
+          giheungRestBadge.className = `text-emerald-300 font-bold bg-emerald-950/90 px-2.5 py-1 rounded-lg border border-emerald-500 text-[11px]`;
+        }
+
+        if (sujiCardRest) {
+          sujiCardRest.innerHTML = `🚫 <strong>휴장:</strong> <span class="text-red-600 font-bold">오늘 화요일 정기 휴장일입니다</span>`;
+        }
+        if (pogokCardRest) {
+          pogokCardRest.innerHTML = `🚫 <strong>휴장:</strong> <span class="text-emerald-700 font-bold">오늘 화요일 정상 개장 중</span> (매주 월요일 휴장)`;
+        }
+        if (giheungCardRest) {
+          giheungCardRest.innerHTML = `🚫 <strong>휴장:</strong> <span class="text-emerald-700 font-bold">오늘 화요일 정상 개장 중</span> (매주 월요일 휴장)`;
+        }
+      } else { // 수, 목, 금, 토, 일요일 (전 구장 정상 개장)
+        if (headerStatus) {
+          headerStatus.innerHTML = `⛳ <strong>포곡·수지·기흥: 전 구장 정상 개장 중</strong> (${dayNames[currentDay]}요일)`;
+        }
+        if (sujiRestBadge) sujiRestBadge.innerHTML = `매주 화요일 휴장`;
+        if (pogokRestBadge) pogokRestBadge.innerHTML = `매주 월요일 휴장`;
+        if (giheungRestBadge) giheungRestBadge.innerHTML = `매주 월요일 휴장`;
+
+        if (sujiCardRest) sujiCardRest.innerHTML = `🚫 <strong>휴장:</strong> 매주 화요일 정기 휴장 (오늘 정상개장)`;
+        if (pogokCardRest) pogokCardRest.innerHTML = `🚫 <strong>휴장:</strong> 매주 월요일 정기 휴장 (오늘 정상개장)`;
+        if (giheungCardRest) giheungCardRest.innerHTML = `🚫 <strong>휴장:</strong> 매주 월요일 정기 휴장 (오늘 정상개장)`;
+      }
+
+      // 3. 실시간 날씨 & 미세먼지 API 연동 (Open-Meteo)
+      fetchWeatherAndDust();
+    }
+
+    async function fetchWeatherAndDust() {
+      const tempElem = document.getElementById('weather-temp');
+      const dustElem = document.getElementById('weather-dust-val');
+
+      try {
+        const weatherUrl = 'https://api.open-meteo.com/v1/forecast?latitude=37.24108&longitude=127.17755&current_weather=true';
+        const dustUrl = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.24108&longitude=127.17755&current=pm10,us_aqi';
+
+        const [wRes, dRes] = await Promise.all([
+          fetch(weatherUrl).then(r => r.json()).catch(() => null),
+          fetch(dustUrl).then(r => r.json()).catch(() => null)
+        ]);
+
+        if (wRes && wRes.current_weather) {
+          const temp = Math.round(wRes.current_weather.temperature);
+          const code = wRes.current_weather.weathercode;
+          let icon = '🌤️';
+          if (code === 0) icon = '☀️';
+          else if (code >= 1 && code <= 3) icon = '⛅';
+          else if (code >= 45 && code <= 48) icon = '🌫️';
+          else if (code >= 51 && code <= 82) icon = '🌧️';
+          else if (code >= 85 && code <= 99) icon = '❄️';
+
+          if (tempElem) {
+            tempElem.innerHTML = `${icon} 용인시 <strong>${temp}°C</strong>`;
+          }
+        }
+
+        if (dRes && dRes.current) {
+          const aqi = dRes.current.us_aqi || 30;
+          let dustStatus = '🟢 좋음';
+          let dustColor = 'text-emerald-400';
+          if (aqi > 150) {
+            dustStatus = '🔴 매우나쁨';
+            dustColor = 'text-red-400';
+          } else if (aqi > 100) {
+            dustStatus = '🟠 나쁨';
+            dustColor = 'text-amber-400';
+          } else if (aqi > 50) {
+            dustStatus = '🟡 보통';
+            dustColor = 'text-yellow-300';
+          }
+
+          if (dustElem) {
+            dustElem.className = dustColor;
+            dustElem.innerText = dustStatus;
+          }
+        }
+      } catch(e) {
+        console.log('Weather fetch fallback:', e);
+      }
+    }
 
     let deferredPwaPrompt = null;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPwaPrompt = e;
-      // PWA 프로모션 알림 표시가능 상태
       console.log('PWA Install prompt ready');
     });
 
-    function triggerPwaInstall() {
+    async function triggerPwaInstall() {
       if (deferredPwaPrompt) {
         try {
           deferredPwaPrompt.prompt();
-          deferredPwaPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              showToast('📱 용인 파크골프 포털 앱이 갤럭시 바탕화면에 성공적으로 설치되었습니다!', '🎉');
-            }
-            deferredPwaPrompt = null;
-          });
+          const { outcome } = await deferredPwaPrompt.userChoice;
+          if (outcome === 'accepted') {
+            showToast('📱 용인 파크골프 포털 앱이 스마트폰 홈 화면에 성공적으로 추가되었습니다!', '🎉');
+          }
+          deferredPwaPrompt = null;
         } catch(e) {
           openPwaInstallModal();
         }
@@ -2222,6 +2462,36 @@
     }
 
     function openPwaInstallModal() {
+      const guideBox = document.getElementById('guideText');
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const isSamsung = /SamsungBrowser/i.test(navigator.userAgent);
+
+      if (guideBox) {
+        if (isIOS) {
+          guideBox.innerHTML = `
+            <div class="space-y-3 text-base md:text-lg font-bold leading-relaxed text-slate-900">
+              <p><b>1.</b> 화면 맨 아래 <b>[공유 아이콘 <span class="text-xl">⎙</span>]</b> 터치</p>
+              <p><b>2.</b> 아래로 올려 <b>[홈 화면에 추가]</b> 터치</p>
+              <p><b>3.</b> 오른쪽 위 <b>[추가]</b>를 누르면 끝!</p>
+            </div>
+          `;
+        } else if (isSamsung) {
+          guideBox.innerHTML = `
+            <div class="space-y-3 text-base md:text-lg font-bold leading-relaxed text-slate-900">
+              <p><b>1.</b> 화면 오른쪽 아래 <b>[메뉴 ≡]</b> 터치</p>
+              <p><b>2.</b> <b>[현재 페이지 추가]</b> 터치</p>
+              <p><b>3.</b> <b>[홈 화면]</b>을 선택하면 끝!</p>
+            </div>
+          `;
+        } else {
+          guideBox.innerHTML = `
+            <div class="space-y-3 text-base md:text-lg font-bold leading-relaxed text-slate-900">
+              <p><b>1.</b> 브라우저 오른쪽 위 <b>[점 3개 ⋮]</b> 터치</p>
+              <p><b>2.</b> <b>[홈 화면에 추가]</b>를 선택하면 끝!</p>
+            </div>
+          `;
+        }
+      }
       document.getElementById('pwaInstallModal').classList.remove('hidden');
     }
 
@@ -2239,57 +2509,29 @@
       showToast('📋 포털 공식 주소(https://yonginparkgolf.co.kr)가 복사되었습니다! 카카오톡에 붙여넣기 해주세요.', '🎉');
       closePwaInstallModal();
     }
-
-    function executePwaInstallPrompt() {
-      if (deferredPwaPrompt) {
-        try {
-          deferredPwaPrompt.prompt();
-          deferredPwaPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              showToast('📱 용인 파크골프 포털 앱이 갤럭시 바탕화면에 성공적으로 설치되었습니다!', '🎉');
-            }
-            deferredPwaPrompt = null;
-          });
-        } catch(e) {
-          copyPortalLinkToClipboard();
-        }
-        closePwaInstallModal();
-      } else {
-        copyPortalLinkToClipboard();
-      }
-    }
   </script>
 
-  <!-- 🌟 삼성 갤럭시 / 안드로이드 전용 바탕화면 앱 1초 설치 모달 -->
+  <!-- 🌟 시니어 전용 홈 화면 바로가기 / 앱 설치 하이브리드 안내 모달 -->
   <div id="pwaInstallModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-lg rounded-2xl p-5 md:p-6 shadow-2xl space-y-4 text-gray-800 border-2 border-emerald-500 animate-fadeIn">
+    <div class="bg-white w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-5 text-gray-800 border-2 border-emerald-600 animate-fadeIn text-center">
       <div class="flex justify-between items-center pb-3 border-b border-gray-200">
         <div class="flex items-center gap-2">
           <span class="text-2xl">📱</span>
-          <h3 class="text-lg md:text-xl font-black text-slate-900">삼성 갤럭시 바탕화면에 앱 설치</h3>
+          <h3 class="text-xl md:text-2xl font-black text-emerald-800">홈 화면 바로가기 방법</h3>
         </div>
-        <button onclick="closePwaInstallModal()" class="text-gray-400 hover:text-gray-700 font-bold text-xl px-2">✕</button>
+        <button onclick="closePwaInstallModal()" class="text-gray-400 hover:text-gray-700 font-bold text-2xl px-2 cursor-pointer">✕</button>
       </div>
 
-      <!-- 📱 삼성 갤럭시/안드로이드 전용 1초 설치 안내 카드 -->
-      <div class="space-y-3">
-        <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white p-4 rounded-xl shadow border border-emerald-600 text-xs md:text-sm space-y-2">
-          <p class="font-black text-sm flex items-center gap-1.5 text-amber-300">
-            <span>📱</span> <span>갤럭시/안드로이드 스마트폰 앱 설치 안내</span>
-          </p>
-          <ol class="list-decimal list-inside space-y-2 text-white font-bold leading-relaxed pt-1">
-            <li>아래 <strong class="bg-amber-400 text-slate-950 px-2 py-0.5 rounded shadow text-xs font-black">[1초 자동 설치]</strong> 버튼을 터치합니다.</li>
-            <li>화면에 뜨는 <strong class="bg-white text-emerald-950 px-2 py-0.5 rounded shadow text-xs font-bold">[설치]</strong> 또는 <strong class="bg-white text-emerald-950 px-2 py-0.5 rounded shadow text-xs font-bold">[홈 화면에 추가]</strong>를 누르면 갤럭시 바탕화면에 <strong class="text-amber-300">⛳ 용인파크골프</strong> 앱 설치 완료!</li>
-          </ol>
-        </div>
+      <!-- 📱 시니어 맞춤 1, 2, 3 단계 안내 박스 -->
+      <div id="guideText" class="bg-slate-100 border border-slate-200 rounded-xl p-5 text-left text-slate-900 shadow-inner">
       </div>
 
-      <div class="pt-2 flex flex-col gap-2">
-        <button onclick="executePwaInstallPrompt()" class="w-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-3.5 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition text-xs md:text-sm active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
-          <span>📱</span> <span>1초 자동 설치 팝업 호출</span>
+      <div class="pt-2 space-y-2">
+        <button onclick="closePwaInstallModal()" class="w-full bg-emerald-800 hover:bg-emerald-700 text-white font-black py-4 rounded-xl shadow-lg text-lg transition active:scale-95 cursor-pointer border-none">
+          확인했습니다
         </button>
-        <button onclick="copyPortalLinkToClipboard()" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl shadow border border-slate-700 hover:bg-slate-800 transition text-xs md:text-sm active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
-          <span>📋</span> <span>주소 복사하기 (카카오톡 나와의 채팅 저장)</span>
+        <button onclick="copyPortalLinkToClipboard()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-3 rounded-xl border border-slate-300 text-sm transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+          <span>📋</span> <span>주소 복사하기 (카카오톡에 링크 전달)</span>
         </button>
       </div>
     </div>
