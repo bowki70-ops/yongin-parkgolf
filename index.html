@@ -1274,23 +1274,15 @@
       <!-- 모달 본문 (터치 전용 3단계 선택) -->
       <div class="p-5 space-y-5 text-sm max-h-[80vh] overflow-y-auto">
 
-        <!-- 🔒 소셜 인증 가이드 헤더 바 (허위 제보 방지) -->
-        <div class="bg-slate-900 text-slate-200 p-3.5 rounded-xl border border-slate-800 space-y-2 text-xs">
+        <!-- 🔓 비로그인 1초 즉시 제보 안내 바 (기기별 30분 쿨다운 방어) -->
+        <div class="bg-slate-900 text-slate-200 p-3.5 rounded-xl border border-slate-800 space-y-1.5 text-xs">
           <div class="flex items-center justify-between">
             <span class="font-bold text-amber-300 flex items-center gap-1 text-[11.5px]">
-              <span>🔒</span> <span>1초 간편본인인증 (허위제보 방지)</span>
+              <span>🔓</span> <span>로그인 없는 1초 즉시 제보 (시니어 3초 UI)</span>
             </span>
-            <span class="social-auth-badge text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 font-bold">🔒 인증 미완료 (제보 제한)</span>
+            <span class="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded font-bold">⚡ 30분 쿨다운 방어 가동</span>
           </div>
-          <p class="text-[11px] text-slate-300 leading-snug">허위 구장 정보 등록을 100% 방지하기 위해 카카오/네이버 인증회원만 제보 등록이 가능합니다.</p>
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <button type="button" onclick="loginWithKakao()" class="bg-yellow-400 text-slate-950 font-black py-2 px-3 rounded-lg text-xs hover:bg-yellow-300 transition flex items-center justify-center gap-1 shadow-xs">
-              <span>💬</span> <span>카카오 1초 인증</span>
-            </button>
-            <button type="button" onclick="loginWithNaver()" class="bg-emerald-600 text-white font-bold py-2 px-3 rounded-lg text-xs hover:bg-emerald-500 transition flex items-center justify-center gap-1 shadow-xs">
-              <span>🟢</span> <span>네이버 1초 인증</span>
-            </button>
-          </div>
+          <p class="text-[11px] text-slate-300 leading-snug">복잡한 로그인 없이 1초 만에 큰 버튼을 터치하여 현황을 알려주실 수 있습니다. (동일 스마트폰 30분 재제보 쿨다운 방어 가동 중)</p>
         </div>
 
         <!-- 1단계: 구장 선택 -->
@@ -1514,8 +1506,8 @@
       <!-- 본문 폼 -->
       <form id="marketForm" onsubmit="submitMarketPost(event)" class="p-5 space-y-4 text-xs md:text-sm max-h-[80vh] overflow-y-auto">
         
-        <!-- 🔑 카카오 & 네이버 1초 간편 인증 헤더 바 -->
-        <div class="bg-slate-900 text-white p-3.5 rounded-xl space-y-2 border border-slate-800">
+        <!-- 🔑 카카오 & 네이버 1초 간편 인증 헤더 바 + 관리자 대리등록 선택 -->
+        <div class="bg-slate-900 text-white p-3.5 rounded-xl space-y-2.5 border border-slate-800">
           <div class="flex items-center justify-between">
             <span class="font-bold text-xs text-amber-300 flex items-center gap-1">
               <span>🔐</span> <span>실명 인증회원 1초 간편 글쓰기</span>
@@ -1535,6 +1527,23 @@
               <span>네이버 1초 간편 인증</span>
             </button>
           </div>
+          <div class="pt-1.5 border-t border-slate-800 flex justify-between items-center text-[11px]">
+            <span class="text-slate-300">인증 팝업이 어려우신 어르신은?</span>
+            <a href="https://open.kakao.com" target="_blank" rel="noopener noreferrer" class="bg-amber-300 text-slate-950 font-bold px-2.5 py-1 rounded hover:bg-amber-400 transition flex items-center gap-1">
+              <span>💬</span> <span>관리자 카톡 1:1 대리등록 ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 🛡️ 전자상거래법 면책 및 개인정보 보호 경고 안내 -->
+        <div class="bg-red-50 p-3 rounded-xl border border-red-200 text-red-950 space-y-1 text-xs">
+          <p class="font-bold text-red-900 flex items-center gap-1 text-[11.5px]">
+            <span>🛡️</span> <span>[직거래 장터 안전수칙 및 법적 면책고지]</span>
+          </p>
+          <p class="text-[10.5px] text-gray-700 leading-snug">
+            본 포털은 순수 개인 간 파크골프 중고 용품 직거래 연결 공간이며, 통신판매 중개업자가 아닙니다. 
+            스미싱 및 물품 사기 방지를 위해 현장에서 직접 만나는 **100% 직거래**를 권장하며, 상업성 업자글이나 허위매물, 타인의 개인정보 도용글은 사전 경고 없이 무통보 삭제됩니다.
+          </p>
         </div>
 
         <!-- 1. 구분 선택 (터치형 라디오 뱃지) -->
@@ -1960,31 +1969,45 @@
       else if (val.includes('휴장')) document.getElementById('btn-crowd-closed')?.classList.add('selected');
     }
 
-    // 제보 등록 처리 (카카오/네이버 소셜 인증 필수)
+    // 제보 등록 처리 (비로그인 1초 즉시 제보 + 기기별 30분 쿨다운 방어 로직)
     function submitReport() {
-      if (!currentAuthUser) {
-        alert('🔒 허위 구장 현황 제보를 방지하기 위해 [카카오톡 또는 네이버 1초 소셜 인증]이 완료된 검증 회원만 제보가 가능합니다!\n\n팝업 상단의 [카카오 1초 인증] 또는 [네이버 1초 인증] 버튼을 먼저 눌러주세요.');
+      const cooldownKey = 'parkgolf_report_cooldown_' + selectedCourseKey;
+      const lastReportTime = parseInt(localStorage.getItem(cooldownKey) || '0', 10);
+      const nowMs = Date.now();
+      const COOLDOWN_MS = 30 * 60 * 1000; // 30분 기기별 쿨다운
+
+      if (nowMs - lastReportTime < COOLDOWN_MS) {
+        const remainingMin = Math.ceil((COOLDOWN_MS - (nowMs - lastReportTime)) / (60 * 1000));
+        alert(`⏳ [기기별 30분 쿨다운 방어]\n\n해당 구장에 대한 회원님의 제보가 이미 반영되어 있습니다!\n악의적 연속 제보 및 장난글 방지를 위해 약 ${remainingMin}분 후 재제보가 가능합니다.\n\n(※ 시니어 어르신들의 편의를 위해 소셜 로그인 없이 1초 제보가 허용됩니다.)`);
         return;
       }
 
-      const timestamp = Date.now();
+      // 쿨다운 등록
+      try {
+        localStorage.setItem(cooldownKey, nowMs);
+      } catch(e){}
+
       const now = new Date();
       const timeStr = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
 
+      const reporterLabel = currentAuthUser ? currentAuthUser.label : '🟢 실명 동호인 (비로그인 1초제보)';
+
       const reportData = {
-        timestamp: timestamp,
+        timestamp: nowMs,
         timeStr: timeStr,
         grass: selectedGrassVal,
         crowd: selectedCrowdVal,
-        reporter: currentAuthUser.label
+        reporter: reporterLabel
       };
 
       // localStorage 저장 및 UI 실시간 업데이트
-      localStorage.setItem('parkgolf_report_' + selectedCourseKey, JSON.stringify(reportData));
+      try {
+        localStorage.setItem('parkgolf_report_' + selectedCourseKey, JSON.stringify(reportData));
+      } catch(e){}
       updateCourseUI(selectedCourseKey, reportData);
 
       closeReportModal();
-      showToast(`📢 ${currentAuthUser.label} 명의로 실시간 구장 현황이 제보되었습니다!`, '🎉');
+      showToast(`📢 ${timeStr} 구장 현황이 즉시 반영되었습니다! (30분 쿨다운 방어 가동)`, '🎉');
     }
 
     // 화면 UI 업데이트 함수 (30분/60분 경과 반영 Time-Decay)
