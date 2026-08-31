@@ -1087,17 +1087,20 @@
         <div>
           <label class="block font-black text-slate-900 text-sm mb-2 flex items-center gap-1">
             <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full">2단계</span>
-            <span>지금 잔디/날씨 상태는 어떤가요?</span>
+            <span>지금 잔디/날씨/운영 상태는 어떤가요?</span>
           </label>
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="selectGrass('🟢 쾌적/양호')" id="btn-grass-good" class="touch-option grass-btn p-3.5 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button type="button" onclick="selectGrass('🟢 쾌적/양호')" id="btn-grass-good" class="touch-option grass-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
               🟢<br>좋음 / 양호
             </button>
-            <button type="button" onclick="selectGrass('🟡 젖음/주의')" id="btn-grass-warn" class="touch-option grass-btn p-3.5 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-amber-500 transition active:scale-95">
+            <button type="button" onclick="selectGrass('🟡 젖음/주의')" id="btn-grass-warn" class="touch-option grass-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-amber-500 transition active:scale-95">
               🟡<br>약간 젖음
             </button>
-            <button type="button" onclick="selectGrass('🔴 우천/진흙')" id="btn-grass-bad" class="touch-option grass-btn p-3.5 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-500 transition active:scale-95">
+            <button type="button" onclick="selectGrass('🔴 우천/진흙')" id="btn-grass-bad" class="touch-option grass-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-500 transition active:scale-95">
               🔴<br>우천/진흙
+            </button>
+            <button type="button" onclick="selectGrass('🚫 정기/임시 휴장')" id="btn-grass-closed" class="touch-option grass-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-600 transition active:scale-95">
+              🚫<br>정기/임시 휴장
             </button>
           </div>
         </div>
@@ -1106,17 +1109,20 @@
         <div>
           <label class="block font-black text-slate-900 text-sm mb-2 flex items-center gap-1">
             <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full">3단계</span>
-            <span>대기 팀(혼잡도)은 얼마나 되나요?</span>
+            <span>대기 팀(혼잡도 및 운영)은 얼마나 되나요?</span>
           </label>
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="selectCrowd('🟢 여유 (대기없음)')" id="btn-crowd-good" class="touch-option crowd-btn p-3.5 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button type="button" onclick="selectCrowd('🟢 여유 (대기없음)')" id="btn-crowd-good" class="touch-option crowd-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
               🟢<br>대기 없음
             </button>
-            <button type="button" onclick="selectCrowd('🟡 보통 (1~2조 대기)')" id="btn-crowd-warn" class="touch-option crowd-btn p-3.5 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-amber-500 transition active:scale-95">
+            <button type="button" onclick="selectCrowd('🟡 보통 (1~2조 대기)')" id="btn-crowd-warn" class="touch-option crowd-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-amber-500 transition active:scale-95">
               🟡<br>1~2조 대기
             </button>
-            <button type="button" onclick="selectCrowd('🔴 혼잡 (3조이상 대기)')" id="btn-crowd-bad" class="touch-option crowd-btn p-3.5 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-500 transition active:scale-95">
+            <button type="button" onclick="selectCrowd('🔴 혼잡 (3조이상 대기)')" id="btn-crowd-bad" class="touch-option crowd-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-500 transition active:scale-95">
               🔴<br>3조이상 대기
+            </button>
+            <button type="button" onclick="selectCrowd('🚫 오늘 휴장중')" id="btn-crowd-closed" class="touch-option crowd-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-600 transition active:scale-95">
+              🚫<br>오늘 휴장중
             </button>
           </div>
         </div>
@@ -1710,17 +1716,19 @@
     function selectGrass(val) {
       selectedGrassVal = val;
       document.querySelectorAll('.grass-btn').forEach(btn => btn.classList.remove('selected'));
-      if (val.includes('쾌적')) document.getElementById('btn-grass-good').classList.add('selected');
-      else if (val.includes('젖음')) document.getElementById('btn-grass-warn').classList.add('selected');
-      else document.getElementById('btn-grass-bad').classList.add('selected');
+      if (val.includes('쾌적') || val.includes('좋음')) document.getElementById('btn-grass-good')?.classList.add('selected');
+      else if (val.includes('젖음')) document.getElementById('btn-grass-warn')?.classList.add('selected');
+      else if (val.includes('우천') || val.includes('진흙')) document.getElementById('btn-grass-bad')?.classList.add('selected');
+      else if (val.includes('휴장')) document.getElementById('btn-grass-closed')?.classList.add('selected');
     }
 
     function selectCrowd(val) {
       selectedCrowdVal = val;
       document.querySelectorAll('.crowd-btn').forEach(btn => btn.classList.remove('selected'));
-      if (val.includes('대기없음')) document.getElementById('btn-crowd-good').classList.add('selected');
-      else if (val.includes('1~2조')) document.getElementById('btn-crowd-warn').classList.add('selected');
-      else document.getElementById('btn-crowd-bad').classList.add('selected');
+      if (val.includes('대기없음') || val.includes('여유')) document.getElementById('btn-crowd-good')?.classList.add('selected');
+      else if (val.includes('1~2조')) document.getElementById('btn-crowd-warn')?.classList.add('selected');
+      else if (val.includes('3조이상') || val.includes('혼잡')) document.getElementById('btn-crowd-bad')?.classList.add('selected');
+      else if (val.includes('휴장')) document.getElementById('btn-crowd-closed')?.classList.add('selected');
     }
 
     // 제보 등록 처리 (카카오/네이버 소셜 인증 필수)
@@ -1784,6 +1792,7 @@
     function getStatusBadgeClass(val) {
       if (val.includes('🟢')) return 'text-emerald-700 bg-emerald-50 border-emerald-200';
       if (val.includes('🟡')) return 'text-amber-700 bg-amber-50 border-amber-200';
+      if (val.includes('🔴') || val.includes('🚫') || val.includes('휴장')) return 'text-red-700 bg-red-50 border-red-200 font-black';
       return 'text-gray-600 bg-gray-50 border-gray-200';
     }
 
