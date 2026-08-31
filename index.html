@@ -53,38 +53,49 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* 🌟 6080 시니어 초고대비/초대형 선명 가독성 파워 CSS */
+    /* 🌿 6080 시니어 눈 피로 제로 (Soft Eye-Care) 힐링 폰트 & 와이드 간격 파워 CSS */
     html { font-size: 18px; }
-    
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', AppleSDGothicNeo-Regular, sans-serif;
+      word-break: keep-all;
+      background-color: #faf7f2 !important; /* 눈이 편안한 따뜻한 한지 크림톤 */
+      color: #1e293b !important;
+      line-height: 1.85 !important;
+    }
+
     /* 1단계 (보통 100%) */
     html.font-scale-100 { font-size: 18px !important; }
     
     /* 2단계 (크게 130%) */
-    html.font-scale-130 { font-size: 22px !important; }
-    html.font-scale-130 body { line-height: 1.75 !important; color: #0f172a !important; }
-    html.font-scale-130 .text-\[11px\], html.font-scale-130 .text-xs { font-size: 0.95rem !important; line-height: 1.65 !important; }
-    html.font-scale-130 .text-sm { font-size: 1.1rem !important; line-height: 1.65 !important; }
+    html.font-scale-130 { font-size: 21px !important; }
+    html.font-scale-130 body { line-height: 1.8 !important; }
+    html.font-scale-130 .text-\[11px\], html.font-scale-130 .text-xs { font-size: 1.0rem !important; line-height: 1.75 !important; }
+    html.font-scale-130 .text-sm { font-size: 1.15rem !important; line-height: 1.75 !important; }
 
-    /* 3단계 (왕대 160% - 6080 시니어 돋보기 완벽 선명 가독) */
-    html.font-scale-160 { font-size: 26px !important; }
-    html.font-scale-160 body { line-height: 1.85 !important; color: #000000 !important; font-weight: 600 !important; }
-    html.font-scale-160 .text-\[11px\], html.font-scale-160 .text-xs { font-size: 1.15rem !important; line-height: 1.75 !important; font-weight: 700 !important; }
-    html.font-scale-160 .text-sm { font-size: 1.3rem !important; line-height: 1.75 !important; font-weight: 700 !important; }
-    html.font-scale-160 .text-base { font-size: 1.45rem !important; line-height: 1.75 !important; font-weight: 800 !important; }
-    html.font-scale-160 button, html.font-scale-160 a { min-height: 54px !important; font-size: 1.1rem !important; }
-    html.font-scale-160 .text-slate-400, html.font-scale-160 .text-gray-500, html.font-scale-160 .text-slate-500 { color: #1e293b !important; }
+    /* 3단계 (왕대 160% - 눈 피로 방지 넓은 행간 & 파스텔 딥블랙) */
+    html.font-scale-160 { font-size: 24px !important; }
+    html.font-scale-160 body { line-height: 1.95 !important; color: #0f172a !important; font-weight: 600 !important; }
+    html.font-scale-160 .text-\[11px\], html.font-scale-160 .text-xs { font-size: 1.15rem !important; line-height: 1.85 !important; font-weight: 700 !important; }
+    html.font-scale-160 .text-sm { font-size: 1.3rem !important; line-height: 1.85 !important; font-weight: 700 !important; }
+    html.font-scale-160 .text-base { font-size: 1.45rem !important; line-height: 1.85 !important; font-weight: 800 !important; }
+    html.font-scale-160 button, html.font-scale-160 a { min-height: 52px !important; font-size: 1.05rem !important; }
 
-    /* 모바일 6080 시니어 1단 와이드 레이아웃 (모바일 컬럼 찌그러짐 100% 방지) */
+    /* 모바일 6080 시니어 눈 피로 방지 1단 와이드 + 넉넉한 여백 (Visual Calmness) */
     @media (max-width: 640px) {
+      /* 다단 그리드를 시원한 1단 풀사이즈 카드로 통일하여 어지럼증 및 눈 피로 100% 방지 */
+      .grid-cols-2, .grid-cols-3, .grid-cols-4,
       html.font-scale-130 .grid-cols-2, html.font-scale-130 .grid-cols-3, html.font-scale-130 .grid-cols-4,
       html.font-scale-160 .grid-cols-2, html.font-scale-160 .grid-cols-3, html.font-scale-160 .grid-cols-4 {
         grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
       }
-      html.font-scale-160 .p-3, html.font-scale-160 .p-4, html.font-scale-160 .p-5 {
+      /* 구장 카드, 로드맵, 정보 상자 모바일 시원한 숨통 패딩 (20px 이상) */
+      .p-3, .p-4, .p-5, .p-6 {
         padding: 1.25rem !important;
       }
+      .space-y-3 > * + * { margin-top: 1rem !important; }
+      .space-y-4 > * + * { margin-top: 1.25rem !important; }
+      .space-y-6 > * + * { margin-top: 1.75rem !important; }
     }
-    body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; word-break: keep-all; }
     /* 토스트 및 모바일 애니메이션 */
     #toast { transition: opacity 0.3s ease, transform 0.3s ease; }
     .touch-option.selected {
@@ -114,7 +125,7 @@
     }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800 pb-20 md:pb-16">
+<body class="bg-[#faf7f2] text-slate-800 pb-20 md:pb-16">
 
   <!-- 복사 / 제보 완료 알림 토스트 (Toast) -->
   <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl text-xs md:text-sm font-bold z-[100] opacity-0 pointer-events-none transform -translate-y-4 border border-emerald-500 flex items-center gap-2">
@@ -137,7 +148,7 @@
           <span>⛳ 라운딩 출격지수:</span> <strong id="launch-index-val" class="text-emerald-950">💯 최상 (쾌적)</strong>
         </span>
       </div>
-      <div class="flex items-center gap-3 text-xs">
+      <div class="flex items-center gap-3 text-xs hidden sm:flex">
         <span class="text-amber-300 font-bold">🌐 용인 파크골프 공식 포털</span>
       </div>
     </div>
@@ -145,35 +156,35 @@
 
   <!-- 2. 메인 헤더 (용인 파크골프 공식 정보망) -->
   <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-3.5 flex justify-between items-center">
-      <div class="flex items-center gap-3">
-        <div class="bg-emerald-800 text-white p-2.5 rounded-xl text-xl font-bold shadow-sm">⛳</div>
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-2.5">
+        <div class="bg-emerald-800 text-white p-2 rounded-xl text-lg font-bold shadow-sm">⛳</div>
         <div>
-          <h1 class="text-lg md:text-2xl font-black text-slate-900 tracking-tight leading-tight flex items-center gap-2">
+          <h1 class="text-base md:text-2xl font-black text-slate-900 tracking-tight leading-tight flex items-center gap-2">
             <span>용인 파크골프 정보 포털</span>
           </h1>
-          <p class="text-[11px] md:text-xs text-emerald-800 font-bold">용인특례시 파크골프 동호인 공식 대표 정보망 (수지·포곡·기흥)</p>
+          <p class="text-[10px] md:text-xs text-emerald-800 font-bold">용인특례시 파크골프 동호인 공식 대표 정보망</p>
         </div>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1.5 sm:gap-2">
         <!-- 🔍 시니어 돋보기 글자 크기 3단계 스마트폰 전용 네이티브 셀렉트 (100% 즉시 자동 닫힘) -->
         <div class="relative flex items-center">
           <label for="font-scale-select" class="sr-only">글자 크기 조절</label>
-          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-3 py-2 rounded-xl text-xs md:text-sm border-2 border-amber-300 shadow-md cursor-pointer appearance-none pr-7 active:scale-95 focus:outline-none">
-            <option value="100">🔍 1단계: 보통 (100%)</option>
-            <option value="130" selected>🔍 2단계: 크게 (130%) ⭐</option>
-            <option value="160">🔍 3단계: 왕대 (160%) 🔍</option>
+          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-2.5 py-2 sm:px-3 rounded-xl text-xs md:text-sm border-2 border-amber-300 shadow-md cursor-pointer appearance-none pr-6 active:scale-95 focus:outline-none">
+            <option value="100">🔍 1단계 (보통)</option>
+            <option value="130" selected>🔍 2단계 (크게) ⭐</option>
+            <option value="160">🔍 3단계 (왕대) 🔍</option>
           </select>
           <span class="pointer-events-none absolute right-2 text-[10px] text-slate-950 font-black">▼</span>
         </div>
 
-        <button onclick="shareToKakao()" type="button" class="bg-yellow-400 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-yellow-300 active:scale-95">
+        <button onclick="shareToKakao()" type="button" title="카톡으로 동호인 소문내기" class="bg-yellow-400 text-slate-950 font-black px-2.5 py-2 sm:px-3.5 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-yellow-300 active:scale-95">
           <span class="text-base">💬</span>
-          <span>카톡 소문내기</span>
+          <span class="hidden sm:inline">카톡 소문내기</span>
         </button>
-        <button onclick="triggerPwaInstall()" type="button" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-emerald-600 active:scale-95">
+        <button onclick="triggerPwaInstall()" type="button" title="스마트폰 바탕화면 앱 설치" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-2.5 py-2 sm:px-3.5 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-emerald-600 active:scale-95">
           <span class="text-base">📱</span>
-          <span>앱 1초 설치</span>
+          <span class="hidden sm:inline">앱 1초 설치</span>
         </button>
       </div>
     </div>
