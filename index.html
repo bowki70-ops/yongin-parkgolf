@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" class="text-[18px]">
 <head>
-  <!-- 공식 신규 대표 도메인 강제 이체 리다이렉트 스크립트 -->
+  <!-- 공식 신규 대표 도메인 안전 리다이렉트 스크립트 -->
   <script>
+    // Netlify SSL 인증서 자동 발급 및 DNS 전파 대기 기간 안전 접속 처리
     if (window.location.hostname !== 'yonginparkgolf.co.kr' && 
         window.location.hostname !== 'www.yonginparkgolf.co.kr' && 
         window.location.hostname !== 'localhost' && 
-        window.location.hostname !== '127.0.0.1') {
+        window.location.hostname !== '127.0.0.1' &&
+        !window.location.hostname.includes('netlify.app')) {
       window.location.replace('https://yonginparkgolf.co.kr' + window.location.pathname + window.location.search + window.location.hash);
     }
   </script>
