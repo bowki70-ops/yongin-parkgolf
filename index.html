@@ -37,6 +37,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html { font-size: 18px; } /* 시니어 기본 100% 줌 가독성 120% 상향 기본값 */
+    html.senior-magnified { font-size: 23px !important; }
+    html.senior-magnified body { line-height: 1.7 !important; }
+    html.senior-magnified button, html.senior-magnified a { min-height: 48px; }
     body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; word-break: keep-all; }
     /* 토스트 및 모바일 애니메이션 */
     #toast { transition: opacity 0.3s ease, transform 0.3s ease; }
@@ -86,6 +89,9 @@
           <span class="text-slate-600">•</span>
           <span>미세먼지 <strong id="weather-dust-val" class="text-emerald-400">🟢 좋음</strong></span>
         </span>
+        <span id="golf-launch-index" class="bg-amber-400 text-slate-950 text-[10.5px] font-black px-2.5 py-0.5 rounded-full shadow-xs flex items-center gap-1">
+          <span>⛳ 라운딩 출격지수:</span> <strong id="launch-index-val" class="text-emerald-950">💯 최상 (쾌적)</strong>
+        </span>
       </div>
       <div class="flex items-center gap-3 text-xs">
         <span class="text-amber-300 font-bold">🌐 용인 파크골프 공식 포털</span>
@@ -106,9 +112,13 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="triggerPwaInstall()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:from-amber-300 hover:to-amber-400 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-amber-300 active:scale-95">
+        <button onclick="toggleFontMagnifier()" id="btn-font-magnifier" type="button" class="bg-amber-400 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:bg-amber-300 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-amber-300 active:scale-95">
+          <span class="text-base">🔍</span>
+          <span id="font-magnifier-label">돋보기 크게보기</span>
+        </button>
+        <button onclick="triggerPwaInstall()" type="button" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-emerald-600 active:scale-95">
           <span class="text-base">📱</span>
-          <span>스마트폰 앱 바로가기 설치</span>
+          <span>앱 1초 설치</span>
         </button>
       </div>
     </div>
@@ -876,7 +886,117 @@
       </div>
     </section>
 
-    <!-- 4-6. 시니어 맞춤 FAQ (자주 묻는 질문) -->
+    <!-- 4-6. 🍱 용인 3대 구장 근처 동호인 추천 맛집 & 주차/교통 꿀팁 -->
+    <section id="food-map-section" class="bg-white p-5 md:p-7 rounded-2xl shadow-sm border border-gray-200 space-y-4">
+      <div class="flex items-center gap-2.5 pb-3 border-b border-gray-200">
+        <span class="text-2xl md:text-3xl">🍱</span>
+        <div>
+          <h3 class="text-lg md:text-xl font-black text-slate-900">용인 3대 구장 매니아 추천 맛집 & 주차/대중교통 꿀팁</h3>
+          <p class="text-xs text-gray-500 mt-0.5">라운딩 후 동호회 회원분들이 자주 찾으시는 가성비 맛집과 주차 편의 정보입니다.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <!-- 수지 아르피아 -->
+        <div class="bg-emerald-50/60 p-4 rounded-xl border border-emerald-200 space-y-3 shadow-2xs">
+          <div class="flex justify-between items-center border-b pb-2 border-emerald-200">
+            <h4 class="font-bold text-slate-900 text-sm">⛳ 수지 아르피아 코스</h4>
+            <span class="bg-emerald-800 text-white text-[10px] px-2 py-0.5 rounded font-bold">수지 죽전</span>
+          </div>
+          <div class="space-y-2 leading-relaxed">
+            <p class="font-bold text-emerald-900 flex items-start gap-1.5">
+              <span>🍲</span> <span><strong>추천 맛집:</strong> 죽전 가성비 순대국·소머리국밥, 시원한 바지락 칼국수</span>
+            </p>
+            <p class="text-gray-700 flex items-start gap-1.5">
+              <span>🅿️</span> <span><strong>주차 꿀팁:</strong> 아르피아 타워 지상/지하 주차장 이용 (최초 2시간 할인)</span>
+            </p>
+            <p class="text-gray-700 flex items-start gap-1.5">
+              <span>🚌</span> <span><strong>대중교통:</strong> 수인분당선 죽전역 1번 출구 도보 5분</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 포곡 유운리 -->
+        <div class="bg-emerald-50/60 p-4 rounded-xl border border-emerald-200 space-y-3 shadow-2xs">
+          <div class="flex justify-between items-center border-b pb-2 border-emerald-200">
+            <h4 class="font-bold text-slate-900 text-sm">⛳ 포곡(유운리) 코스</h4>
+            <span class="bg-emerald-800 text-white text-[10px] px-2 py-0.5 rounded font-bold">처인 포곡</span>
+          </div>
+          <div class="space-y-2 leading-relaxed">
+            <p class="font-bold text-emerald-900 flex items-start gap-1.5">
+              <span>🍲</span> <span><strong>추천 맛집:</strong> 전통 시골 보리밥 집, 숯불 오리주물럭, 가성비 콩국수</span>
+            </p>
+            <p class="text-gray-700 flex items-start gap-1.5">
+              <span>🅿️</span> <span><strong>주차 꿀팁:</strong> 구장 입구 전용 주차장 무료 이용 (오전 9시 이전 여유)</span>
+            </p>
+            <p class="text-gray-700 flex items-start gap-1.5">
+              <span>🚌</span> <span><strong>대중교통:</strong> 경전철 둔전역 하차 후 버스 5분 환승</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 기흥 호수공원 -->
+        <div class="bg-emerald-50/60 p-4 rounded-xl border border-emerald-200 space-y-3 shadow-2xs">
+          <div class="flex justify-between items-center border-b pb-2 border-emerald-200">
+            <h4 class="font-bold text-slate-900 text-sm">⛳ 기흥 호수공원 코스</h4>
+            <span class="bg-emerald-800 text-white text-[10px] px-2 py-0.5 rounded font-bold">기흥 하갈</span>
+          </div>
+          <div class="space-y-2 leading-relaxed">
+            <p class="font-bold text-emerald-900 flex items-start gap-1.5">
+              <span>🍲</span> <span><strong>추천 맛집:</strong> 기흥 호수 가성비 어탕국수 & 우렁쌈밥 정식</span>
+            </p>
+            <p class="text-gray-700 flex items-start gap-1.5">
+              <span>🅿️</span> <span><strong>주차 꿀팁:</strong> 기흥호수공원 공영주차장 이용 (주차 공간 넓음)</span>
+            </p>
+            <p class="text-gray-700 flex items-start gap-1.5">
+              <span>🚌</span> <span><strong>대중교통:</strong> 기흥역 4번 출구에서 마을버스 환승</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-7. 🏆 용인 지역별 동호회 / 파크골프 클럽 탐색 -->
+    <section id="club-section" class="bg-white p-5 md:p-7 rounded-2xl shadow-sm border border-gray-200 space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-gray-200">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl md:text-3xl">🏆</span>
+          <div>
+            <h3 class="text-lg md:text-xl font-black text-slate-900">용인 관내 파크골프 클럽 & 동호회 안내</h3>
+            <p class="text-xs text-gray-500 mt-0.5">홀로 방문하시는 회원분들도 지역 클럽에 가입하여 함께 신나게 라운딩을 즐기실 수 있습니다.</p>
+          </div>
+        </div>
+        <a href="#market-section" onclick="filterMarket('join')" class="self-start md:self-auto text-xs bg-emerald-800 hover:bg-emerald-700 text-white font-black px-4 py-2.5 rounded-xl transition shadow-md flex items-center gap-1.5 cursor-pointer">
+          <span>🤝</span>
+          <span>동호회 조인 & 회원 모집 바로가기 ↗</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="p-4 bg-slate-50 rounded-xl border border-gray-200 space-y-2 shadow-2xs">
+          <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">수지구</span>
+          <h4 class="font-bold text-slate-900 text-sm">수지 아르피아 파크골프 클럽</h4>
+          <p class="text-gray-600 text-[11px] leading-snug">매주 화/목 정기 모임 및 초급자 원포인트 스윙 지도 제공</p>
+          <span class="text-emerald-800 font-bold block pt-1">📞 가입문의: 수지 구장 상주 동호회</span>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-gray-200 space-y-2 shadow-2xs">
+          <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">처인구</span>
+          <h4 class="font-bold text-slate-900 text-sm">처인 포곡 유운리 클럽</h4>
+          <p class="text-gray-600 text-[11px] leading-snug">자연 친화적 포곡 구장에서 친목 라운딩 및 월례회 진행</p>
+          <span class="text-emerald-800 font-bold block pt-1">📞 가입문의: 포곡 구장 상주 동호회</span>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-gray-200 space-y-2 shadow-2xs">
+          <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">기흥구</span>
+          <h4 class="font-bold text-slate-900 text-sm">기흥 호수공원 동호회</h4>
+          <p class="text-gray-600 text-[11px] leading-snug">기흥 호수공원 14홀 코스 완주 및 시니어 건강 증진 모임</p>
+          <span class="text-emerald-800 font-bold block pt-1">📞 가입문의: 기흥 구장 상주 동호회</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-8. 시니어 맞춤 FAQ (자주 묻는 질문) -->
     <section id="faq-section" class="bg-white p-5 md:p-7 rounded-2xl shadow-sm border border-gray-200">
       <div class="flex items-center gap-2 mb-5 pb-3 border-b">
         <span class="text-2xl">❓</span>
@@ -2361,6 +2481,14 @@
 
       // 🌟 카카오 & 네이버 소셜 실명 인증 세션 초기화 및 콜백 처리
       initSocialAuth();
+
+      // 🌟 돋보기 모드 복원
+      try {
+        if (localStorage.getItem('parkgolf_font_magnified') === 'true') {
+          document.documentElement.classList.add('senior-magnified');
+          updateMagnifierUI(true);
+        }
+      } catch(e){}
     });
 
     // 🌟 자동 날짜, 휴장 여부, 실시간 기상/미세먼지 업데이트 로직
@@ -2482,6 +2610,23 @@
           if (tempElem) {
             tempElem.innerHTML = `${icon} 용인시 <strong>${temp}°C</strong>`;
           }
+
+          const launchElem = document.getElementById('launch-index-val');
+          if (launchElem) {
+            if (code >= 51 && code <= 82) {
+              launchElem.innerHTML = '🌧️ 우천주의 (우산필수)';
+              launchElem.className = 'text-red-900 font-black';
+            } else if (temp < 5) {
+              launchElem.innerHTML = '❄️ 추위주의 (방한필수)';
+              launchElem.className = 'text-blue-900 font-black';
+            } else if (temp > 31) {
+              launchElem.innerHTML = '☀️ 폭염주의 (수분필수)';
+              launchElem.className = 'text-amber-950 font-black';
+            } else {
+              launchElem.innerHTML = '💯 최상 (쾌적)';
+              launchElem.className = 'text-emerald-950 font-black';
+            }
+          }
         }
 
         if (dRes && dRes.current) {
@@ -2506,6 +2651,32 @@
         }
       } catch(e) {
         console.log('Weather fetch fallback:', e);
+      }
+    }
+
+    // 🌟 시니어 노안 방지 돋보기 (글자 크기 150% 확대) 스위치
+    function toggleFontMagnifier() {
+      const htmlElem = document.documentElement;
+      const isMagnified = htmlElem.classList.toggle('senior-magnified');
+      try {
+        localStorage.setItem('parkgolf_font_magnified', isMagnified ? 'true' : 'false');
+      } catch(e){}
+      updateMagnifierUI(isMagnified);
+      showToast(isMagnified ? '🔍 노안 방지 돋보기 모드가 켜졌습니다! (글자 크기 150% 확대)' : '🔍 글자 크기가 일반(보통) 크기로 변경되었습니다.', '🔍');
+    }
+
+    function updateMagnifierUI(isMagnified) {
+      const labelElem = document.getElementById('font-magnifier-label');
+      const btnElem = document.getElementById('btn-font-magnifier');
+      if (labelElem) {
+        labelElem.innerText = isMagnified ? '돋보기 (ON)' : '돋보기 크게보기';
+      }
+      if (btnElem) {
+        if (isMagnified) {
+          btnElem.className = 'bg-amber-400 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:bg-amber-300 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-amber-500 active:scale-95 animate-pulse';
+        } else {
+          btnElem.className = 'bg-amber-400 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:bg-amber-300 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-amber-300 active:scale-95';
+        }
       }
     }
 
