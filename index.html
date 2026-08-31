@@ -53,15 +53,37 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    html { font-size: 18px; } /* 시니어 기본 100% 줌 가독성 120% 상향 기본값 */
+    /* 🌟 6080 시니어 초고대비/초대형 선명 가독성 파워 CSS */
+    html { font-size: 18px; }
+    
+    /* 1단계 (보통 100%) */
     html.font-scale-100 { font-size: 18px !important; }
+    
+    /* 2단계 (크게 130%) */
     html.font-scale-130 { font-size: 22px !important; }
-    html.font-scale-130 body { line-height: 1.7 !important; }
+    html.font-scale-130 body { line-height: 1.75 !important; color: #0f172a !important; }
+    html.font-scale-130 .text-\[11px\], html.font-scale-130 .text-xs { font-size: 0.95rem !important; line-height: 1.65 !important; }
+    html.font-scale-130 .text-sm { font-size: 1.1rem !important; line-height: 1.65 !important; }
+
+    /* 3단계 (왕대 160% - 6080 시니어 돋보기 완벽 선명 가독) */
     html.font-scale-160 { font-size: 26px !important; }
-    html.font-scale-160 body { line-height: 1.8 !important; }
-    html.font-scale-160 button, html.font-scale-160 a { min-height: 52px; }
-    html.senior-magnified { font-size: 23px !important; }
-    html.senior-magnified body { line-height: 1.7 !important; }
+    html.font-scale-160 body { line-height: 1.85 !important; color: #000000 !important; font-weight: 600 !important; }
+    html.font-scale-160 .text-\[11px\], html.font-scale-160 .text-xs { font-size: 1.15rem !important; line-height: 1.75 !important; font-weight: 700 !important; }
+    html.font-scale-160 .text-sm { font-size: 1.3rem !important; line-height: 1.75 !important; font-weight: 700 !important; }
+    html.font-scale-160 .text-base { font-size: 1.45rem !important; line-height: 1.75 !important; font-weight: 800 !important; }
+    html.font-scale-160 button, html.font-scale-160 a { min-height: 54px !important; font-size: 1.1rem !important; }
+    html.font-scale-160 .text-slate-400, html.font-scale-160 .text-gray-500, html.font-scale-160 .text-slate-500 { color: #1e293b !important; }
+
+    /* 모바일 6080 시니어 1단 와이드 레이아웃 (모바일 컬럼 찌그러짐 100% 방지) */
+    @media (max-width: 640px) {
+      html.font-scale-130 .grid-cols-2, html.font-scale-130 .grid-cols-3, html.font-scale-130 .grid-cols-4,
+      html.font-scale-160 .grid-cols-2, html.font-scale-160 .grid-cols-3, html.font-scale-160 .grid-cols-4 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+      }
+      html.font-scale-160 .p-3, html.font-scale-160 .p-4, html.font-scale-160 .p-5 {
+        padding: 1.25rem !important;
+      }
+    }
     body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; word-break: keep-all; }
     /* 토스트 및 모바일 애니메이션 */
     #toast { transition: opacity 0.3s ease, transform 0.3s ease; }
