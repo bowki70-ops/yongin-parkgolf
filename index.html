@@ -156,27 +156,15 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <!-- 🔍 시니어 돋보기 글자 크기 3단계 조절 드롭다운 (선택 시 1초 자동 닫힘) -->
-        <div class="relative" id="font-scale-dropdown-container">
-          <button type="button" id="btn-font-scale" onclick="toggleFontScaleDropdown(event)" class="bg-amber-400 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:bg-amber-300 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-amber-300 active:scale-95">
-            <span class="text-base">🔍</span>
-            <span id="font-scale-label">글자 크기: 2단계(크게)</span>
-            <span id="font-scale-arrow" class="text-[10px] text-slate-900 transition-transform">▼</span>
-          </button>
-          <div id="font-scale-menu" class="absolute right-0 top-full hidden bg-white text-slate-900 shadow-2xl rounded-xl border-2 border-amber-400 min-w-[210px] z-50 py-1.5 text-xs divide-y divide-gray-100 animate-fadeIn">
-            <button type="button" onclick="setFontScale('100'); closeFontScaleDropdown();" class="w-full text-left px-4 py-2.5 hover:bg-amber-50 font-bold transition flex items-center justify-between">
-              <span>1단계: 보통 (100%)</span>
-              <span id="scale-check-100" class="text-amber-600 font-black hidden">✓</span>
-            </button>
-            <button type="button" onclick="setFontScale('130'); closeFontScaleDropdown();" class="w-full text-left px-4 py-2.5 hover:bg-amber-50 font-bold transition flex items-center justify-between">
-              <span>2단계: 크게 (130%) ⭐</span>
-              <span id="scale-check-130" class="text-amber-600 font-black">✓</span>
-            </button>
-            <button type="button" onclick="setFontScale('160'); closeFontScaleDropdown();" class="w-full text-left px-4 py-2.5 hover:bg-amber-50 font-black text-amber-900 transition flex items-center justify-between">
-              <span>3단계: 왕대 (160%) 🔍</span>
-              <span id="scale-check-160" class="text-amber-600 font-black hidden">✓</span>
-            </button>
-          </div>
+        <!-- 🔍 시니어 돋보기 글자 크기 3단계 스마트폰 전용 네이티브 셀렉트 (100% 즉시 자동 닫힘) -->
+        <div class="relative flex items-center">
+          <label for="font-scale-select" class="sr-only">글자 크기 조절</label>
+          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-3 py-2 rounded-xl text-xs md:text-sm border-2 border-amber-300 shadow-md cursor-pointer appearance-none pr-7 active:scale-95 focus:outline-none">
+            <option value="100">🔍 1단계: 보통 (100%)</option>
+            <option value="130" selected>🔍 2단계: 크게 (130%) ⭐</option>
+            <option value="160">🔍 3단계: 왕대 (160%) 🔍</option>
+          </select>
+          <span class="pointer-events-none absolute right-2 text-[10px] text-slate-950 font-black">▼</span>
         </div>
 
         <button onclick="shareToKakao()" type="button" class="bg-yellow-400 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-yellow-300 active:scale-95">
@@ -2851,37 +2839,7 @@
       }
     }
 
-    // 🌟 시니어 노안 방지 돋보기 글자 크기 3단계 드롭다운 제어 (터치/선택 즉시 자동 닫힘)
-    function toggleFontScaleDropdown(event) {
-      if (event) event.stopPropagation();
-      const menu = document.getElementById('font-scale-menu');
-      const arrow = document.getElementById('font-scale-arrow');
-      if (!menu) return;
-
-      const isHidden = menu.classList.contains('hidden');
-      if (isHidden) {
-        menu.classList.remove('hidden');
-        if (arrow) arrow.style.transform = 'rotate(180deg)';
-      } else {
-        closeFontScaleDropdown();
-      }
-    }
-
-    function closeFontScaleDropdown() {
-      const menu = document.getElementById('font-scale-menu');
-      const arrow = document.getElementById('font-scale-arrow');
-      if (menu) menu.classList.add('hidden');
-      if (arrow) arrow.style.transform = 'rotate(0deg)';
-    }
-
-    // 모바일 외부 화면 터치 시 드롭다운 즉시 자동 닫기
-    document.addEventListener('click', (e) => {
-      const container = document.getElementById('font-scale-dropdown-container');
-      if (container && !container.contains(e.target)) {
-        closeFontScaleDropdown();
-      }
-    });
-
+    // 🌟 시니어 노안 방지 돋보기 글자 크기 3단계 스마트폰 네이티브 제어 (100% 즉시 자동 닫힘)
     function setFontScale(scaleStr) {
       const htmlElem = document.documentElement;
       htmlElem.classList.remove('font-scale-100', 'font-scale-130', 'font-scale-160', 'senior-magnified');
@@ -2893,21 +2851,14 @@
       updateFontScaleUI(scaleStr);
 
       const labelMap = { '100': '1단계: 보통 (100%)', '130': '2단계: 크게 (130%)', '160': '3단계: 왕대 (160%)' };
-      showToast(`🔍 글자 크기가 [${labelMap[scaleStr] || scaleStr}] 로 설정되었습니다.`, '🔍');
+      showToast(`🔍 글자 크기가 [${labelMap[scaleStr] || scaleStr}] 로 변경되었습니다.`, '🔍');
     }
 
     function updateFontScaleUI(scaleStr) {
-      const labelElem = document.getElementById('font-scale-label');
-      const labelMap = { '100': '글자크기: 1단계', '130': '글자크기: 2단계(크게)', '160': '글자크기: 3단계(왕대)' };
-      if (labelElem) labelElem.innerText = labelMap[scaleStr] || '글자 크기 조절';
-
-      ['100', '130', '160'].forEach(s => {
-        const checkEl = document.getElementById('scale-check-' + s);
-        if (checkEl) {
-          if (s === scaleStr) checkEl.classList.remove('hidden');
-          else checkEl.classList.add('hidden');
-        }
-      });
+      const selectElem = document.getElementById('font-scale-select');
+      if (selectElem && selectElem.value !== scaleStr) {
+        selectElem.value = scaleStr;
+      }
     }
 
     // 🌟 파크골프 입문 8단계 이중 레이어 상세 모달 데이터 및 핸들러
