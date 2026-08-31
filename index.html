@@ -21,6 +21,21 @@
   <meta property="og:image" content="https://yonginparkgolf.co.kr/og-image.jpg">
   <meta property="og:url" content="https://yonginparkgolf.co.kr/">
   <link rel="canonical" href="https://yonginparkgolf.co.kr/" />
+
+  <!-- 검색엔진 최적화 (SEO) JSON-LD 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "용인 파크골프 정보 포털",
+    "url": "https://yonginparkgolf.co.kr",
+    "description": "용인특례시 수지·포곡·기흥 파크골프장 실시간 개장 현황, 요일별 휴장, 날씨, 미세먼지 및 회원 중고장터 포털",
+    "publisher": {
+      "@type": "Organization",
+      "name": "용인 파크골프 정보 포털"
+    }
+  }
+  </script>
   
   <!-- 모바일 웹앱(PWA) 지원 메타 태그 & 매니페스트 -->
   <meta name="theme-color" content="#064e3b">
@@ -140,6 +155,10 @@
           </div>
         </div>
 
+        <button onclick="shareToKakao()" type="button" class="bg-yellow-400 text-slate-950 font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-yellow-300 active:scale-95">
+          <span class="text-base">💬</span>
+          <span>카톡 소문내기</span>
+        </button>
         <button onclick="triggerPwaInstall()" type="button" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-3.5 py-2 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1.5 cursor-pointer border-2 border-emerald-600 active:scale-95">
           <span class="text-base">📱</span>
           <span>앱 1초 설치</span>
@@ -1838,6 +1857,27 @@
           alert(courseName + ' 주소: ' + addressText);
         }
         document.body.removeChild(textarea);
+      }
+    }
+
+    // 💬 카카오톡 / SNS 1초 바이럴 소문내기 공유 기능
+    function shareToKakao() {
+      const shareTitle = '⛳ 용인 파크골프 3대 구장 실시간 대표 정보망';
+      const shareText = '용인 수지·포곡·기흥 파크골프장 개장/휴장 현황, 실시간 날씨, 미세먼지 및 회원 장터 정보를 1초 만에 확인하세요!';
+      const shareUrl = 'https://yonginparkgolf.co.kr';
+
+      if (navigator.share) {
+        navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: shareUrl
+        }).then(() => {
+          showToast('💬 카카오톡/문자로 성공적으로 공유되었습니다!', '🎉');
+        }).catch(() => {
+          copyAddress(shareUrl, '용인 파크골프 포털 주소');
+        });
+      } else {
+        copyAddress(shareUrl, '용인 파크골프 포털 주소');
       }
     }
 
