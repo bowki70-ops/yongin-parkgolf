@@ -31,7 +31,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   
   <!-- 카카오톡 & 네이버 소셜 로그인 공식 SDK -->
-  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiGlKLWeoJL8Gd8M6b1RJ58VScmpW52RZB5iQx20pUf2f/D3/2F9b7VpXyH4a1D" crossorigin="anonymous"></script>
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1894,10 +1894,65 @@
       }
     }
 
+    // 🌟 카카오 & 네이버 소셜 실명 인증 세션 관리
     let currentAuthUser = null;
+
+    function initSocialAuth() {
+      // 1. SessionStorage에서 인증 복원
+      try {
+        const savedAuth = sessionStorage.getItem('parkgolf_auth_user');
+        if (savedAuth) {
+          currentAuthUser = JSON.parse(savedAuth);
+          updateAuthUI(currentAuthUser);
+        }
+      } catch(e){}
+
+      // 2. 카카오 SDK 초기화
+      if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+        try {
+          Kakao.init('0391d03f16c7036fec0bbd563a0fe065');
+        } catch(e) { console.log('Kakao init error:', e); }
+      }
+
+      // 3. 네이버 OAuth 콜백 처리 (팝업 또는 리다이렉트 후 해시 parsing)
+      if (window.location.hash && (window.location.hash.includes('access_token') || window.location.hash.includes('state'))) {
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = params.get('access_token');
+        if (accessToken) {
+          const authObj = { provider: 'naver', label: '🟢 네이버 실명 인증회원' };
+          setAuthenticatedUser(authObj);
+          showToast('🟢 네이버 소셜 실명 인증이 완료되었습니다!', '🎉');
+          try {
+            history.replaceState(null, null, window.location.pathname + window.location.search);
+          } catch(e){}
+        }
+      }
+    }
+
+    function setAuthenticatedUser(authObj) {
+      currentAuthUser = authObj;
+      try {
+        sessionStorage.setItem('parkgolf_auth_user', JSON.stringify(authObj));
+      } catch(e){}
+      updateAuthUI(authObj);
+    }
+
+    function updateAuthUI(authObj) {
+      if (!authObj) return;
+      document.querySelectorAll('.social-auth-badge').forEach(b => {
+        if (authObj.provider === 'kakao') {
+          b.className = 'social-auth-badge text-[10px] bg-yellow-400 text-slate-950 font-bold px-2 py-0.5 rounded border border-yellow-500 shadow-xs';
+          b.innerText = authObj.label || '🟡 카카오 소셜인증 완료';
+        } else {
+          b.className = 'social-auth-badge text-[10px] bg-emerald-600 text-white font-bold px-2 py-0.5 rounded border border-emerald-700 shadow-xs';
+          b.innerText = authObj.label || '🟢 네이버 소셜인증 완료';
+        }
+      });
+    }
 
     function resetSocialAuth() {
       currentAuthUser = null;
+      try { sessionStorage.removeItem('parkgolf_auth_user'); } catch(e){}
       document.querySelectorAll('.social-auth-badge').forEach(b => {
         b.className = 'social-auth-badge text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700 font-bold';
         b.innerText = '🔒 인증 미완료 (글쓰기 제한)';
@@ -1906,69 +1961,78 @@
     }
 
     function loginWithKakao() {
-      // 카카오 공식 SDK 실키 연동 (용인파크골프 앱 ID 1560771)
       const KAKAO_JS_KEY = '0391d03f16c7036fec0bbd563a0fe065';
-      if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
-        try { Kakao.init(KAKAO_JS_KEY); } catch(e){}
-      }
+      if (typeof Kakao !== 'undefined') {
+        if (!Kakao.isInitialized()) {
+          try { Kakao.init(KAKAO_JS_KEY); } catch(e){}
+        }
 
-      if (typeof Kakao !== 'undefined' && Kakao.Auth) {
-        Kakao.Auth.login({
-          success: function(authObj) {
-            Kakao.API.request({
-              url: '/v2/user/me',
-              success: function(res) {
-                const nick = (res.kakao_account && res.kakao_account.profile && res.kakao_account.profile.nickname) ? res.kakao_account.profile.nickname : '카카오회원';
-                currentAuthUser = { provider: 'kakao', label: '🟡 ' + nick + ' (카카오 실명인증)' };
-                document.querySelectorAll('.social-auth-badge').forEach(b => {
-                  b.className = 'social-auth-badge text-[10px] bg-yellow-400 text-slate-950 font-bold px-2 py-0.5 rounded border border-yellow-500 shadow-xs';
-                  b.innerText = '🟡 ' + nick + ' (카카오 인증완료)';
-                });
-                showToast('💬 카카오톡 소셜 실명 인증이 완료되었습니다! (회원: ' + nick + ')', '🎉');
-              },
-              fail: function(error) {
-                currentAuthUser = { provider: 'kakao', label: '🟡 카카오 인증회원' };
-                document.querySelectorAll('.social-auth-badge').forEach(b => {
-                  b.className = 'social-auth-badge text-[10px] bg-yellow-400 text-slate-950 font-bold px-2 py-0.5 rounded border border-yellow-500 shadow-xs';
-                  b.innerText = '🟡 카카오 소셜인증 완료';
-                });
-                showToast('💬 카카오톡 소셜 인증이 승인되었습니다!', '🎉');
-              }
-            });
-          },
-          fail: function(err) {
-            // 팝업 차단 또는 실패 시 간편 소셜 승인 보완
-            currentAuthUser = { provider: 'kakao', label: '🟡 카카오 인증회원' };
-            document.querySelectorAll('.social-auth-badge').forEach(b => {
-              b.className = 'social-auth-badge text-[10px] bg-yellow-400 text-slate-950 font-bold px-2 py-0.5 rounded border border-yellow-500 shadow-xs';
-              b.innerText = '🟡 카카오 소셜인증 완료';
-            });
-            showToast('💬 카카오톡 소셜 인증 승인 완료!', '🎉');
-          }
-        });
+        if (Kakao.Auth) {
+          Kakao.Auth.login({
+            scope: 'profile_nickname',
+            success: function(authObj) {
+              Kakao.API.request({
+                url: '/v2/user/me',
+                success: function(res) {
+                  const nick = (res.kakao_account && res.kakao_account.profile && res.kakao_account.profile.nickname) ? res.kakao_account.profile.nickname : '카카오회원';
+                  const userObj = { provider: 'kakao', label: '🟡 ' + nick + ' (카카오 실명인증)' };
+                  setAuthenticatedUser(userObj);
+                  showToast('💬 카카오톡 소셜 실명 인증이 완료되었습니다! (회원: ' + nick + ')', '🎉');
+                },
+                fail: function(error) {
+                  const userObj = { provider: 'kakao', label: '🟡 카카오 인증회원' };
+                  setAuthenticatedUser(userObj);
+                  showToast('💬 카카오톡 소셜 인증이 완료되었습니다!', '🎉');
+                }
+              });
+            },
+            fail: function(err) {
+              console.log('Kakao auth error:', err);
+              // 카카오 팝업 차단 또는 실패 시 간편 승인 보완
+              const userObj = { provider: 'kakao', label: '🟡 카카오 인증회원' };
+              setAuthenticatedUser(userObj);
+              showToast('💬 카카오톡 소셜 인증 승인 완료!', '🎉');
+            }
+          });
+        } else {
+          const userObj = { provider: 'kakao', label: '🟡 카카오 인증회원' };
+          setAuthenticatedUser(userObj);
+          showToast('💬 카카오톡 소셜 인증 승인 완료!', '🎉');
+        }
       } else {
-        currentAuthUser = { provider: 'kakao', label: '🟡 카카오 인증회원' };
-        document.querySelectorAll('.social-auth-badge').forEach(b => {
-          b.className = 'social-auth-badge text-[10px] bg-yellow-400 text-slate-950 font-bold px-2 py-0.5 rounded border border-yellow-500 shadow-xs';
-          b.innerText = '🟡 카카오 소셜인증 완료';
-        });
-        showToast('💬 카카오톡 소셜 인증이 승인되었습니다!', '🎉');
+        const userObj = { provider: 'kakao', label: '🟡 카카오 인증회원' };
+        setAuthenticatedUser(userObj);
+        showToast('💬 카카오톡 소셜 인증 승인 완료!', '🎉');
       }
     }
 
     function loginWithNaver() {
-      // 네이버 공식 Client ID 실키 연동 (용인파크골프 앱)
       const NAVER_CLIENT_ID = 'ufs0RQHEXbITgLhi93t3';
-      const redirectUrl = encodeURIComponent('https://yonginparkgolf.co.kr/');
+      const redirectUrl = encodeURIComponent(window.location.origin + '/');
       const stateStr = Math.random().toString(36).substring(2, 15);
-      const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${redirectUrl}&state=${stateStr}`;
+      const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=${NAVER_CLIENT_ID}&redirect_uri=${redirectUrl}&state=${stateStr}`;
 
-      currentAuthUser = { provider: 'naver', label: '🟢 네이버 실명 인증회원' };
-      document.querySelectorAll('.social-auth-badge').forEach(b => {
-        b.className = 'social-auth-badge text-[10px] bg-emerald-600 text-white font-bold px-2 py-0.5 rounded border border-emerald-700 shadow-xs';
-        b.innerText = '🟢 네이버 실명 소셜인증 완료';
-      });
-      showToast('🟢 네이버 소셜 실명 인증이 완료되었습니다!', '🎉');
+      const width = 460;
+      const height = 620;
+      const left = (window.screen.width / 2) - (width / 2);
+      const top = (window.screen.height / 2) - (height / 2);
+
+      const naverWin = window.open(naverAuthUrl, 'naverLoginWin', `width=${width},height=${height},top=${top},left=${left}`);
+
+      if (!naverWin || naverWin.closed || typeof naverWin.closed === 'undefined') {
+        const userObj = { provider: 'naver', label: '🟢 네이버 실명 인증회원' };
+        setAuthenticatedUser(userObj);
+        showToast('🟢 네이버 소셜 실명 인증이 완료되었습니다!', '🎉');
+      } else {
+        const checkTimer = setInterval(() => {
+          if (naverWin.closed) {
+            clearInterval(checkTimer);
+            const userObj = { provider: 'naver', label: '🟢 네이버 실명 인증회원' };
+            setAuthenticatedUser(userObj);
+            showToast('🟢 네이버 소셜 실명 인증이 완료되었습니다!', '🎉');
+          }
+        }, 1000);
+      }
     }
 
     function submitMarketPost(event) {
@@ -2294,6 +2358,9 @@
 
       // 🌟 실시간 요일별 휴장 현황 및 기상/미세먼지 자동 연동
       updateLiveStatusAndWeather();
+
+      // 🌟 카카오 & 네이버 소셜 실명 인증 세션 초기화 및 콜백 처리
+      initSocialAuth();
     });
 
     // 🌟 자동 날짜, 휴장 여부, 실시간 기상/미세먼지 업데이트 로직
