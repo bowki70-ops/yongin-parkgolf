@@ -210,21 +210,21 @@
           <p class="text-[9.5px] text-emerald-200 font-bold">수지 · 포곡 · 기흥 · 실내스크린 현황</p>
         </div>
       </div>
-      <button type="button" onclick="toggleFullPcView()" id="btn-toggle-pcview" class="bg-amber-400 text-slate-950 font-black text-xs px-2.5 py-1.5 rounded-xl shadow border border-amber-300 active:scale-95 flex items-center gap-1 cursor-pointer">
-        <span>📋</span>
-        <span id="txt-toggle-pcview">전체메뉴 보기</span>
+      <button type="button" onclick="toggleFullPcView()" id="btn-toggle-pcview" class="bg-amber-400 text-slate-950 font-black text-xs md:text-sm px-3 py-2 rounded-xl shadow-md border-2 border-amber-300 active:scale-95 flex items-center gap-1.5 cursor-pointer min-h-[44px]">
+        <span class="text-base">☰</span>
+        <span id="txt-toggle-pcview">전체메뉴</span>
       </button>
     </header>
 
     <!-- 2. 모바일 실시간 기상/미세먼지 요약 배너 (슬림형) -->
-    <div class="bg-slate-900 text-slate-200 px-3.5 py-1.5 text-[11px] flex justify-between items-center border-b border-slate-800">
-      <div class="flex items-center gap-1.5">
-        <span class="bg-emerald-600 text-white font-bold px-1.5 py-0.2 rounded text-[9.5px] animate-pulse">LIVE</span>
-        <span id="mobile-weather-temp">🌤️ 용인시 24°C</span>
+    <div class="bg-slate-900 text-slate-200 px-3.5 py-2 text-xs flex justify-between items-center border-b border-slate-800 gap-2">
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <span class="bg-emerald-600 text-white font-black px-1.5 py-0.5 rounded text-[10px] animate-pulse">LIVE</span>
+        <span id="mobile-weather-temp" class="font-semibold">☀️ 용인시 24°C</span>
         <span class="text-slate-600">•</span>
-        <span id="mobile-weather-dust">미세먼지 <strong class="text-emerald-400">🟢 좋음</strong></span>
+        <span id="mobile-weather-dust">미세먼지 <strong class="text-emerald-400 font-bold">🟢 좋음</strong></span>
       </div>
-      <span class="text-[9.5px] text-amber-300 font-bold">100% 현장순번 접수</span>
+      <span class="bg-amber-400 text-slate-950 text-[10.5px] font-black px-2 py-1 rounded-md shadow-2xs whitespace-nowrap shrink-0">100% 현장순번 접수</span>
     </div>
 
     <!-- 3. 실시간 구장 & 대기 현황 카드 4곳 (첫 화면 2개 동시 노출 컴팩트 세로 공간 최적화) -->
@@ -258,10 +258,15 @@
             <span id="m-suji-time" class="text-emerald-700 font-bold">10분 전 제보</span>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-1 text-xs font-bold pt-0.5">
-          <button type="button" onclick="copyAddress('수지구 포은대로 499', '수지 아르피아')" class="bg-gray-100 hover:bg-gray-200 text-slate-900 py-2 rounded-lg border border-gray-300 active:scale-95 transition text-[11px]">주소복사 📋</button>
-          <a href="https://map.naver.com/v5/search/아르피아파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 text-white py-2 rounded-lg text-center active:scale-95 transition text-[11px]">네이버 길찾기 ↗</a>
-          <a href="https://map.kakao.com/link/search/아르피아파크골프장" target="_blank" rel="noopener noreferrer" class="bg-yellow-400 text-slate-950 py-2 rounded-lg text-center active:scale-95 transition text-[11px]">카카오맵 ↗</a>
+        <div class="grid grid-cols-2 gap-2 text-base font-black pt-1">
+          <a href="https://map.naver.com/v5/search/아르피아파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 hover:bg-emerald-900 text-white min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border border-emerald-700 shadow-md font-black text-[16px]">
+            <span class="text-lg">📍</span>
+            <span>네이버 길찾기</span>
+          </a>
+          <button type="button" onclick="copyAddress('수지구 포은대로 499', '수지 아르피아')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border-2 border-amber-300 shadow-md font-black text-[16px]">
+            <span class="text-lg">📋</span>
+            <span>주소복사</span>
+          </button>
         </div>
       </div>
 
@@ -284,10 +289,15 @@
             <span id="m-pogok-time" class="text-emerald-700 font-bold">15분 전 제보</span>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-1 text-xs font-bold pt-0.5">
-          <button type="button" onclick="copyAddress('처인구 포곡읍 삼계리 671', '포곡 유운리')" class="bg-gray-100 hover:bg-gray-200 text-slate-900 py-2 rounded-lg border border-gray-300 active:scale-95 transition text-[11px]">주소복사 📋</button>
-          <a href="https://map.naver.com/v5/search/포곡파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 text-white py-2 rounded-lg text-center active:scale-95 transition text-[11px]">네이버 길찾기 ↗</a>
-          <a href="https://map.kakao.com/link/search/포곡파크골프장" target="_blank" rel="noopener noreferrer" class="bg-yellow-400 text-slate-950 py-2 rounded-lg text-center active:scale-95 transition text-[11px]">카카오맵 ↗</a>
+        <div class="grid grid-cols-2 gap-2 text-base font-black pt-1">
+          <a href="https://map.naver.com/v5/search/포곡파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 hover:bg-emerald-900 text-white min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border border-emerald-700 shadow-md font-black text-[16px]">
+            <span class="text-lg">📍</span>
+            <span>네이버 길찾기</span>
+          </a>
+          <button type="button" onclick="copyAddress('처인구 포곡읍 삼계리 671', '포곡 유운리')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border-2 border-amber-300 shadow-md font-black text-[16px]">
+            <span class="text-lg">📋</span>
+            <span>주소복사</span>
+          </button>
         </div>
       </div>
 
@@ -310,10 +320,15 @@
             <span id="m-giheung-time" class="text-emerald-700 font-bold">20분 전 제보</span>
           </div>
         </div>
-        <div class="grid grid-cols-3 gap-1 text-xs font-bold pt-0.5">
-          <button type="button" onclick="copyAddress('기흥구 하갈동 일원', '기흥 호수공원')" class="bg-gray-100 hover:bg-gray-200 text-slate-900 py-2 rounded-lg border border-gray-300 active:scale-95 transition text-[11px]">주소복사 📋</button>
-          <a href="https://map.naver.com/v5/search/기흥호수공원파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 text-white py-2 rounded-lg text-center active:scale-95 transition text-[11px]">네이버 길찾기 ↗</a>
-          <a href="https://map.kakao.com/link/search/기흥호수공원파크골프장" target="_blank" rel="noopener noreferrer" class="bg-yellow-400 text-slate-950 py-2 rounded-lg text-center active:scale-95 transition text-[11px]">카카오맵 ↗</a>
+        <div class="grid grid-cols-2 gap-2 text-base font-black pt-1">
+          <a href="https://map.naver.com/v5/search/기흥호수공원파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 hover:bg-emerald-900 text-white min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border border-emerald-700 shadow-md font-black text-[16px]">
+            <span class="text-lg">📍</span>
+            <span>네이버 길찾기</span>
+          </a>
+          <button type="button" onclick="copyAddress('기흥구 하갈동 일원', '기흥 호수공원')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border-2 border-amber-300 shadow-md font-black text-[16px]">
+            <span class="text-lg">📋</span>
+            <span>주소복사</span>
+          </button>
         </div>
       </div>
 
@@ -343,15 +358,15 @@
         </div>
 
         <!-- 📞 안내실 전화연결 직관 강조 대형 버튼 -->
-        <a href="tel:031-330-2231" class="block w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-black py-2.5 rounded-xl text-center text-xs md:text-sm shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 border border-blue-400">
-          <span class="text-base">📞</span>
-          <span>안내실 전화 연결 (031-330-2231)</span>
-        </a>
-
-        <div class="grid grid-cols-3 gap-1 text-xs font-bold pt-0.5">
-          <button type="button" onclick="copyAddress('처인구 경안천로 76', '용인실내체육관')" class="bg-gray-100 hover:bg-gray-200 text-slate-900 py-2 rounded-lg border border-gray-300 active:scale-95 transition text-[11px]">주소복사 📋</button>
-          <a href="https://map.naver.com/v5/search/용인실내체육관" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 text-white py-2 rounded-lg text-center active:scale-95 transition text-[11px]">네이버 길찾기 ↗</a>
-          <a href="https://map.kakao.com/link/search/용인실내체육관" target="_blank" rel="noopener noreferrer" class="bg-yellow-400 text-slate-950 py-2 rounded-lg text-center active:scale-95 transition text-[11px]">카카오맵 ↗</a>
+        <div class="grid grid-cols-2 gap-2 text-base font-black pt-1">
+          <a href="tel:031-330-2231" class="bg-emerald-800 hover:bg-emerald-900 text-white min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border border-emerald-700 shadow-md font-black text-[16px]">
+            <span class="text-lg">📞</span>
+            <span>안내실 전화연결</span>
+          </a>
+          <button type="button" onclick="copyAddress('처인구 경안천로 76', '용인실내체육관')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border-2 border-amber-300 shadow-md font-black text-[16px]">
+            <span class="text-lg">📋</span>
+            <span>주소복사</span>
+          </button>
         </div>
       </div>
 
@@ -363,9 +378,9 @@
         <span class="text-base animate-pulse">📢</span>
         <span>실시간 현황 제보</span>
       </button>
-      <a href="tel:010-8882-2945" class="w-1/2 bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-black py-3.5 rounded-xl text-xs md:text-sm shadow-lg border border-emerald-500 flex items-center justify-center gap-1.5 active:scale-95 transition text-center">
-        <span class="text-base">📞</span>
-        <span>사무국 전화 연결</span>
+      <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="w-1/2 bg-gradient-to-r from-emerald-600 to-teal-700 text-white font-black py-3.5 rounded-xl text-xs md:text-sm shadow-lg border border-emerald-500 flex items-center justify-center gap-1.5 active:scale-95 transition text-center">
+        <span class="text-base">🏛️</span>
+        <span>용인협회 바로가기</span>
       </a>
     </div>
 
