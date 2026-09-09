@@ -382,6 +382,13 @@
         </div>
       </div>
 
+      <!-- 5) 신규 구장 및 연습장 추가 등록 예정 안내 박스 (모바일) -->
+      <div class="bg-slate-50/90 p-3.5 rounded-xl border-2 border-dashed border-gray-300 text-center space-y-1 shadow-2xs">
+        <p class="text-xs text-amber-950 font-bold bg-amber-100/90 px-3 py-2 rounded-lg border border-amber-300 inline-block shadow-2xs">
+          📢 시범 운영 후에 신규 구장 및 연습장 추가 등록 예정
+        </p>
+      </div>
+
     </main>
 
     <!-- 4. 모바일 전용 하단 고정 플로팅 바 (fixed bottom-0) -->
@@ -840,6 +847,19 @@
               카카오맵 ↗
             </a>
           </div>
+        </div>
+
+        <!-- 5. 신규 구장 및 연습장 추가 등록 예정 안내 박스 -->
+        <div class="p-6 bg-slate-50/90 rounded-2xl border-2 border-dashed border-gray-300 flex flex-col justify-center items-center text-center shadow-2xs h-full min-h-[240px] col-span-1 md:col-span-2">
+          <div class="p-3 bg-white rounded-full border border-gray-200 mb-2.5 shadow-xs">
+            <span class="text-2.5xl">⛳</span>
+          </div>
+          <p class="text-xs md:text-sm text-slate-800 font-bold max-w-md leading-relaxed bg-amber-100/90 text-amber-950 px-4 py-3 rounded-xl border border-amber-300 shadow-2xs">
+            📢 시범 운영 후에 신규 구장 및 연습장 추가 등록 예정
+          </p>
+          <p class="text-[11.5px] text-gray-500 mt-2.5 font-semibold">
+            용인 관내 신규 파크골프장 및 연습장 개장 시 안내가 지속 업데이트됩니다.
+          </p>
         </div>
 
       </div>
@@ -3037,7 +3057,7 @@
 
       // PWA Service Worker 및 1초 바탕화면 앱 설치 로직
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js?v=9').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=10').then(reg => {
           reg.update();
         }).catch(err => console.log('SW reg fail:', err));
       }
