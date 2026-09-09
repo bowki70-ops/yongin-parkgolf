@@ -582,7 +582,7 @@
       <div class="md:col-span-2 space-y-3">
         <div class="flex flex-wrap items-center gap-2">
           <span class="bg-emerald-700/80 text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-600 flex items-center gap-1.5">
-            <span>🟢 실시간 현장 정보</span>
+            <span>🟢 오늘의 현장 상황</span>
             <span class="text-slate-300">|</span>
             <span id="live-update-date">최종 업데이트: 2026.09.09</span>
           </span>
@@ -595,7 +595,7 @@
           <span class="text-amber-300">용인 파크골프 정보 포털</span>
         </h2>
         <p class="text-xs md:text-sm text-emerald-100 max-w-xl leading-relaxed">
-          스마트폰 사용이 서툰 시니어 회원분들도 수지·포곡·기흥 주요 구장 정보, 대기 현황, 회원 직거래 및 공지사항을 한눈에 쉽고 빠르게 확인하실 수 있는 종합 정보 포털입니다.
+          용인 관내 파크골프장 현장 제보를 모아 보여드립니다. 직접 방문하신 동호인분들이 간단한 버튼을 눌러 잔디와 대기 현황을 전해주십니다. 📢 마지막 제보 시간을 확인해 주세요. (※ 현장 제보가 없는 경우 '제보 확인 필요'로 표시됩니다)
         </p>
         
         <!-- 🌟 시니어 친화적 구장 현황 제보 & 바탕화면 바로가기 만들기 큰 버튼 -->
@@ -630,8 +630,8 @@
           <span id="giheung-rest-badge" class="text-amber-300 font-bold bg-amber-950/90 px-2.5 py-1 rounded-lg border border-amber-500/50 text-[11px]">매주 화요일 휴장</span>
         </div>
         <div class="pt-2 text-[11.5px] space-y-1">
-          <p class="font-bold flex items-center gap-1 text-emerald-400">🟢 이용 방법: 공식 예약 및 현장접수</p>
-          <p class="text-slate-200">🪪 <strong>시민 확인:</strong> 신분증 및 공식 안내 확인</p>
+          <p class="font-bold flex items-center gap-1 text-emerald-400">🟢 이용 방법: 구장별 현장 접수 또는 온라인 예약</p>
+          <p class="text-slate-200">🪪 <strong>시민 확인:</strong> 신분증 + 최근 3개월 주민등록초본 등 공식 서류</p>
         </div>
       </div>
     </div>
@@ -674,11 +674,11 @@
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-gray-600 font-bold">🌱 잔디 상태:</span>
-                <span id="suji-grass-status" class="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">🟢 쾌적/양호</span>
+                <span id="suji-grass-status" class="font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">⚪ 제보 확인 필요</span>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-gray-600 font-bold">👥 이용 대기:</span>
-                <span id="suji-crowd-status" class="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">🟢 여유 (대기없음)</span>
+                <span id="suji-crowd-status" class="font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">⚪ 제보 확인 필요</span>
               </div>
             </div>
 
@@ -691,7 +691,7 @@
               <p class="text-gray-700 font-semibold">🕒 <strong>운영:</strong> 06:00 ~ 20:00</p>
               <p id="suji-card-rest" class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 화요일 정기 휴장</p>
               <div class="pt-1.5 border-t border-gray-100">
-                <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 용인시민 예약/선착순 연동</span>
+                <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 용인시민: 현장 선착순 접수</span>
               </div>
             </div>
           </div>
@@ -724,11 +724,11 @@
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-gray-600 font-bold">🌱 잔디 상태:</span>
-                <span id="pogok-grass-status" class="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">🟢 쾌적/양호</span>
+                <span id="pogok-grass-status" class="font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">⚪ 제보 확인 필요</span>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-gray-600 font-bold">👥 이용 대기:</span>
-                <span id="pogok-crowd-status" class="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">🟢 여유 (대기없음)</span>
+                <span id="pogok-crowd-status" class="font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">⚪ 제보 확인 필요</span>
               </div>
             </div>
 
@@ -741,7 +741,7 @@
               <p class="text-gray-700 font-semibold">🕒 <strong>운영:</strong> 06:00 ~ 19:00 (입장 마감 18:20)</p>
               <p id="pogok-card-rest" class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 화요일 정기 휴장</p>
               <div class="pt-1.5 border-t border-gray-100">
-                <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 용인시민 예약/선착순 연동</span>
+                <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 용인시민: 현장 선착순 접수</span>
               </div>
             </div>
           </div>
@@ -774,11 +774,11 @@
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-gray-600 font-bold">🌱 잔디 상태:</span>
-                <span id="giheung-grass-status" class="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">🟢 쾌적/양호</span>
+                <span id="giheung-grass-status" class="font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">⚪ 제보 확인 필요</span>
               </div>
               <div class="flex justify-between items-center">
                 <span class="text-gray-600 font-bold">👥 이용 대기:</span>
-                <span id="giheung-crowd-status" class="font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">🟢 여유 (대기없음)</span>
+                <span id="giheung-crowd-status" class="font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">⚪ 제보 확인 필요</span>
               </div>
             </div>
 
@@ -791,7 +791,7 @@
               <p class="text-gray-700 font-semibold">🕒 <strong>운영:</strong> 06:00 ~ 18:00 (하절기 폭염 12~14시 임시휴장)</p>
               <p id="giheung-card-rest" class="text-red-600 font-bold">🚫 <strong>휴장:</strong> 매주 화요일 정기 휴장</p>
               <div class="pt-1.5 border-t border-gray-100">
-                <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 용인시민 예약/선착순 연동</span>
+                <span class="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded border border-emerald-200 text-[11px] inline-block">🟢 시민: 현장 선착순 / 외지인: 온라인 예약</span>
               </div>
             </div>
           </div>
@@ -877,7 +877,7 @@
           <span class="text-2xl">📋</span>
           <div>
             <h3 class="text-lg md:text-xl font-bold text-slate-900">용인시민 구장 이용안내 & 필수 준수사항</h3>
-            <p class="text-xs text-gray-500 mt-0.5">용인시민 누구나 관내 주요 파크골프장을 자유롭게 이용하실 수 있습니다.</p>
+            <p class="text-xs text-gray-500 mt-0.5">용인시민의 구장 이용 방법은 구장별 운영기준에 따라 다를 수 있습니다.</p>
           </div>
         </div>
         <a href="https://publicsports.yongin.go.kr" target="_blank" rel="noopener noreferrer" class="self-start md:self-auto bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs px-3.5 py-2 rounded-lg transition shadow-xs flex items-center gap-1.5 border border-slate-700">
@@ -891,14 +891,14 @@
         <div class="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200 flex flex-col justify-between">
           <div>
             <h4 class="font-bold text-emerald-950 text-sm mb-2 flex items-center justify-between">
-              <span>🏛️ 입장 방식: 100% 현장 선착순</span>
-              <span class="bg-emerald-700 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">당일 순서</span>
+              <span>🏛️ 이용방법: 구장별 현장접수 & 예약</span>
+              <span class="bg-emerald-700 text-white text-[10px] px-1.5 py-0.5 rounded font-bold">운영기준</span>
             </h4>
             <ul class="space-y-1.5 text-gray-700 leading-relaxed">
-              <li>• <strong>접수 방식:</strong> 구장 도착 순서대로 현장 접수 후 플레이</li>
+              <li>• <strong>용인시민:</strong> 구장별 기준에 따라 현장 선착순 이용</li>
+              <li>• <strong>외지인 이용:</strong> 기흥 등 일부 구장 온라인 사전예약</li>
               <li>• <strong>동반 플레이:</strong> 원활한 진행을 위해 <strong class="text-emerald-800">1조 4인 기준</strong> 운영</li>
-              <li>• <strong>1인/소수 방문:</strong> 현장 대기 동호인과 조인하여 자유 라운딩</li>
-              <li>• <strong>운영 시간:</strong> 구장별 06:00 ~ 18:00/20:00 (일몰 시 변동)</li>
+              <li>• <strong>1인/소수 방문:</strong> 현장 대기 동호인과 조인하여 라운딩</li>
             </ul>
           </div>
         </div>
@@ -912,7 +912,7 @@
             </h4>
             <ul class="space-y-1.5 text-gray-700 leading-relaxed">
               <li>• <strong>신분증:</strong> 주민등록증, 운전면허증, 여권 등</li>
-              <li>• <strong>주민등록등본:</strong> <strong class="text-amber-900">최근 3개월 이내 발급분</strong> (현장 확인)</li>
+              <li>• <strong>주민등록초본:</strong> <strong class="text-amber-900">최근 3개월 이내 발급분</strong> (현장 확인)</li>
               <li>• <strong>복장:</strong> 운동화 또는 파크골프 전용화 필수 (구두/힐 금지)</li>
               <li>• <strong>장비:</strong> 공인 클럽 및 마크 부착 파크골프 공</li>
             </ul>
@@ -938,16 +938,16 @@
       </div>
     </section>
 
-    <!-- 🌟 [구글 애드센스 & 용인 지역 용품점 스폰서 광고 전용 배너 영역] -->
+    <!-- 🌟 [용인 지역 용품점 스폰서 광고 전용 배너 영역] -->
     <div class="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white p-4 md:p-5 rounded-2xl border-2 border-amber-400 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 my-6">
       <div class="flex items-center gap-3">
         <div class="bg-amber-400 text-slate-950 p-2.5 rounded-xl font-black text-xl">💎</div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded">SPONSOR & ADS</span>
-            <h4 class="font-bold text-sm md:text-base text-amber-300">용인 파크골프 용품·채 수리·레슨 제휴 스폰서십 안내</h4>
+            <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded">🤝 지역 제휴업체</span>
+            <h4 class="font-bold text-sm md:text-base text-amber-300">용인 파크골프 용품·채 수리·레슨 제휴 안내</h4>
           </div>
-          <p class="text-xs text-slate-300 mt-1">용인 파크골프 정보 포털의 프리미엄 배너 영역입니다. (구글 애드센스 연동 완비)</p>
+          <p class="text-xs text-slate-300 mt-1">용인 파크골프 동호인을 위한 용품점·수리점·레슨·식당 등 지역 제휴업체를 소개합니다.</p>
         </div>
       </div>
       <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="bg-amber-400 text-slate-950 font-black text-xs md:text-sm px-4 py-2.5 rounded-xl hover:bg-amber-300 transition whitespace-nowrap shadow active:scale-95">
@@ -1160,7 +1160,7 @@
               <span class="text-[11px] text-emerald-200">장비선택</span>
             </div>
             <h4 class="font-bold text-white text-sm flex items-center justify-between"><span>클럽 & 공 선택</span> <span class="text-[10px] text-amber-300">🔍상세보기</span></h4>
-            <p class="text-emerald-100 text-[11px] leading-snug">자신에게 맞는 길이와 헤드 무게의 파크골프채 및 3피스 공 선택하기</p>
+            <p class="text-emerald-100 text-[11px] leading-snug">자신에게 맞는 길이와 무게의 파크골프채 및 공 선택하기</p>
           </div>
 
           <!-- 3단계 -->
@@ -1217,10 +1217,10 @@
           <div id="roadmap-step-card-8" onclick="openRoadmapDetailModal(8)" class="bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs hover:border-amber-400 hover:scale-[1.02] cursor-pointer transition">
             <div class="flex items-center justify-between">
               <span class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded">8단계</span>
-              <span class="text-[11px] text-emerald-200">용인3대구장</span>
+              <span class="text-[11px] text-emerald-200">주요 구장</span>
             </div>
             <h4 class="font-bold text-white text-sm flex items-center justify-between"><span>첫 방문 신분증 챙기기</span> <span class="text-[10px] text-amber-300">🔍상세보기</span></h4>
-            <p class="text-emerald-100 text-[11px] leading-snug">수지·포곡·기흥 방문 전 신분증과 등본을 꼭 지참하고 출발!</p>
+            <p class="text-emerald-100 text-[11px] leading-snug">수지·포곡·기흥 방문 전 신분증과 주민등록초본을 꼭 지참하세요!</p>
           </div>
         </div>
       </div>
@@ -1298,13 +1298,13 @@
       </div>
     </section>
 
-    <!-- 4-6. 🍱 용인 3대 구장 근처 동호인 추천 실제 맛집 & 주차/교통 꿀팁 -->
+    <!-- 4-6. 🍱 용인 주요 3개 구장 근처 동호인 추천 맛집 & 주차/교통 꿀팁 -->
     <section id="food-map-section" class="bg-white p-5 md:p-7 rounded-2xl shadow-sm border border-gray-200 space-y-4">
       <div class="flex items-center gap-2.5 pb-3 border-b border-gray-200">
         <span class="text-2xl md:text-3xl">🍱</span>
         <div>
-          <h3 class="text-lg md:text-xl font-black text-slate-900">용인 주요 파크골프장 근처 추천 맛집 & 주차/생활 편의정보</h3>
-          <p class="text-xs text-gray-500 mt-0.5">라운딩 후 동호회 회원분들이 자주 찾으시는 검증된 가성비 맛집과 주차/편의시설 정보입니다.</p>
+          <h3 class="text-lg md:text-xl font-black text-slate-900">용인 주요 파크골프장 근처 추천 식당 & 주차/생활 편의정보</h3>
+          <p class="text-xs text-gray-500 mt-0.5">라운딩 후 동호회 회원분들이 자주 찾으시는 주변 추천 식당과 주차/편의시설 정보입니다.</p>
         </div>
       </div>
 
@@ -1495,7 +1495,7 @@
             <span id="faq-2-arrow" class="text-gray-400 font-bold transform transition-transform">▼</span>
           </button>
           <div id="faq-2" class="hidden p-4 bg-white border-t border-gray-100 text-gray-700 leading-relaxed">
-            관내 3대 구장은 <strong>용인시민 100% 현장 선착순 입장</strong>으로 운영됩니다. 방문 시 <strong>신분증(주민등록증/운전면허증)과 최근 3개월 이내 발급된 주민등록등본</strong>을 지참하시면 관리실/초소 확인 후 즉시 입장하실 수 있습니다.
+            관내 주요 구장은 <strong>용인시민 현장 접수 및 구장별 사전안내 방식</strong>으로 운영됩니다. 방문 시 <strong>신분증(주민등록증/운전면허증)과 최근 3개월 이내 발급된 주민등록초본 등 공식 서류</strong>를 지참하시면 확인 후 입장하실 수 있습니다.
           </div>
         </div>
 
@@ -1509,7 +1509,7 @@
             <span id="faq-3-arrow" class="text-gray-400 font-bold transform transition-transform">▼</span>
           </button>
           <div id="faq-3" class="hidden p-4 bg-white border-t border-gray-100 text-gray-700 leading-relaxed">
-            초보분들을 위해 수지 아르피아 및 주요 구장 클럽하우스에서 기초 체험용 파크골프 클럽과 공을 무료 또는 소정의 대여료로 지원하고 있습니다. 처음 오실 때는 편한 운동화 차림으로 오시면 됩니다.
+            구장별로 대여 가능 여부 및 수량이 상이할 수 있으므로, 방문 전 용인시 공식 공공체육시설 통합예약 시스템이나 관내 구장에 사전 문의 후 방문하시는 것을 권장합니다.
           </div>
         </div>
 
@@ -1765,7 +1765,7 @@
   </div>
 
 
-  <!-- 🌟 3대 구장 상세 소개 & 코스 약도 팝업 모달 (Course Detail Modal) -->
+  <!-- 🌟 용인 주요 구장 상세 소개 & 코스 약도 팝업 모달 (Course Detail Modal) -->
   <div id="courseDetailModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all">
       
@@ -1800,7 +1800,7 @@
           </div>
           <div class="p-3 bg-blue-50 rounded-xl border border-blue-100">
             <span class="text-gray-500 text-[11px] block">시민 입장방식</span>
-            <strong id="modal-course-entry" class="text-base text-blue-900 font-black">현장 선착순</strong>
+            <strong id="modal-course-entry" class="text-base text-blue-900 font-black">현장 접수/예약</strong>
           </div>
         </div>
 
@@ -1809,12 +1809,10 @@
           <h4 class="font-bold text-slate-900 text-sm flex items-center gap-1.5 border-b pb-2">
             <span>📌</span> 구장 특징 및 안내
           </h4>
-          <p id="modal-course-desc" class="text-gray-700 leading-relaxed">
-            구장 특징 설명 텍스트
-          </p>
+          <p id="modal-course-desc" class="text-gray-700 leading-relaxed"></p>
           <div class="pt-2 border-t text-gray-600 space-y-1">
             <p>📍 <strong>위치:</strong> <span id="modal-course-addr">주소</span></p>
-            <p>🪪 <strong>용인시민 필수지참:</strong> 신분증 + 주민등록등본 (3개월 이내 발급분)</p>
+            <p>🪪 <strong>용인시민 지참서류:</strong> 신분증 + 최근 3개월 이내 발급된 주민등록초본 등 공식 서류</p>
           </div>
         </div>
 
@@ -1985,6 +1983,7 @@
           <div>
             <label for="market-input-phone" class="block font-bold text-slate-900 mb-1">4. 연락처 <span class="text-red-500">*</span></label>
             <input type="tel" id="market-input-phone" required placeholder="예) 010-1234-5678" class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-xs md:text-sm">
+            <p class="text-[10.5px] text-amber-800 font-semibold mt-1">※ 전화번호는 게시글에 공개되므로 동의 시에만 입력해 주세요.</p>
           </div>
         </div>
 
@@ -2066,7 +2065,7 @@
           <span class="text-2xl">📢</span>
           <div>
             <h3 class="font-black text-lg md:text-xl">공지사항 글 올리기</h3>
-            <p class="text-[11px] text-slate-800 font-bold">협회 회원 및 임원진 전용 공지 등록</p>
+            <p class="text-[11px] text-slate-800 font-bold">용인 파크골프 관련 공지사항 등록</p>
           </div>
         </div>
         <button type="button" onclick="closeNoticeWriteModal()" class="text-slate-800 hover:text-black text-2xl font-bold p-1">✕</button>
@@ -2098,13 +2097,13 @@
           <textarea id="notice-input-content" rows="6" required placeholder="공지사항 세부 내용, 대회의 요강, 장소, 일시, 접수방법 등을 상세히 작성해 주세요." class="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none text-xs md:text-sm leading-relaxed"></textarea>
         </div>
 
-        <!-- 4. 임원진 인증 암호 -->
+        <!-- 4. 인증 암호 -->
         <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-200">
           <label for="notice-input-pin" class="block font-bold text-amber-950 mb-1">
-            <span>🔐 협회 임원/사무국 인증 암호 <span class="text-red-500">*</span></span>
+            <span>🔐 공지 등록 인증 암호 <span class="text-red-500">*</span></span>
           </label>
-          <input type="password" id="notice-input-pin" required placeholder="협회 지정 임원 전용 암호 4자리를 입력하세요" class="w-full p-3 rounded-xl border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs md:text-sm font-bold bg-white">
-          <p class="text-[11px] text-amber-800 mt-1">※ 무단 공지 등록 방지를 위한 협회 임원/사무국 전용 보안 암호입니다.</p>
+          <input type="password" id="notice-input-pin" required placeholder="공지 등록 인증 암호를 입력하세요" class="w-full p-3 rounded-xl border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:outline-none text-xs md:text-sm font-bold bg-white">
+          <p class="text-[11px] text-amber-800 mt-1">※ 무단 공지 등록 방지를 위한 지정 관리자 보안 암호입니다.</p>
         </div>
 
         <!-- 버튼 -->
@@ -2134,9 +2133,9 @@
         holes: '9홀',
         hours: '06:00 ~ 20:00',
         closed: '매주 화요일',
-        entry: '100% 현장 선착순',
+        entry: '용인시민 현장 선착순',
         addr: '경기도 용인시 수지구 포은대로 499 (죽전동 1003-45)',
-        desc: '수지 아르피아 파크골프장은 죽전역 및 포은아트홀 인근에 위치한 대표 도심형 평지 잔디 코스입니다. 접근성이 매우 뛰어난 쾌적한 필드이며, 용인시민분들은 신분증과 주민등록등본을 지참하시면 별도 인터넷 예약 없이 현장 선착순으로 자유롭게 이용하실 수 있습니다.',
+        desc: '수지 아르피아 파크골프장은 죽전역 및 포은아트홀 인근에 위치한 대표 도심형 평지 잔디 코스입니다. 접근성이 매우 뛰어난 쾌적한 필드이며, 용인시민분들은 신분증과 최근 3개월 이내 주민등록초본 등 공식 서류를 지참하시면 현장 접수 후 이용하실 수 있습니다.',
         naver: 'https://map.naver.com/v5/search/아르피아파크골프장',
         kakao: 'https://map.kakao.com/link/search/아르피아파크골프장'
       },
@@ -2148,7 +2147,7 @@
         closed: '매주 화요일',
         entry: '용인시민 현장선착순 / 외지인 인터넷예약',
         addr: '경기도 용인시 처인구 포곡읍 경안천자전거길 1388 (지번: 삼계리 671번지 일원)',
-        desc: '경안천 수변에 조성된 총 9홀 규모의 자연친화적 파크골프장입니다. 매주 화요일 정기 휴장하며, 용인시민분들은 신분증 및 주민등록등본 지참 시 사전 예약 없이 현장 선착순으로 무료 이용하실 수 있습니다. (※ 관외 타 지역 주민은 용인시 공공체육시설 통합예약시스템에서 사전 예약 필수)',
+        desc: '경안천 수변에 조성된 총 9홀 규모의 자연친화적 파크골프장입니다. 매주 화요일 정기 휴장하며, 용인시민분들은 신분증 및 주민등록초본 등 공식 서류 지참 시 사전 예약 없이 현장 선착순으로 이용하실 수 있습니다. (※ 관외 타 지역 주민은 용인시 공공체육시설 통합예약 시스템 사전 안내 확인)',
         naver: 'https://map.naver.com/v5/search/포곡파크골프장',
         kakao: 'https://map.kakao.com/link/search/포곡파크골프장'
       },
@@ -2160,7 +2159,7 @@
         closed: '매주 화요일',
         entry: '용인시민 현장선착순 / 외지인 인터넷예약',
         addr: '경기도 용인시 기흥구 하갈동 434-4 일원 (하갈2교 고가도로 하부)',
-        desc: '기흥호수공원의 수변 경관을 조망하며 라운딩을 즐길 수 있는 14홀 현대식 신규 코스입니다. (파3 7홀, 파4 5홀, 파5 2홀 구성). 매주 화요일 정기 휴장하며, 용인시민분들은 신분증 및 주민등록초본 지참 시 현장 선착순으로 무료 이용하실 수 있습니다.',
+        desc: '기흥호수공원의 수변 경관을 조망하며 라운딩을 즐길 수 있는 14홀 현대식 신규 코스입니다. (파3 7홀, 파4 5홀, 파5 2홀 구성). 매주 화요일 정기 휴장하며, 용인시민분들은 신분증 및 최근 3개월 이내 주민등록초본 등 공식 서류 지참 시 현장 선착순으로 이용하실 수 있습니다. (외지인은 온라인 사전예약)',
         naver: 'https://map.naver.com/v5/search/기흥호수공원파크골프장',
         kakao: 'https://map.kakao.com/link/search/기흥호수공원파크골프장'
       },
@@ -2484,17 +2483,17 @@
           if (crowdEl) crowdEl.innerText = data.crowd;
         } else {
           timeEl.className = 'text-gray-600 font-bold bg-gray-100 px-2 py-0.5 rounded border border-gray-200 text-[10.5px]';
-          timeEl.innerText = `⚪ 대기 현황 확인 필요`;
+          timeEl.innerText = `⚪ 오늘 현장 제보 없음`;
           if (grassEl) grassEl.innerText = '⚪ 제보 확인 필요';
-          if (crowdEl) crowdEl.innerText = '⚪ 현장 제보 필요';
+          if (crowdEl) crowdEl.innerText = '⚪ 제보 확인 필요';
         }
         if (grassEl) grassEl.className = 'font-bold px-2 py-0.5 rounded border ' + getStatusBadgeClass(grassEl.innerText);
         if (crowdEl) crowdEl.className = 'font-bold px-2 py-0.5 rounded border ' + getStatusBadgeClass(crowdEl.innerText);
       }
 
-      if (mTimeEl) mTimeEl.innerText = `${timeText} 제보`;
-      if (mGrassEl) mGrassEl.innerText = data.grass;
-      if (mCrowdEl) mCrowdEl.innerText = data.crowd;
+      if (mTimeEl) mTimeEl.innerText = elapsedMins < 60 ? `${timeText} 제보` : '⚪ 제보 없음';
+      if (mGrassEl) mGrassEl.innerText = elapsedMins < 60 ? data.grass : '⚪ 제보 확인 필요';
+      if (mCrowdEl) mCrowdEl.innerText = elapsedMins < 60 ? data.crowd : '⚪ 제보 확인 필요';
     }
 
     function getStatusBadgeClass(val) {
@@ -2999,12 +2998,12 @@
       const pin = document.getElementById('notice-input-pin')?.value.trim();
 
       if (!title || !content || !pin) {
-        alert('공지 제목, 본문 내용, 임원진 인증 암호를 모두 입력해 주세요!');
+        alert('공지 제목, 본문 내용, 인증 암호를 모두 입력해 주세요!');
         return;
       }
 
       if (pin !== '2945' && pin !== '7330' && pin !== (localStorage.getItem('parkgolf_admin_pin') || '2945')) {
-        alert('⚠️ 임원진 인증 암호가 일치하지 않습니다.\n공지사항 등록은 협회 임원/사무국만 가능합니다.');
+        alert('⚠️ 공지 등록 인증 암호가 일치하지 않습니다.\n지정된 관리자 암호를 입력하세요.');
         return;
       }
 
@@ -3026,7 +3025,7 @@
 
       renderSingleNoticePost(noticeObj, true);
       closeNoticeWriteModal();
-      showToast('📢 임원 인증을 통해 공지사항이 안전하게 등록되었습니다!', '🎉');
+      showToast('📢 공지사항이 안전하게 등록되었습니다!', '🎉');
     }
 
     function renderSingleNoticePost(notice, isNew = false) {
@@ -3071,7 +3070,7 @@
 
       // PWA Service Worker 및 1초 바탕화면 앱 설치 로직
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js?v=7').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=8').then(reg => {
           reg.update();
         }).catch(err => console.log('SW reg fail:', err));
       }
@@ -3291,7 +3290,7 @@
         sec2Title: '🎒 필수 소지품 챙기기',
         sec2Details: [
           '<strong>볼마커:</strong> 상대방 공 진로 방해 시 공 위치 표시용 볼마크 지참.',
-          '<strong>신분증:</strong> 용인 관내 주요 파크골프장 할인 및 시민 확인용 지참.'
+          '<strong>신분증/서류:</strong> 용인 관내 주요 파크골프장 시민 확인용 신분증 및 주민등록초본 지참.'
         ],
         tip: '시니어 맞춤 팁: 모자와 자외선 차단 선글라스를 착용하시면 눈 건강을 지키며 즐겁게 라운딩하실 수 있습니다.'
       },
@@ -3306,9 +3305,9 @@
         sec2Title: '⚪ 파크골프 공 사양 확인',
         sec2Details: [
           '<strong>공 직경:</strong> 6cm 공인 규격 공으로 안전하고 정밀하게 선택.',
-          '<strong>피스 선택:</strong> 직진성이 뛰어나고 타구감이 좋은 3피스 또는 4피스 파크골프 공 추천.'
+          '<strong>공 선택:</strong> 자신에게 맞는 클럽 및 공을 선택하며 처음에는 무리하게 고가의 장비를 구입하지 않아도 됩니다.'
         ],
-        tip: '시니어 맞춤 팁: 처음에는 구장에서 제공하는 체험용 클럽으로 연습해 보신 후 나에게 맞는 무게를 선택하세요!'
+        tip: '시니어 맞춤 팁: 처음에는 구장에서 제공하는 체험용 클럽이나 기본 공으로 연습해 보신 후 나에게 맞는 무게를 선택하세요!'
       },
       3: {
         title: '[3단계] 그립 & 어드레스 - 기초자세',
@@ -3386,19 +3385,19 @@
         tip: '시니어 맞춤 팁: 온화한 웃음과 매너는 용인 파크골프 동호인의 최고의 품격입니다.'
       },
       8: {
-        title: '[8단계] 첫 방문 신분증 챙기기 - 용인3대구장',
+        title: '[8단계] 첫 방문 신분증 챙기기 - 용인 주요 구장',
         sec1Title: '🆔 필수 신분증 및 서류 지참',
         sec1Details: [
           '<strong>신분증:</strong> 주민등록증 또는 운전면허증 필수 지참.',
-          '<strong>주민등록등본:</strong> 용인시민 할인 및 100% 현장 선착순 입장 확인용 최근 3개월 등본 지참.'
+          '<strong>주민등록초본:</strong> 용인시민 확인 및 현장/예약 입장 확인용 최근 3개월 이내 발급된 주민등록초본 등 공식 서류 지참.'
         ],
-        sec2Title: '🏟️ 용인 3대 구장 이용 안내',
+        sec2Title: '🏟️ 용인 주요 3개 구장 이용 안내',
         sec2Details: [
           '<strong>수지 아르피아:</strong> 죽전역 인근 접근성 최고 (9홀).',
           '<strong>포곡 유운리:</strong> 자연 경관 수려한 대표 구장 (9홀).',
           '<strong>기흥 호수공원:</strong> 넓은 탁 트인 호수 조망 코스 (14홀).'
         ],
-        tip: '시니어 맞춤 팁: 용인 관내 전 공공 파크골프장(수지·포곡·기흥)은 매주 화요일 정기 휴장입니다! 신분증과 주민등록등본을 꼭 지참하세요.'
+        tip: '시니어 맞춤 팁: 용인 관내 주요 파크골프장(수지·포곡·기흥)은 매주 화요일 정기 휴장입니다! 신분증과 주민등록초본을 꼭 지참하세요.'
       }
     };
 
