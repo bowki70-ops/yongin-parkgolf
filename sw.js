@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yongin-parkgolf-v11';
+const CACHE_NAME = 'yongin-parkgolf-v12';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
