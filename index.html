@@ -945,9 +945,9 @@
           <p class="text-xs text-slate-300 mt-1">용인 파크골프 동호인을 위한 용품점·수리점·레슨·식당 등 지역 제휴업체를 소개합니다.</p>
         </div>
       </div>
-      <a href="https://cafe.naver.com/yonginparkgolf" target="_blank" rel="noopener noreferrer" class="bg-amber-400 text-slate-950 font-black text-xs md:text-sm px-4 py-2.5 rounded-xl hover:bg-amber-300 transition whitespace-nowrap shadow active:scale-95">
-        ☕ 제휴/광고 카페 문의 ↗
-      </a>
+      <span class="bg-amber-400/90 text-slate-950 font-bold text-xs px-3.5 py-2 rounded-xl whitespace-nowrap shadow-xs">
+        📌 지역 제휴 업체 등록 준비 중
+      </span>
     </div>
 
     <!-- 4-3. 동호인 중고장터 & 라운딩 조인 매칭 -->
@@ -3057,7 +3057,7 @@
 
       // PWA Service Worker 및 1초 바탕화면 앱 설치 로직
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js?v=10').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=11').then(reg => {
           reg.update();
         }).catch(err => console.log('SW reg fail:', err));
       }
