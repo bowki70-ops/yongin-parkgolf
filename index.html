@@ -1790,11 +1790,11 @@
               <span>🏛️</span>
               <span>용인시 통합포털 ↗</span>
             </a>
-            <a id="modal-btn-naver" href="#" target="_blank" rel="noopener noreferrer" class="p-3 bg-white text-emerald-900 rounded-xl text-center border border-emerald-300 hover:bg-emerald-50 transition flex items-center justify-center gap-1">
+            <a id="modal-btn-naver" href="https://map.naver.com/v5/search/용인파크골프장" target="_blank" rel="noopener noreferrer" class="p-3 bg-white text-emerald-900 rounded-xl text-center border border-emerald-300 hover:bg-emerald-50 transition flex items-center justify-center gap-1">
               <span>🗺️</span>
               <span>네이버 지도 ↗</span>
             </a>
-            <a id="modal-btn-kakao" href="#" target="_blank" rel="noopener noreferrer" class="p-3 bg-amber-300 text-slate-950 rounded-xl text-center hover:bg-amber-400 transition flex items-center justify-center gap-1">
+            <a id="modal-btn-kakao" href="https://map.kakao.com/link/search/용인파크골프장" target="_blank" rel="noopener noreferrer" class="p-3 bg-amber-300 text-slate-950 rounded-xl text-center hover:bg-amber-400 transition flex items-center justify-center gap-1">
               <span>🟡</span>
               <span>카카오맵 ↗</span>
             </a>
@@ -2164,6 +2164,59 @@
       }
     }
 
+    // 📱 [시니어 UX] 스마트폰 뒤로가기(History API / popstate) 모달 닫기 연동 헬퍼
+    let currentActiveModalId = null;
+
+    function openModalWithHistory(modalId) {
+      const modalEl = document.getElementById(modalId);
+      if (!modalEl) return;
+
+      if (!currentActiveModalId) {
+        try {
+          history.pushState({ modalId: modalId }, '', window.location.href);
+        } catch(e){}
+      }
+      currentActiveModalId = modalId;
+      modalEl.classList.remove('hidden');
+    }
+
+    function closeModalWithHistory(modalId) {
+      const modalEl = document.getElementById(modalId);
+      if (modalEl) {
+        modalEl.classList.add('hidden');
+      }
+      if (currentActiveModalId === modalId) {
+        currentActiveModalId = null;
+        if (history.state && history.state.modalId) {
+          try {
+            history.back();
+          } catch(e){}
+        }
+      }
+    }
+
+    window.addEventListener('popstate', function (e) {
+      if (currentActiveModalId) {
+        const modalEl = document.getElementById(currentActiveModalId);
+        if (modalEl) {
+          modalEl.classList.add('hidden');
+          if (currentActiveModalId === 'videoPlayerModal') {
+            const iframeEl = document.getElementById('video-modal-iframe');
+            if (iframeEl) iframeEl.src = '';
+          }
+          if (currentActiveModalId === 'roadmapDetailModal') {
+            for (let i = 1; i <= 8; i++) {
+              const cardElem = document.getElementById('roadmap-step-card-' + i);
+              if (cardElem) {
+                cardElem.className = 'bg-emerald-800/90 p-3.5 rounded-xl border border-emerald-600/80 space-y-1.5 shadow-xs hover:border-amber-400 hover:scale-[1.02] cursor-pointer transition';
+              }
+            }
+          }
+        }
+        currentActiveModalId = null;
+      }
+    });
+
     function openCourseModal(key) {
       const data = courseDataMap[key];
       if (!data) return;
@@ -2177,14 +2230,14 @@
       document.getElementById('modal-course-addr').innerText = data.addr;
       document.getElementById('modal-course-desc').innerText = data.desc;
 
-      document.getElementById('modal-btn-naver').href = data.naver;
-      document.getElementById('modal-btn-kakao').href = data.kakao;
+      document.getElementById('modal-btn-naver').href = data.naver || 'https://map.naver.com/v5/search/용인파크골프장';
+      document.getElementById('modal-btn-kakao').href = data.kakao || 'https://map.kakao.com/link/search/용인파크골프장';
 
-      document.getElementById('courseDetailModal').classList.remove('hidden');
+      openModalWithHistory('courseDetailModal');
     }
 
     function closeCourseModal() {
-      document.getElementById('courseDetailModal').classList.add('hidden');
+      closeModalWithHistory('courseDetailModal');
     }
 
     // 계좌 및 주소 복사 토스트
@@ -2309,7 +2362,6 @@
 
     // 파크골프 공식 영상 내장 플레이어 팝업 제어
     function playLessonVideo(title, embedUrl, directUrl, desc) {
-      const modal = document.getElementById('videoPlayerModal');
       const titleEl = document.getElementById('video-modal-title');
       const iframeEl = document.getElementById('video-modal-iframe');
       const descEl = document.getElementById('video-modal-desc');
@@ -2319,14 +2371,13 @@
       if (iframeEl) iframeEl.src = embedUrl;
       if (descEl) descEl.innerText = desc;
       if (directBtn) directBtn.href = directUrl || embedUrl;
-      if (modal) modal.classList.remove('hidden');
+      openModalWithHistory('videoPlayerModal');
     }
 
     function closeVideoModal() {
-      const modal = document.getElementById('videoPlayerModal');
       const iframeEl = document.getElementById('video-modal-iframe');
       if (iframeEl) iframeEl.src = '';
-      if (modal) modal.classList.add('hidden');
+      closeModalWithHistory('videoPlayerModal');
     }
 
     function showToast(msg, icon = '✅') {
@@ -2348,14 +2399,14 @@
     let selectedCrowdVal = '🟢 여유 (대기없음)';
 
     function openReportModal() {
-      document.getElementById('reportModal').classList.remove('hidden');
+      openModalWithHistory('reportModal');
       selectCourse('suji');
       selectGrass('🟢 쾌적/양호');
       selectCrowd('🟢 여유 (대기없음)');
     }
 
     function closeReportModal() {
-      document.getElementById('reportModal').classList.add('hidden');
+      closeModalWithHistory('reportModal');
     }
 
     function selectCourse(key) {
@@ -2477,11 +2528,11 @@
       const form = document.getElementById('marketForm');
       if (form) form.reset();
       setMarketType(type);
-      document.getElementById('marketModal').classList.remove('hidden');
+      openModalWithHistory('marketModal');
     }
 
     function closeMarketModal() {
-      document.getElementById('marketModal').classList.add('hidden');
+      closeModalWithHistory('marketModal');
     }
 
     function setMarketType(type) {
@@ -2938,21 +2989,21 @@
       document.getElementById('notice-modal-date').innerText = noticeData.date || '2026.08.27';
       document.getElementById('notice-modal-content').innerText = noticeData.content;
 
-      document.getElementById('noticeDetailModal').classList.remove('hidden');
+      openModalWithHistory('noticeDetailModal');
     }
 
     function closeNoticeDetailModal() {
-      document.getElementById('noticeDetailModal').classList.add('hidden');
+      closeModalWithHistory('noticeDetailModal');
     }
 
     function openNoticeWriteModal() {
       const form = document.getElementById('noticeWriteForm');
       if (form) form.reset();
-      document.getElementById('noticeWriteModal').classList.remove('hidden');
+      openModalWithHistory('noticeWriteModal');
     }
 
     function closeNoticeWriteModal() {
-      document.getElementById('noticeWriteModal').classList.add('hidden');
+      closeModalWithHistory('noticeWriteModal');
     }
 
     function submitNoticePost(event) {
@@ -3036,7 +3087,7 @@
 
       // PWA Service Worker 및 1초 바탕화면 앱 설치 로직
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js?v=12').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=13').then(reg => {
           reg.update();
         }).catch(err => console.log('SW reg fail:', err));
       }
@@ -3435,13 +3486,11 @@
         }
       }
 
-      const modalElem = document.getElementById('roadmapDetailModal');
-      if (modalElem) modalElem.classList.remove('hidden');
+      openModalWithHistory('roadmapDetailModal');
     }
 
     function closeRoadmapDetailModal() {
-      const modalElem = document.getElementById('roadmapDetailModal');
-      if (modalElem) modalElem.classList.add('hidden');
+      closeModalWithHistory('roadmapDetailModal');
 
       for (let i = 1; i <= 8; i++) {
         const cardElem = document.getElementById('roadmap-step-card-' + i);
@@ -3510,11 +3559,11 @@
           `;
         }
       }
-      document.getElementById('pwaInstallModal').classList.remove('hidden');
+      openModalWithHistory('pwaInstallModal');
     }
 
     function closePwaInstallModal() {
-      document.getElementById('pwaInstallModal').classList.add('hidden');
+      closeModalWithHistory('pwaInstallModal');
     }
 
     function copyPortalLinkToClipboard() {
