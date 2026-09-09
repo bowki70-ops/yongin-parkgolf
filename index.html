@@ -3071,7 +3071,9 @@
 
       // PWA Service Worker 및 1초 바탕화면 앱 설치 로직
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW reg fail:', err));
+        navigator.serviceWorker.register('/sw.js?v=5').then(reg => {
+          reg.update();
+        }).catch(err => console.log('SW reg fail:', err));
       }
 
       // 🌟 실시간 요일별 휴장 현황 및 기상/미세먼지 자동 연동

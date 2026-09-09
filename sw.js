@@ -1,4 +1,4 @@
-const CACHE_NAME = 'yongin-parkgolf-v4';
+const CACHE_NAME = 'yongin-parkgolf-v5';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -15,8 +15,16 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// ⚡ Network-First 전략: 서버에서 무조건 최신 index.html을 먼저 가져오고, 오프라인일 때만 캐시 사용!
+// ⚡ 무조건 서버에서 최신 index.html 및 페이지를 실시간으로 직접 가져옴 (Network-Only for Navigation)
 self.addEventListener('fetch', (event) => {
+  if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+    event.respondWith(
+      fetch(event.request, { cache: 'no-store' })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   event.respondWith(
     fetch(event.request)
       .then((response) => {
