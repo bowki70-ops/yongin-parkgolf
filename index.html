@@ -2385,38 +2385,9 @@
       }
     }
 
-    // 🖥️ PC 바탕화면 바로가기 파일 즉시 다운로드 기능
+    // 🖥️ 바탕화면 바로가기 / 앱 설치 기능 (시니어 친화 PWA 설치)
     function downloadDesktopShortcut() {
-      if (deferredPwaPrompt) {
-        try {
-          deferredPwaPrompt.prompt();
-          deferredPwaPrompt.userChoice.then(({ outcome }) => {
-            if (outcome === 'accepted') {
-              showToast('📱 바탕화면에 용인 파크골프 포털 앱이 추가되었습니다!', '🎉');
-            } else {
-              makeUrlShortcutFileDownload();
-            }
-            deferredPwaPrompt = null;
-          }).catch(() => {
-            makeUrlShortcutFileDownload();
-          });
-          return;
-        } catch(e) {}
-      }
-      makeUrlShortcutFileDownload();
-    }
-
-    function makeUrlShortcutFileDownload() {
-      const shortcutContent = "[InternetShortcut]\r\nURL=https://yonginparkgolf.co.kr/\r\nIconIndex=0\r\n";
-      const blob = new Blob([shortcutContent], { type: "application/x-ms-shortcut" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "용인 파크골프 정보 포털.url";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(a.href);
-      showToast('🖥️ 바탕화면 바로가기 파일이 다운로드 되었습니다! (다운로드 폴더 확인)', '🎉');
+      triggerPwaInstall();
     }
 
     function shareToKakao() {
@@ -3721,6 +3692,7 @@
       const guideBox = document.getElementById('guideText');
       const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
       const isSamsung = /SamsungBrowser/i.test(navigator.userAgent);
+      const isDesktop = !/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
       if (guideBox) {
         if (isIOS) {
@@ -3737,6 +3709,15 @@
               <p><b>1.</b> 화면 오른쪽 아래 <b>[메뉴 ≡]</b> 터치</p>
               <p><b>2.</b> <b>[현재 페이지 추가]</b> 터치</p>
               <p><b>3.</b> <b>[홈 화면]</b>을 선택하면 끝!</p>
+            </div>
+          `;
+        } else if (isDesktop) {
+          guideBox.innerHTML = `
+            <div class="space-y-3 text-base md:text-lg font-bold leading-relaxed text-slate-900">
+              <p class="text-emerald-800 font-black text-base md:text-lg pb-1 border-b border-slate-200">🖥️ PC 바탕화면에 바로가기 만드는 법</p>
+              <p><b>1.</b> 인터넷 주소창 오른쪽 <b>[⊕ 앱 설치]</b> 클릭</p>
+              <p><b>2.</b> 또는 브라우저 오른쪽 위 <b>[점 3개 ⋮]</b> ➔ <b>[저장, 공유 ➔ 바로가기 만들기]</b> 클릭</p>
+              <p><b>3.</b> <b>[만들기]</b>를 누르시면 바탕화면에 바로 아이콘이 추가됩니다!</p>
             </div>
           `;
         } else {
