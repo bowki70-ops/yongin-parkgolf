@@ -393,7 +393,7 @@
 
     <!-- 4. 모바일 전용 하단 고정 플로팅 바 (fixed bottom-0) -->
     <div class="fixed bottom-0 left-0 right-0 z-50 p-2.5 bg-slate-900/95 backdrop-blur-md border-t-2 border-emerald-500 shadow-2xl flex gap-2">
-      <button onclick="openReportModal()" type="button" class="w-1/2 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-3.5 rounded-xl text-xs md:text-sm shadow-lg border border-amber-300 flex items-center justify-center gap-1.5 active:scale-95 transition cursor-pointer">
+      <button onclick="openCourseReportModal()" type="button" class="w-1/2 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-3.5 rounded-xl text-xs md:text-sm shadow-lg border border-amber-300 flex items-center justify-center gap-1.5 active:scale-95 transition cursor-pointer">
         <span class="text-base animate-pulse">📢</span>
         <span>구장 현황 제보</span>
       </button>
@@ -454,13 +454,13 @@
           <span class="pointer-events-none absolute right-2 text-[10px] text-slate-950 font-black">▼</span>
         </div>
 
-        <button onclick="shareToKakao()" type="button" title="카톡으로 동호인 소문내기" class="bg-yellow-400 text-slate-950 font-black px-2.5 py-2 sm:px-3.5 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-yellow-300 active:scale-95">
-          <span class="text-base">💬</span>
-          <span class="hidden sm:inline">카톡 소문내기</span>
+        <button onclick="copyPortalUrlForKakao()" type="button" title="주소 복사 (카톡 공유용)" class="bg-yellow-400 text-slate-950 font-black px-2.5 py-2 sm:px-3.5 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-yellow-300 active:scale-95">
+          <span class="text-base">📋</span>
+          <span>주소 복사(카톡보내기용)</span>
         </button>
-        <button onclick="triggerPwaInstall()" type="button" title="바탕화면 바로가기 만들기" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-2.5 py-2 sm:px-3.5 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-emerald-600 active:scale-95">
-          <span class="text-base">📱</span>
-          <span class="hidden sm:inline">바탕화면 바로가기 만들기</span>
+        <button onclick="downloadDesktopShortcut()" type="button" title="바탕화면 바로가기 만들기" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-2.5 py-2 sm:px-3.5 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-emerald-600 active:scale-95">
+          <span class="text-base">🖥️</span>
+          <span>바탕화면 바로가기 만들기</span>
         </button>
       </div>
     </div>
@@ -502,9 +502,13 @@
             <span class="text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
           </a>
           <div class="absolute left-0 top-full hidden group-hover:block group-focus-within:block bg-white text-gray-800 shadow-2xl rounded-b-xl rounded-r-xl border border-emerald-100 min-w-[210px] z-50 py-2 text-xs divide-y divide-gray-100 animate-fadeIn">
-            <button type="button" onclick="openReportModal()" class="w-full text-left px-4 py-2.5 hover:bg-amber-50 text-amber-900 font-bold transition flex items-center gap-1.5">
+            <button type="button" onclick="openCourseReportModal()" class="w-full text-left px-4 py-2.5 hover:bg-amber-50 text-amber-900 font-bold transition flex items-center gap-1.5">
               <span>📢</span>
-              <span>구장 현황 제보 등록</span>
+              <span>야외 구장 현황 제보</span>
+            </button>
+            <button type="button" onclick="openScreenReportModal()" class="w-full text-left px-4 py-2.5 hover:bg-teal-50 text-teal-900 font-bold transition flex items-center gap-1.5">
+              <span>🖥️</span>
+              <span>스크린연습장 현황 제보</span>
             </button>
             <a href="#course-section" class="block px-4 py-2.5 hover:bg-emerald-50 hover:text-emerald-900 font-bold transition">
               🟢 수지·포곡·기흥 대기현황
@@ -594,15 +598,15 @@
           용인 관내 파크골프장 현장 제보를 모아 보여드립니다. 직접 방문하신 동호인분들이 간단한 버튼을 눌러 잔디와 대기 현황을 전해주십니다. 📢 마지막 제보 시간을 확인해 주세요. (※ 현장 제보가 없는 경우 '제보 확인 필요'로 표시됩니다)
         </p>
         
-        <!-- 🌟 시니어 친화적 구장 현황 제보 & 바탕화면 바로가기 만들기 큰 버튼 -->
+        <!-- 🌟 시니어 친화적 구장 현황 제보 & 스크린연습장 현황 제보 큰 버튼 -->
         <div class="pt-2 flex flex-wrap gap-3 items-center">
-          <button onclick="openReportModal()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-5 py-3 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition flex items-center gap-2 text-xs md:text-sm active:scale-95 cursor-pointer">
+          <button onclick="openCourseReportModal()" type="button" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black px-5 py-3 rounded-xl shadow-lg border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 transition flex items-center gap-2 text-xs md:text-sm active:scale-95 cursor-pointer">
             <span class="text-base animate-pulse">📢</span>
             <span>구장 현황 제보 등록</span>
           </button>
-          <button onclick="triggerPwaInstall()" type="button" class="bg-emerald-800 text-amber-300 border-2 border-amber-400 hover:bg-emerald-700 font-black px-4 py-3 rounded-xl shadow-lg transition flex items-center gap-2 text-xs md:text-sm active:scale-95 cursor-pointer">
-            <span class="text-base">📱</span>
-            <span>바탕화면 바로가기 만들기</span>
+          <button onclick="openScreenReportModal()" type="button" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-5 py-3 rounded-xl shadow-lg border-2 border-emerald-600 hover:from-emerald-700 hover:to-teal-800 transition flex items-center gap-2 text-xs md:text-sm active:scale-95 cursor-pointer">
+            <span class="text-base">🖥️</span>
+            <span>스크린연습장 현황 제보</span>
           </button>
         </div>
       </div>
@@ -1557,7 +1561,7 @@
 
   <!-- 🌟 [버튼 2] 모바일 & 데스크톱 우측 하단 고정 제보 퀵버튼 (유지) -->
   <div class="fixed bottom-4 right-4 z-40 flex flex-col gap-2.5 items-end">
-    <button onclick="openReportModal()" class="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-xs md:text-sm px-4 py-3 rounded-full shadow-2xl border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 active:scale-95 transition">
+    <button onclick="openCourseReportModal()" class="flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-xs md:text-sm px-4 py-3 rounded-full shadow-2xl border-2 border-amber-300 hover:from-amber-300 hover:to-amber-400 active:scale-95 transition">
       <span class="text-base animate-pulse">📢</span>
       <span>구장 현황 제보</span>
     </button>
@@ -1612,8 +1616,8 @@
     </div>
   </div>
 
-  <!-- 🌟 시니어 맞춤형 실시간 구장 현황 제보 터치 모달 (Pop-up Modal) -->
-  <div id="reportModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+  <!-- 🌟 시니어 맞춤형 실시간 야외 구장 현황 제보 터치 모달 -->
+  <div id="courseReportModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all">
       
       <!-- 모달 헤더 -->
@@ -1621,11 +1625,11 @@
         <div class="flex items-center gap-2">
           <span class="text-2xl">📢</span>
           <div>
-            <h3 class="font-black text-base md:text-lg">실시간 구장 현황 제보</h3>
+            <h3 class="font-black text-base md:text-lg">실시간 야외 구장 현황 제보</h3>
             <p class="text-[11px] text-emerald-200">타이핑 없이 큰 버튼을 터치만 하시면 됩니다!</p>
           </div>
         </div>
-        <button onclick="closeReportModal()" class="text-slate-300 hover:text-white text-2xl font-bold p-1">✕</button>
+        <button onclick="closeCourseReportModal()" class="text-slate-300 hover:text-white text-2xl font-bold p-1">✕</button>
       </div>
 
       <!-- 모달 본문 (터치 전용 3단계 선택) -->
@@ -1642,13 +1646,13 @@
           <p class="text-[11px] text-slate-300 leading-snug">복잡한 로그인 없이 1초 만에 큰 버튼을 터치하여 현황을 알려주실 수 있습니다. (동일 스마트폰 30분 재제보 쿨다운 방어 가동 중)</p>
         </div>
 
-        <!-- 1단계: 구장 선택 -->
+        <!-- 1단계: 야외 구장 선택 -->
         <div>
           <label class="block font-black text-slate-900 text-sm mb-2 flex items-center gap-1">
             <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full">1단계</span>
-            <span>어느 구장에 계신가요?</span>
+            <span>어느 야외 구장에 계신가요?</span>
           </label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div class="grid grid-cols-3 gap-2">
             <button type="button" onclick="selectCourse('suji')" id="btn-course-suji" class="touch-option course-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
               ⛳ 수지 아르피아
             </button>
@@ -1657,9 +1661,6 @@
             </button>
             <button type="button" onclick="selectCourse('giheung')" id="btn-course-giheung" class="touch-option course-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
               ⛳ 기흥 호수공원
-            </button>
-            <button type="button" onclick="selectCourse('screen')" id="btn-course-screen" class="touch-option course-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
-              🎯 실내 스크린
             </button>
           </div>
         </div>
@@ -1718,12 +1719,99 @@
 
       <!-- 모달 푸터 버튼 -->
       <div class="p-4 bg-gray-50 border-t flex gap-2">
-        <button type="button" onclick="closeReportModal()" class="w-1/3 bg-gray-200 text-gray-800 font-bold py-3 rounded-xl text-xs md:text-sm hover:bg-gray-300 transition">
+        <button type="button" onclick="closeCourseReportModal()" class="w-1/3 bg-gray-200 text-gray-800 font-bold py-3 rounded-xl text-xs md:text-sm hover:bg-gray-300 transition">
           취소
         </button>
-        <button type="button" onclick="submitReport()" class="w-2/3 bg-emerald-700 text-white font-black py-3 rounded-xl text-xs md:text-sm hover:bg-emerald-600 transition shadow-md active:scale-95 flex items-center justify-center gap-1.5">
+        <button type="button" onclick="submitCourseReport()" class="w-2/3 bg-emerald-700 text-white font-black py-3 rounded-xl text-xs md:text-sm hover:bg-emerald-600 transition shadow-md active:scale-95 flex items-center justify-center gap-1.5">
           <span>✅</span>
-          <span>제보 등록하기</span>
+          <span>야외 구장 제보 등록</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🌟 시니어 맞춤형 실시간 스크린연습장 현황 제보 터치 모달 -->
+  <div id="screenReportModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all">
+      
+      <!-- 모달 헤더 -->
+      <div class="bg-emerald-950 text-white px-5 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🖥️</span>
+          <div>
+            <h3 class="font-black text-base md:text-lg">실시간 스크린연습장 현황 제보</h3>
+            <p class="text-[11px] text-emerald-200">실내 스크린연습장 대기 현황을 1초 만에 공유하세요!</p>
+          </div>
+        </div>
+        <button onclick="closeScreenReportModal()" class="text-slate-300 hover:text-white text-2xl font-bold p-1">✕</button>
+      </div>
+
+      <!-- 모달 본문 (터치 전용 선택) -->
+      <div class="p-5 space-y-5 text-sm max-h-[80vh] overflow-y-auto">
+
+        <!-- 🔓 비로그인 1초 즉시 제보 안내 바 -->
+        <div class="bg-slate-900 text-slate-200 p-3.5 rounded-xl border border-slate-800 space-y-1.5 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-amber-300 flex items-center gap-1 text-[11.5px]">
+              <span>🔓</span> <span>로그인 없는 1초 즉시 제보 (스크린 전용 UI)</span>
+            </span>
+            <span class="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded font-bold">⚡ 30분 쿨다운 방어 가동</span>
+          </div>
+          <p class="text-[11px] text-slate-300 leading-snug">복잡한 로그인 없이 1초 만에 큰 버튼을 터치하여 현황을 알려주실 수 있습니다. (동일 스마트폰 30분 재제보 쿨다운 방어 가동 중)</p>
+        </div>
+
+        <!-- 1단계: 스크린 구장 선택 -->
+        <div>
+          <label class="block font-black text-slate-900 text-sm mb-2 flex items-center gap-1">
+            <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full">1단계</span>
+            <span>제보할 스크린 연습장</span>
+          </label>
+          <div class="grid grid-cols-1 gap-2">
+            <button type="button" class="touch-option screen-course-btn p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/50 text-center font-bold text-xs md:text-sm text-emerald-900 shadow-2xs">
+              🎯 용인 실내 스크린파크골프장 (처인구 경안천로 76)
+            </button>
+          </div>
+        </div>
+
+        <!-- 2단계: 대기 시간 선택 (대기없음, 30분 대기, 1시간 대기, 1시간 이상 대기) -->
+        <div>
+          <label class="block font-black text-slate-900 text-sm mb-2 flex items-center gap-1">
+            <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full">2단계</span>
+            <span>현재 타석 대기시간은 얼마인가요?</span>
+          </label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button type="button" onclick="selectScreenWait('🟢 대기없음')" id="btn-screen-wait-none" class="touch-option screen-wait-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+              🟢<br>대기없음
+            </button>
+            <button type="button" onclick="selectScreenWait('🟡 30분 대기')" id="btn-screen-wait-30m" class="touch-option screen-wait-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-amber-500 transition active:scale-95">
+              🟡<br>30분 대기
+            </button>
+            <button type="button" onclick="selectScreenWait('🟠 1시간 대기')" id="btn-screen-wait-1h" class="touch-option screen-wait-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-orange-500 transition active:scale-95">
+              🟠<br>1시간 대기
+            </button>
+            <button type="button" onclick="selectScreenWait('🔴 1시간 이상 대기')" id="btn-screen-wait-over1h" class="touch-option screen-wait-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-500 transition active:scale-95">
+              🔴<br>1시간 이상 대기
+            </button>
+          </div>
+        </div>
+
+        <!-- 제보자 성함/클럽 (선택사항) -->
+        <div>
+          <label class="block font-bold text-gray-700 text-xs mb-1">제보자 (선택사항: 예. 포곡클럽 이OO)</label>
+          <input type="text" id="screen-reporter-name" placeholder="입력하지 않으셔도 '익명 동호인'으로 등록됩니다" class="w-full px-3.5 py-2.5 rounded-lg border border-gray-300 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+
+      </div>
+
+      <!-- 모달 푸터 버튼 -->
+      <div class="p-4 bg-gray-50 border-t flex gap-2">
+        <button type="button" onclick="closeScreenReportModal()" class="w-1/3 bg-gray-200 text-gray-800 font-bold py-3 rounded-xl text-xs md:text-sm hover:bg-gray-300 transition">
+          취소
+        </button>
+        <button type="button" onclick="submitScreenReport()" class="w-2/3 bg-emerald-800 text-white font-black py-3 rounded-xl text-xs md:text-sm hover:bg-emerald-700 transition shadow-md active:scale-95 flex items-center justify-center gap-1.5">
+          <span>✅</span>
+          <span>스크린 제보 등록하기</span>
         </button>
       </div>
 
@@ -2283,25 +2371,56 @@
       }
     }
 
-    // 💬 카카오톡 / SNS 1초 바이럴 소문내기 공유 기능
-    function shareToKakao() {
-      const shareTitle = '⛳ 용인 파크골프 정보 포털';
-      const shareText = '용인 수지·포곡·기흥 파크골프장 개장/휴장 현황, 실시간 날씨, 미세먼지 및 회원 장터 정보를 1초 만에 확인하세요!';
+    // 📋 주소 복사 (카톡보내기용) 기능
+    function copyPortalUrlForKakao() {
       const shareUrl = 'https://yonginparkgolf.co.kr';
-
-      if (navigator.share) {
-        navigator.share({
-          title: shareTitle,
-          text: shareText,
-          url: shareUrl
-        }).then(() => {
-          showToast('💬 카카오톡/문자로 성공적으로 공유되었습니다!', '🎉');
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast('📋 포털 주소가 복사되었습니다! 카카오톡 대화창에 붙여넣어 공유하세요!', '🎉');
         }).catch(() => {
           copyAddress(shareUrl, '용인 파크골프 포털 주소');
         });
       } else {
         copyAddress(shareUrl, '용인 파크골프 포털 주소');
       }
+    }
+
+    // 🖥️ PC 바탕화면 바로가기 파일 즉시 다운로드 기능
+    function downloadDesktopShortcut() {
+      if (deferredPwaPrompt) {
+        try {
+          deferredPwaPrompt.prompt();
+          deferredPwaPrompt.userChoice.then(({ outcome }) => {
+            if (outcome === 'accepted') {
+              showToast('📱 바탕화면에 용인 파크골프 포털 앱이 추가되었습니다!', '🎉');
+            } else {
+              makeUrlShortcutFileDownload();
+            }
+            deferredPwaPrompt = null;
+          }).catch(() => {
+            makeUrlShortcutFileDownload();
+          });
+          return;
+        } catch(e) {}
+      }
+      makeUrlShortcutFileDownload();
+    }
+
+    function makeUrlShortcutFileDownload() {
+      const shortcutContent = "[InternetShortcut]\r\nURL=https://yonginparkgolf.co.kr/\r\nIconIndex=0\r\n";
+      const blob = new Blob([shortcutContent], { type: "application/x-ms-shortcut" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "용인 파크골프 정보 포털.url";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      showToast('🖥️ 바탕화면 바로가기 파일이 다운로드 되었습니다! (다운로드 폴더 확인)', '🎉');
+    }
+
+    function shareToKakao() {
+      copyPortalUrlForKakao();
     }
 
     // 장터 및 라운딩 조인 카테고리 필터링
@@ -2399,20 +2518,29 @@
     let selectedCrowdVal = '🟢 여유 (대기없음)';
 
     function openReportModal() {
-      openModalWithHistory('reportModal');
+      openCourseReportModal();
+    }
+
+    function closeReportModal() {
+      closeCourseReportModal();
+    }
+
+    // ⛳ 야외 구장 제보 모달
+    function openCourseReportModal() {
+      openModalWithHistory('courseReportModal');
       selectCourse('suji');
       selectGrass('🟢 쾌적/양호');
       selectCrowd('🟢 여유 (대기없음)');
     }
 
-    function closeReportModal() {
-      closeModalWithHistory('reportModal');
+    function closeCourseReportModal() {
+      closeModalWithHistory('courseReportModal');
     }
 
     function selectCourse(key) {
       selectedCourseKey = key;
       document.querySelectorAll('.course-btn').forEach(btn => btn.classList.remove('selected'));
-      document.getElementById('btn-course-' + key).classList.add('selected');
+      document.getElementById('btn-course-' + key)?.classList.add('selected');
     }
 
     function selectGrass(val) {
@@ -2433,12 +2561,11 @@
       else if (val.includes('휴장')) document.getElementById('btn-crowd-closed')?.classList.add('selected');
     }
 
-    // 제보 등록 처리 (비로그인 1초 즉시 제보 + 기기별 30분 쿨다운 방어 로직)
-    function submitReport() {
+    function submitCourseReport() {
       const cooldownKey = 'parkgolf_report_cooldown_' + selectedCourseKey;
       const lastReportTime = parseInt(localStorage.getItem(cooldownKey) || '0', 10);
       const nowMs = Date.now();
-      const COOLDOWN_MS = 30 * 60 * 1000; // 30분 기기별 쿨다운
+      const COOLDOWN_MS = 30 * 60 * 1000;
 
       if (nowMs - lastReportTime < COOLDOWN_MS) {
         const remainingMin = Math.ceil((COOLDOWN_MS - (nowMs - lastReportTime)) / (60 * 1000));
@@ -2446,15 +2573,14 @@
         return;
       }
 
-      // 쿨다운 등록
       try {
         localStorage.setItem(cooldownKey, nowMs);
       } catch(e){}
 
       const now = new Date();
       const timeStr = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
-
-      const reporterLabel = currentAuthUser ? currentAuthUser.label : '🟢 실명 동호인 (비로그인 1초제보)';
+      const reporterInput = document.getElementById('reporter-name')?.value.trim();
+      const reporterLabel = reporterInput ? `🟢 ${reporterInput}` : (currentAuthUser ? currentAuthUser.label : '🟢 익명 동호인');
 
       const reportData = {
         timestamp: nowMs,
@@ -2464,14 +2590,76 @@
         reporter: reporterLabel
       };
 
-      // localStorage 저장 및 UI 실시간 업데이트
       try {
         localStorage.setItem('parkgolf_report_' + selectedCourseKey, JSON.stringify(reportData));
       } catch(e){}
       updateCourseUI(selectedCourseKey, reportData);
 
-      closeReportModal();
-      showToast(`📢 ${timeStr} 구장 현황이 즉시 반영되었습니다! (30분 쿨다운 방어 가동)`, '🎉');
+      closeCourseReportModal();
+      showToast(`📢 ${timeStr} 야외 구장 현황이 즉시 반영되었습니다!`, '🎉');
+    }
+
+    function submitReport() {
+      submitCourseReport();
+    }
+
+    // 🖥️ 스크린 연습장 제보 모달
+    let selectedScreenWaitVal = '🟢 대기없음';
+
+    function openScreenReportModal() {
+      openModalWithHistory('screenReportModal');
+      selectScreenWait('🟢 대기없음');
+    }
+
+    function closeScreenReportModal() {
+      closeModalWithHistory('screenReportModal');
+    }
+
+    function selectScreenWait(val) {
+      selectedScreenWaitVal = val;
+      document.querySelectorAll('.screen-wait-btn').forEach(btn => btn.classList.remove('selected'));
+      if (val.includes('대기없음')) document.getElementById('btn-screen-wait-none')?.classList.add('selected');
+      else if (val.includes('30분')) document.getElementById('btn-screen-wait-30m')?.classList.add('selected');
+      else if (val.includes('1시간 이상')) document.getElementById('btn-screen-wait-over1h')?.classList.add('selected');
+      else if (val.includes('1시간')) document.getElementById('btn-screen-wait-1h')?.classList.add('selected');
+    }
+
+    function submitScreenReport() {
+      const cooldownKey = 'parkgolf_report_cooldown_screen';
+      const lastReportTime = parseInt(localStorage.getItem(cooldownKey) || '0', 10);
+      const nowMs = Date.now();
+      const COOLDOWN_MS = 30 * 60 * 1000;
+
+      if (nowMs - lastReportTime < COOLDOWN_MS) {
+        const remainingMin = Math.ceil((COOLDOWN_MS - (nowMs - lastReportTime)) / (60 * 1000));
+        alert(`⏳ [기기별 30분 쿨다운 방어]\n\n스크린 연습장에 대한 회원님의 제보가 이미 반영되어 있습니다!\n약 ${remainingMin}분 후 재제보가 가능합니다.`);
+        return;
+      }
+
+      try {
+        localStorage.setItem(cooldownKey, nowMs);
+      } catch(e){}
+
+      const now = new Date();
+      const timeStr = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+      const reporterInput = document.getElementById('screen-reporter-name')?.value.trim();
+      const reporterLabel = reporterInput ? `🟢 ${reporterInput}` : (currentAuthUser ? currentAuthUser.label : '🟢 익명 동호인');
+
+      const reportData = {
+        timestamp: nowMs,
+        timeStr: timeStr,
+        grass: '🎯 스크린 타석',
+        crowd: selectedScreenWaitVal,
+        reporter: reporterLabel
+      };
+
+      try {
+        localStorage.setItem('parkgolf_report_screen', JSON.stringify(reportData));
+      } catch(e){}
+      updateCourseUI('screen', reportData);
+
+      closeScreenReportModal();
+      showToast(`📢 스크린연습장 대기 현황(${selectedScreenWaitVal})이 즉시 반영되었습니다!`, '🎉');
     }
 
     // 화면 UI 업데이트 함수 (30분/60분 경과 반영 Time-Decay)
@@ -2516,6 +2704,7 @@
     function getStatusBadgeClass(val) {
       if (val.includes('🟢')) return 'text-emerald-700 bg-emerald-50 border-emerald-200';
       if (val.includes('🟡')) return 'text-amber-700 bg-amber-50 border-amber-200';
+      if (val.includes('🟠')) return 'text-orange-700 bg-orange-50 border-orange-200';
       if (val.includes('🔴') || val.includes('🚫') || val.includes('휴장')) return 'text-red-700 bg-red-50 border-red-200 font-black';
       return 'text-gray-600 bg-gray-50 border-gray-200';
     }
@@ -3070,7 +3259,7 @@
 
     // 페이지 로드 시 기존 제보 및 장터 글 불러오기
     window.addEventListener('DOMContentLoaded', () => {
-      ['suji', 'pogok', 'giheung'].forEach(key => {
+      ['suji', 'pogok', 'giheung', 'screen'].forEach(key => {
         const saved = localStorage.getItem('parkgolf_report_' + key);
         if (saved) {
           try {
