@@ -454,74 +454,74 @@
   <!-- 💻 데스크톱 PC 전용 풀 포털 컨테이너 (hidden lg:block) -->
   <div id="pc-full-content-container" class="hidden lg:block">
 
-  <!-- 1. 최상단 공식 네트워크 & 실시간 기상/개장 상태 티커 -->
-  <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
-    <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-2">
-      <div class="flex items-center gap-2.5 flex-wrap">
-        <span class="bg-emerald-600 text-white font-bold px-2 py-0.5 rounded text-[10px] animate-pulse">LIVE</span>
-        <span>⛳ <strong id="header-status-summary">포곡·수지·기흥: 개장 현황 확인 중...</strong></span>
+  <!-- 1. 최상단 공식 네트워크 & 실시간 기상/개장 상태 티커 (모바일 스퀴즈 방지) -->
+  <div class="bg-slate-900 text-slate-300 text-[11px] sm:text-xs py-1.5 px-3 border-b border-slate-800">
+    <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-1.5">
+      <div class="flex items-center gap-2 flex-wrap min-w-0">
+        <span class="bg-emerald-600 text-white font-bold px-1.5 py-0.5 rounded text-[9px] animate-pulse shrink-0">LIVE</span>
+        <span class="truncate">⛳ <strong id="header-status-summary">포곡·수지·기흥: 개장 현황 확인 중...</strong></span>
         <span class="text-slate-700 hidden sm:inline">|</span>
-        <span class="bg-slate-800 text-amber-300 px-2.5 py-0.5 rounded-full border border-slate-700 flex items-center gap-1.5 font-semibold text-[11px]">
+        <span class="bg-slate-800 text-amber-300 px-2 py-0.5 rounded-full border border-slate-700 flex items-center gap-1 font-semibold text-[10px] sm:text-[11px] shrink-0">
           <span id="weather-temp">🌤️ 용인시 --°C</span>
           <span class="text-slate-600">•</span>
           <span>미세먼지 <strong id="weather-dust-val" class="text-emerald-400">🟢 좋음</strong></span>
         </span>
-        <span id="golf-launch-index" class="bg-amber-400 text-slate-950 text-[10.5px] font-black px-2.5 py-0.5 rounded-full shadow-xs flex items-center gap-1">
+        <span id="golf-launch-index" class="hidden sm:inline-flex bg-amber-400 text-slate-950 text-[10.5px] font-black px-2.5 py-0.5 rounded-full shadow-xs items-center gap-1 shrink-0">
           <span>⛳ 라운딩 출격지수:</span> <strong id="launch-index-val" class="text-emerald-950">💯 최상 (쾌적)</strong>
         </span>
       </div>
-      <div class="flex items-center gap-3 text-xs hidden sm:flex">
+      <div class="flex items-center gap-3 text-xs hidden md:flex shrink-0">
         <span class="text-amber-300 font-bold">🌐 용인 파크골프 동호인 정보 포털</span>
       </div>
     </div>
   </div>
 
-  <!-- 2. 메인 헤더 (용인 파크골프 정보 포털) -->
+  <!-- 2. 메인 헤더 (용인 파크골프 정보 포털 - 모바일 잘림 방지 콤팩트 레이아웃) -->
   <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center gap-2.5">
-        <div class="bg-emerald-800 text-white p-2 rounded-xl text-lg font-bold shadow-sm">⛳</div>
-        <div>
-          <h1 class="text-base md:text-2xl font-black text-slate-900 tracking-tight leading-tight flex items-center gap-2">
+    <div class="max-w-6xl mx-auto px-3 py-2 sm:py-3 flex flex-wrap sm:flex-nowrap justify-between items-center gap-2">
+      <div class="flex items-center gap-2 min-w-0 shrink">
+        <div class="bg-emerald-800 text-white p-1.5 sm:p-2 rounded-xl text-base sm:text-lg font-bold shadow-sm shrink-0">⛳</div>
+        <div class="min-w-0">
+          <h1 class="text-sm sm:text-base md:text-2xl font-black text-slate-900 tracking-tight leading-tight whitespace-nowrap">
             <span>용인 파크골프 정보 포털</span>
           </h1>
-          <p class="text-[10px] md:text-xs text-emerald-800 font-bold">용인 파크골프 동호인을 위한 정보 포털</p>
+          <p class="text-[9px] sm:text-[10px] md:text-xs text-emerald-800 font-bold truncate">용인 파크골프 동호인을 위한 정보 포털</p>
         </div>
       </div>
-      <div class="flex items-center gap-1 sm:gap-2 shrink-0">
+      <div class="flex items-center gap-1 sm:gap-2 shrink-0 flex-wrap">
         <!-- 🔍 시니어 돋보기 글자 크기 3단계 스마트폰 전용 네이티브 셀렉트 -->
         <div class="relative flex items-center shrink-0">
           <label for="font-scale-select" class="sr-only">글자 크기 조절</label>
-          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs md:text-sm border-2 border-amber-300 shadow-md cursor-pointer appearance-none pr-4 sm:pr-6 active:scale-95 focus:outline-none">
+          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] sm:text-xs md:text-sm border border-amber-300 shadow-xs cursor-pointer appearance-none pr-4 sm:pr-6 active:scale-95 focus:outline-none min-h-[32px]">
             <option value="100">글자크기 100%</option>
             <option value="130" selected>글자크기 130% ⭐</option>
             <option value="160">글자크기 160% 🔍</option>
           </select>
-          <span class="pointer-events-none absolute right-1 sm:right-2 text-[9px] sm:text-[10px] text-slate-950 font-black">▼</span>
+          <span class="pointer-events-none absolute right-1 sm:right-2 text-[8px] sm:text-[9px] text-slate-950 font-black">▼</span>
         </div>
 
-        <button onclick="copyPortalUrlForKakao()" type="button" title="주소 복사 (카톡 공유용)" class="bg-yellow-400 text-slate-950 font-black px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-yellow-300 active:scale-95 shrink-0">
-          <span class="text-xs sm:text-base">📋</span>
-          <span class="hidden md:inline">주소 복사(카톡보내기용)</span>
-          <span class="md:hidden text-[11px]">주소복사</span>
+        <button onclick="copyPortalUrlForKakao()" type="button" title="주소 복사 (카톡 공유용)" class="bg-yellow-400 text-slate-950 font-black px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] sm:text-xs md:text-sm hover:bg-yellow-300 transition shadow-xs flex items-center gap-1 cursor-pointer border border-yellow-300 active:scale-95 shrink-0 min-h-[32px]">
+          <span>📋</span>
+          <span class="hidden sm:inline">주소 복사(카톡보내기용)</span>
+          <span class="sm:hidden text-[10px]">주소복사</span>
         </button>
-        <button onclick="downloadDesktopShortcut()" type="button" title="바탕화면 바로가기 만들기" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-emerald-600 active:scale-95 shrink-0">
-          <span class="text-xs sm:text-base">📱</span>
-          <span class="hidden md:inline">바탕화면 바로가기 만들기</span>
-          <span class="md:hidden text-[11px]">바로가기</span>
+        <button onclick="downloadDesktopShortcut()" type="button" title="바탕화면 바로가기 만들기" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] sm:text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-xs flex items-center gap-1 cursor-pointer border border-emerald-600 active:scale-95 shrink-0 min-h-[32px]">
+          <span>📱</span>
+          <span class="hidden sm:inline">바탕화면 바로가기</span>
+          <span class="sm:hidden text-[10px]">바로가기</span>
         </button>
       </div>
     </div>
 
-    <!-- 드롭다운 네비게이션 (시니어 친화적 5대 직관 메뉴) -->
-    <nav class="bg-emerald-900 text-white border-t border-emerald-950 sticky top-0 z-40 shadow-md">
-      <div class="max-w-6xl mx-auto px-4 flex justify-between md:justify-start gap-1 md:gap-4 text-xs md:text-sm font-bold py-0 overflow-x-visible">
+    <!-- 드롭다운 네비게이션 (시니어 친화적 5대 직관 메뉴 - 모바일 줄바꿈 깨짐 원천 방지) -->
+    <nav class="bg-emerald-900 text-white border-t border-emerald-950 sticky top-0 z-40 shadow-md overflow-x-auto scrollbar-none">
+      <div class="max-w-6xl mx-auto px-2 sm:px-4 flex justify-between md:justify-start gap-1 sm:gap-2 md:gap-4 text-xs md:text-sm font-bold py-0 min-w-max md:min-w-0">
         
         <!-- 1. 구장 (⛳ 수지·포곡·기흥·실내) -->
-        <div class="relative group py-3 cursor-pointer px-2 hover:bg-emerald-800 transition rounded-t-lg">
-          <a href="#course-section" class="flex items-center gap-1 hover:text-amber-300">
+        <div class="relative group py-2.5 sm:py-3 cursor-pointer px-1.5 sm:px-2 hover:bg-emerald-800 transition rounded-t-lg shrink-0">
+          <a href="#course-section" class="flex items-center gap-0.5 sm:gap-1 hover:text-amber-300 whitespace-nowrap">
             <span>⛳ 구장</span>
-            <span class="text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
+            <span class="text-[9px] sm:text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
           </a>
           <div class="absolute left-0 top-full hidden group-hover:block group-focus-within:block bg-white text-gray-800 shadow-2xl rounded-b-xl rounded-r-xl border border-emerald-100 min-w-[220px] z-50 py-2 text-xs divide-y divide-gray-100 animate-fadeIn">
             <button type="button" onclick="openCourseModal('suji')" class="w-full text-left px-4 py-2.5 hover:bg-emerald-50 hover:text-emerald-900 font-bold transition flex items-center justify-between">
@@ -544,10 +544,10 @@
         </div>
 
         <!-- 2. 오늘 현황 (🟢 대기·운영·날씨) -->
-        <div class="relative group py-3 cursor-pointer px-2 hover:bg-emerald-800 transition rounded-t-lg">
-          <a href="#course-section" class="flex items-center gap-1 hover:text-amber-300">
+        <div class="relative group py-2.5 sm:py-3 cursor-pointer px-1.5 sm:px-2 hover:bg-emerald-800 transition rounded-t-lg shrink-0">
+          <a href="#course-section" class="flex items-center gap-0.5 sm:gap-1 hover:text-amber-300 whitespace-nowrap">
             <span>🟢 오늘 현황</span>
-            <span class="text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
+            <span class="text-[9px] sm:text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
           </a>
           <div class="absolute left-0 top-full hidden group-hover:block group-focus-within:block bg-white text-gray-800 shadow-2xl rounded-b-xl rounded-r-xl border border-emerald-100 min-w-[210px] z-50 py-2 text-xs divide-y divide-gray-100 animate-fadeIn">
             <button type="button" onclick="openCourseReportModal()" class="w-full text-left px-4 py-2.5 hover:bg-amber-50 text-amber-900 font-bold transition flex items-center gap-1.5">
@@ -565,10 +565,10 @@
         </div>
 
         <!-- 3. 함께하기 (🤝 조인·동호회·장터) -->
-        <div class="relative group py-3 cursor-pointer px-2 hover:bg-emerald-800 transition rounded-t-lg">
-          <a href="#market-section" class="flex items-center gap-1 hover:text-amber-300">
+        <div class="relative group py-2.5 sm:py-3 cursor-pointer px-1.5 sm:px-2 hover:bg-emerald-800 transition rounded-t-lg shrink-0">
+          <a href="#market-section" class="flex items-center gap-0.5 sm:gap-1 hover:text-amber-300 whitespace-nowrap">
             <span>🤝 함께하기</span>
-            <span class="text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
+            <span class="text-[9px] sm:text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
           </a>
           <div class="absolute left-0 top-full hidden group-hover:block group-focus-within:block bg-white text-gray-800 shadow-2xl rounded-b-xl rounded-r-xl border border-emerald-100 min-w-[210px] z-50 py-2 text-xs divide-y divide-gray-100 animate-fadeIn">
             <button type="button" onclick="openMarketModal('join')" class="w-full text-left px-4 py-2.5 hover:bg-emerald-50 text-emerald-900 font-bold transition flex items-center justify-between">
@@ -583,10 +583,10 @@
         </div>
 
         <!-- 4. 배우기 (📚 초보·규칙·영상) -->
-        <div class="relative group py-3 cursor-pointer px-2 hover:bg-emerald-800 transition rounded-t-lg">
-          <a href="#academy-section" class="flex items-center gap-1 text-amber-200 hover:text-amber-300">
+        <div class="relative group py-2.5 sm:py-3 cursor-pointer px-1.5 sm:px-2 hover:bg-emerald-800 transition rounded-t-lg shrink-0">
+          <a href="#academy-section" class="flex items-center gap-0.5 sm:gap-1 text-amber-200 hover:text-amber-300 whitespace-nowrap">
             <span>📚 배우기</span>
-            <span class="text-[10px] text-amber-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
+            <span class="text-[9px] sm:text-[10px] text-amber-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
           </a>
           <div class="absolute left-0 top-full hidden group-hover:block group-focus-within:block bg-white text-gray-800 shadow-2xl rounded-b-xl rounded-r-xl border border-emerald-100 min-w-[220px] z-50 py-2 text-xs divide-y divide-gray-100 animate-fadeIn">
             <a href="#academy-section" class="block px-4 py-2.5 hover:bg-emerald-50 text-emerald-900 font-bold transition flex items-center justify-between">
@@ -601,10 +601,10 @@
         </div>
 
         <!-- 5. 소식 (📢 공지·대회·예약) -->
-        <div class="relative group py-3 cursor-pointer px-2 hover:bg-emerald-800 transition rounded-t-lg">
-          <a href="#info-section" class="flex items-center gap-1 hover:text-amber-300">
+        <div class="relative group py-2.5 sm:py-3 cursor-pointer px-1.5 sm:px-2 hover:bg-emerald-800 transition rounded-t-lg shrink-0">
+          <a href="#info-section" class="flex items-center gap-0.5 sm:gap-1 hover:text-amber-300 whitespace-nowrap">
             <span>📢 소식</span>
-            <span class="text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
+            <span class="text-[9px] sm:text-[10px] text-emerald-300 group-hover:rotate-180 transition-transform duration-200">▼</span>
           </a>
           <div class="absolute right-0 sm:left-0 top-full hidden group-hover:block group-focus-within:block bg-white text-gray-800 shadow-2xl rounded-b-xl rounded-l-xl sm:rounded-l-none sm:rounded-r-xl border border-emerald-100 min-w-[210px] z-50 py-2 text-xs divide-y divide-gray-100 animate-fadeIn">
             <a href="#notice-section" class="block px-4 py-2.5 hover:bg-emerald-50 hover:text-emerald-900 font-bold transition">
@@ -638,7 +638,7 @@
             ⛳ 용인 파크골프 정보 포털
           </span>
         </div>
-        <h2 class="text-2xl md:text-4xl font-black leading-tight tracking-tight">
+        <h2 class="text-lg sm:text-2xl md:text-4xl font-black leading-snug sm:leading-tight tracking-tight">
           푸른 잔디 위에서 펼쳐지는 건강과 화합,<br class="hidden md:inline">
           <span class="text-amber-300">용인 파크골프 정보 포털</span>
         </h2>
