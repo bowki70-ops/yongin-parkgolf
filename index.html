@@ -392,7 +392,7 @@
     </main>
 
     <!-- 4. 모바일 전용 하단 고정 플로팅 바 (fixed bottom-0) -->
-    <div class="fixed bottom-0 left-0 right-0 z-50 p-2.5 bg-slate-900/95 backdrop-blur-md border-t-2 border-emerald-500 shadow-2xl flex gap-2">
+    <div class="fixed bottom-0 left-0 right-0 z-50 p-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))] bg-slate-900/95 backdrop-blur-md border-t-2 border-emerald-500 shadow-2xl flex gap-2">
       <button onclick="openCourseReportModal()" type="button" class="w-1/2 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black py-3.5 rounded-xl text-xs md:text-sm shadow-lg border border-amber-300 flex items-center justify-center gap-1.5 active:scale-95 transition cursor-pointer">
         <span class="text-base animate-pulse">📢</span>
         <span>구장 현황 제보</span>
@@ -442,25 +442,27 @@
           <p class="text-[10px] md:text-xs text-emerald-800 font-bold">용인 파크골프 동호인을 위한 정보 포털</p>
         </div>
       </div>
-      <div class="flex items-center gap-1.5 sm:gap-2">
-        <!-- 🔍 시니어 돋보기 글자 크기 3단계 스마트폰 전용 네이티브 셀렉트 (100% 즉시 자동 닫힘) -->
-        <div class="relative flex items-center">
+      <div class="flex items-center gap-1 sm:gap-2 shrink-0">
+        <!-- 🔍 시니어 돋보기 글자 크기 3단계 스마트폰 전용 네이티브 셀렉트 -->
+        <div class="relative flex items-center shrink-0">
           <label for="font-scale-select" class="sr-only">글자 크기 조절</label>
-          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-2.5 py-2 sm:px-3 rounded-xl text-xs md:text-sm border-2 border-amber-300 shadow-md cursor-pointer appearance-none pr-6 active:scale-95 focus:outline-none">
-            <option value="100">🔍 글자크기 100% (기본)</option>
-            <option value="130" selected>🔍 글자크기 130% (크게) ⭐</option>
-            <option value="160">🔍 글자크기 160% (최대) 🔍</option>
+          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs md:text-sm border-2 border-amber-300 shadow-md cursor-pointer appearance-none pr-4 sm:pr-6 active:scale-95 focus:outline-none">
+            <option value="100">100%</option>
+            <option value="130" selected>130% ⭐</option>
+            <option value="160">160% 🔍</option>
           </select>
-          <span class="pointer-events-none absolute right-2 text-[10px] text-slate-950 font-black">▼</span>
+          <span class="pointer-events-none absolute right-1 sm:right-2 text-[9px] sm:text-[10px] text-slate-950 font-black">▼</span>
         </div>
 
-        <button onclick="copyPortalUrlForKakao()" type="button" title="주소 복사 (카톡 공유용)" class="bg-yellow-400 text-slate-950 font-black px-2.5 py-2 sm:px-3.5 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-yellow-300 active:scale-95">
-          <span class="text-base">📋</span>
-          <span>주소 복사(카톡보내기용)</span>
+        <button onclick="copyPortalUrlForKakao()" type="button" title="주소 복사 (카톡 공유용)" class="bg-yellow-400 text-slate-950 font-black px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl text-xs md:text-sm hover:bg-yellow-300 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-yellow-300 active:scale-95 shrink-0">
+          <span class="text-xs sm:text-base">📋</span>
+          <span class="hidden md:inline">주소 복사(카톡보내기용)</span>
+          <span class="md:hidden text-[11px]">주소복사</span>
         </button>
-        <button onclick="downloadDesktopShortcut()" type="button" title="바탕화면 바로가기 만들기" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-2.5 py-2 sm:px-3.5 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-emerald-600 active:scale-95">
-          <span class="text-base">🖥️</span>
-          <span>바탕화면 바로가기 만들기</span>
+        <button onclick="downloadDesktopShortcut()" type="button" title="바탕화면 바로가기 만들기" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-md flex items-center gap-1 cursor-pointer border-2 border-emerald-600 active:scale-95 shrink-0">
+          <span class="text-xs sm:text-base">📱</span>
+          <span class="hidden md:inline">바탕화면 바로가기 만들기</span>
+          <span class="md:hidden text-[11px]">바로가기</span>
         </button>
       </div>
     </div>
@@ -1641,33 +1643,33 @@
   </div>
 
   <!-- 🌟 시니어 맞춤형 실시간 야외 구장 현황 제보 터치 모달 -->
-  <div id="courseReportModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all">
+  <div id="courseReportModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 overflow-y-auto hidden">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all my-auto max-h-[90vh] flex flex-col">
       
       <!-- 모달 헤더 -->
-      <div class="bg-emerald-900 text-white px-5 py-4 flex justify-between items-center">
+      <div class="bg-emerald-900 text-white px-4 sm:px-5 py-3.5 flex justify-between items-center shrink-0">
         <div class="flex items-center gap-2">
-          <span class="text-2xl">📢</span>
+          <span class="text-xl sm:text-2xl">📢</span>
           <div>
-            <h3 class="font-black text-base md:text-lg">실시간 야외 구장 현황 제보</h3>
-            <p class="text-[11px] text-emerald-200">타이핑 없이 큰 버튼을 터치만 하시면 됩니다!</p>
+            <h3 class="font-black text-base sm:text-lg">실시간 야외 구장 현황 제보</h3>
+            <p class="text-[10.5px] sm:text-[11px] text-emerald-200">타이핑 없이 큰 버튼을 터치만 하시면 됩니다!</p>
           </div>
         </div>
         <button onclick="closeCourseReportModal()" class="text-slate-300 hover:text-white text-2xl font-bold p-1">✕</button>
       </div>
 
       <!-- 모달 본문 (터치 전용 3단계 선택) -->
-      <div class="p-5 space-y-5 text-sm max-h-[80vh] overflow-y-auto">
+      <div class="p-4 sm:p-5 space-y-4 sm:space-y-5 text-sm overflow-y-auto flex-1">
 
         <!-- 🔓 비로그인 1초 즉시 제보 안내 바 (기기별 30분 쿨다운 방어) -->
-        <div class="bg-slate-900 text-slate-200 p-3.5 rounded-xl border border-slate-800 space-y-1.5 text-xs">
+        <div class="bg-slate-900 text-slate-200 p-3 rounded-xl border border-slate-800 space-y-1 text-xs">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-amber-300 flex items-center gap-1 text-[11.5px]">
-              <span>🔓</span> <span>로그인 없는 1초 즉시 제보 (시니어 3초 UI)</span>
+            <span class="font-bold text-amber-300 flex items-center gap-1 text-[11px] sm:text-[11.5px]">
+              <span>🔓</span> <span>로그인 없는 1초 즉시 제보</span>
             </span>
             <span class="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded font-bold">⚡ 30분 쿨다운 방어 가동</span>
           </div>
-          <p class="text-[11px] text-slate-300 leading-snug">복잡한 로그인 없이 1초 만에 큰 버튼을 터치하여 현황을 알려주실 수 있습니다. (동일 스마트폰 30분 재제보 쿨다운 방어 가동 중)</p>
+          <p class="text-[10.5px] sm:text-[11px] text-slate-300 leading-snug">복잡한 로그인 없이 1초 만에 큰 버튼을 터치하여 현황을 알려주실 수 있습니다. (동일 스마트폰 30분 재제보 쿨다운 방어 가동 중)</p>
         </div>
 
         <!-- 1단계: 야외 구장 선택 -->
@@ -1676,14 +1678,14 @@
             <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full">1단계</span>
             <span>어느 야외 구장에 계신가요?</span>
           </label>
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="selectCourse('suji')" id="btn-course-suji" class="touch-option course-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <button type="button" onclick="selectCourse('suji')" id="btn-course-suji" class="touch-option course-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-emerald-500 transition active:scale-95">
               ⛳ 수지 아르피아
             </button>
-            <button type="button" onclick="selectCourse('pogok')" id="btn-course-pogok" class="touch-option course-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+            <button type="button" onclick="selectCourse('pogok')" id="btn-course-pogok" class="touch-option course-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-emerald-500 transition active:scale-95">
               ⛳ 포곡 유운리
             </button>
-            <button type="button" onclick="selectCourse('giheung')" id="btn-course-giheung" class="touch-option course-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+            <button type="button" onclick="selectCourse('giheung')" id="btn-course-giheung" class="touch-option course-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-emerald-500 transition active:scale-95">
               ⛳ 기흥 호수공원
             </button>
           </div>
@@ -1696,16 +1698,16 @@
             <span>지금 잔디/날씨/운영 상태는 어떤가요?</span>
           </label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button type="button" onclick="selectGrass('🟢 쾌적/양호')" id="btn-grass-good" class="touch-option grass-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+            <button type="button" onclick="selectGrass('🟢 쾌적/양호')" id="btn-grass-good" class="touch-option grass-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-emerald-500 transition active:scale-95">
               🟢<br>좋음 / 양호
             </button>
-            <button type="button" onclick="selectGrass('🟡 젖음/주의')" id="btn-grass-warn" class="touch-option grass-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-amber-500 transition active:scale-95">
+            <button type="button" onclick="selectGrass('🟡 젖음/주의')" id="btn-grass-warn" class="touch-option grass-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-amber-500 transition active:scale-95">
               🟡<br>약간 젖음
             </button>
-            <button type="button" onclick="selectGrass('🔴 우천/진흙')" id="btn-grass-bad" class="touch-option grass-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-500 transition active:scale-95">
+            <button type="button" onclick="selectGrass('🔴 우천/진흙')" id="btn-grass-bad" class="touch-option grass-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-red-500 transition active:scale-95">
               🔴<br>우천/진흙
             </button>
-            <button type="button" onclick="selectGrass('🚫 정기/임시 휴장')" id="btn-grass-closed" class="touch-option grass-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-600 transition active:scale-95">
+            <button type="button" onclick="selectGrass('🚫 정기/임시 휴장')" id="btn-grass-closed" class="touch-option grass-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-red-600 transition active:scale-95">
               🚫<br>정기/임시 휴장
             </button>
           </div>
@@ -1718,16 +1720,16 @@
             <span>대기 팀(혼잡도 및 운영)은 얼마나 되나요?</span>
           </label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button type="button" onclick="selectCrowd('🟢 여유 (대기없음)')" id="btn-crowd-good" class="touch-option crowd-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+            <button type="button" onclick="selectCrowd('🟢 여유 (대기없음)')" id="btn-crowd-good" class="touch-option crowd-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-emerald-500 transition active:scale-95">
               🟢<br>대기 없음
             </button>
-            <button type="button" onclick="selectCrowd('🟡 보통 (1~2조 대기)')" id="btn-crowd-warn" class="touch-option crowd-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-amber-500 transition active:scale-95">
+            <button type="button" onclick="selectCrowd('🟡 보통 (1~2조 대기)')" id="btn-crowd-warn" class="touch-option crowd-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-amber-500 transition active:scale-95">
               🟡<br>1~2조 대기
             </button>
-            <button type="button" onclick="selectCrowd('🔴 혼잡 (3조이상 대기)')" id="btn-crowd-bad" class="touch-option crowd-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-500 transition active:scale-95">
+            <button type="button" onclick="selectCrowd('🔴 혼잡 (3조이상 대기)')" id="btn-crowd-bad" class="touch-option crowd-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-red-500 transition active:scale-95">
               🔴<br>3조이상 대기
             </button>
-            <button type="button" onclick="selectCrowd('🚫 오늘 휴장중')" id="btn-crowd-closed" class="touch-option crowd-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-600 transition active:scale-95">
+            <button type="button" onclick="selectCrowd('🚫 오늘 휴장중')" id="btn-crowd-closed" class="touch-option crowd-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-red-600 transition active:scale-95">
               🚫<br>오늘 휴장중
             </button>
           </div>
@@ -1742,7 +1744,7 @@
       </div>
 
       <!-- 모달 푸터 버튼 -->
-      <div class="p-4 bg-gray-50 border-t flex gap-2">
+      <div class="p-3.5 sm:p-4 bg-gray-50 border-t flex gap-2 shrink-0">
         <button type="button" onclick="closeCourseReportModal()" class="w-1/3 bg-gray-200 text-gray-800 font-bold py-3 rounded-xl text-xs md:text-sm hover:bg-gray-300 transition">
           취소
         </button>
@@ -1756,33 +1758,34 @@
   </div>
 
   <!-- 🌟 시니어 맞춤형 실시간 스크린연습장 현황 제보 터치 모달 -->
-  <div id="screenReportModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all">
+  <!-- 🌟 시니어 맞춤형 실시간 스크린연습장 현황 제보 터치 모달 -->
+  <div id="screenReportModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 overflow-y-auto hidden">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-gray-200 overflow-hidden transform transition-all my-auto max-h-[90vh] flex flex-col">
       
       <!-- 모달 헤더 -->
-      <div class="bg-emerald-950 text-white px-5 py-4 flex justify-between items-center">
+      <div class="bg-emerald-950 text-white px-4 sm:px-5 py-3.5 flex justify-between items-center shrink-0">
         <div class="flex items-center gap-2">
-          <span class="text-2xl">🖥️</span>
+          <span class="text-xl sm:text-2xl">🖥️</span>
           <div>
-            <h3 class="font-black text-base md:text-lg">실시간 스크린연습장 현황 제보</h3>
-            <p class="text-[11px] text-emerald-200">실내 스크린연습장 대기 현황을 1초 만에 공유하세요!</p>
+            <h3 class="font-black text-base sm:text-lg">실시간 스크린연습장 현황 제보</h3>
+            <p class="text-[10.5px] sm:text-[11px] text-emerald-200">실내 스크린연습장 대기 현황을 1초 만에 공유하세요!</p>
           </div>
         </div>
         <button onclick="closeScreenReportModal()" class="text-slate-300 hover:text-white text-2xl font-bold p-1">✕</button>
       </div>
 
       <!-- 모달 본문 (터치 전용 선택) -->
-      <div class="p-5 space-y-5 text-sm max-h-[80vh] overflow-y-auto">
+      <div class="p-4 sm:p-5 space-y-4 sm:space-y-5 text-sm overflow-y-auto flex-1">
 
         <!-- 🔓 비로그인 1초 즉시 제보 안내 바 -->
-        <div class="bg-slate-900 text-slate-200 p-3.5 rounded-xl border border-slate-800 space-y-1.5 text-xs">
+        <div class="bg-slate-900 text-slate-200 p-3 rounded-xl border border-slate-800 space-y-1 text-xs">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-amber-300 flex items-center gap-1 text-[11.5px]">
-              <span>🔓</span> <span>로그인 없는 1초 즉시 제보 (스크린 전용 UI)</span>
+            <span class="font-bold text-amber-300 flex items-center gap-1 text-[11px] sm:text-[11.5px]">
+              <span>🔓</span> <span>로그인 없는 1초 즉시 제보</span>
             </span>
             <span class="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded font-bold">⚡ 30분 쿨다운 방어 가동</span>
           </div>
-          <p class="text-[11px] text-slate-300 leading-snug">복잡한 로그인 없이 1초 만에 큰 버튼을 터치하여 현황을 알려주실 수 있습니다. (동일 스마트폰 30분 재제보 쿨다운 방어 가동 중)</p>
+          <p class="text-[10.5px] sm:text-[11px] text-slate-300 leading-snug">복잡한 로그인 없이 1초 만에 큰 버튼을 터치하여 현황을 알려주실 수 있습니다. (동일 스마트폰 30분 재제보 쿨다운 방어 가동 중)</p>
         </div>
 
         <!-- 1단계: 스크린 구장 선택 -->
@@ -1792,7 +1795,7 @@
             <span>제보할 스크린 연습장</span>
           </label>
           <div class="grid grid-cols-1 gap-2">
-            <button type="button" class="touch-option screen-course-btn p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/50 text-center font-bold text-xs md:text-sm text-emerald-900 shadow-2xs">
+            <button type="button" class="touch-option screen-course-btn p-2.5 sm:p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/50 text-center font-bold text-xs sm:text-sm text-emerald-900 shadow-2xs">
               🎯 용인 실내 스크린파크골프장 (처인구 경안천로 76)
             </button>
           </div>
@@ -1805,16 +1808,16 @@
             <span>현재 타석 대기시간은 얼마인가요?</span>
           </label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button type="button" onclick="selectScreenWait('🟢 대기없음')" id="btn-screen-wait-none" class="touch-option screen-wait-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-emerald-500 transition active:scale-95">
+            <button type="button" onclick="selectScreenWait('🟢 대기없음')" id="btn-screen-wait-none" class="touch-option screen-wait-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-emerald-500 transition active:scale-95">
               🟢<br>대기없음
             </button>
-            <button type="button" onclick="selectScreenWait('🟡 30분 대기')" id="btn-screen-wait-30m" class="touch-option screen-wait-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-amber-500 transition active:scale-95">
+            <button type="button" onclick="selectScreenWait('🟡 30분 대기')" id="btn-screen-wait-30m" class="touch-option screen-wait-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-amber-500 transition active:scale-95">
               🟡<br>30분 대기
             </button>
-            <button type="button" onclick="selectScreenWait('🟠 1시간 대기')" id="btn-screen-wait-1h" class="touch-option screen-wait-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-orange-500 transition active:scale-95">
+            <button type="button" onclick="selectScreenWait('🟠 1시간 대기')" id="btn-screen-wait-1h" class="touch-option screen-wait-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-orange-500 transition active:scale-95">
               🟠<br>1시간 대기
             </button>
-            <button type="button" onclick="selectScreenWait('🔴 1시간 이상 대기')" id="btn-screen-wait-over1h" class="touch-option screen-wait-btn p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs md:text-sm hover:border-red-500 transition active:scale-95">
+            <button type="button" onclick="selectScreenWait('🔴 1시간 이상 대기')" id="btn-screen-wait-over1h" class="touch-option screen-wait-btn p-2.5 sm:p-3 rounded-xl border-2 border-gray-200 text-center font-bold text-xs sm:text-sm hover:border-red-500 transition active:scale-95">
               🔴<br>1시간 이상 대기
             </button>
           </div>
@@ -1829,7 +1832,7 @@
       </div>
 
       <!-- 모달 푸터 버튼 -->
-      <div class="p-4 bg-gray-50 border-t flex gap-2">
+      <div class="p-3.5 sm:p-4 bg-gray-50 border-t flex gap-2 shrink-0">
         <button type="button" onclick="closeScreenReportModal()" class="w-1/3 bg-gray-200 text-gray-800 font-bold py-3 rounded-xl text-xs md:text-sm hover:bg-gray-300 transition">
           취소
         </button>
