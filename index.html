@@ -211,9 +211,9 @@
         <div class="relative flex items-center shrink-0">
           <label for="m-font-scale-select" class="sr-only">모바일 글자 크기 조절</label>
           <select id="m-font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1.5 py-1 rounded-lg text-[11px] border border-amber-300 shadow-xs cursor-pointer appearance-none pr-4 active:scale-95 focus:outline-none min-h-[34px]">
-            <option value="100">100%</option>
-            <option value="130" selected>130% ⭐</option>
-            <option value="160">160% 🔍</option>
+            <option value="100">글자크기 100%</option>
+            <option value="130" selected>글자크기 130% ⭐</option>
+            <option value="160">글자크기 160% 🔍</option>
           </select>
           <span class="pointer-events-none absolute right-1 text-[8px] text-slate-950 font-black">▼</span>
         </div>
@@ -224,7 +224,7 @@
       </div>
     </header>
 
-    <!-- 2. 모바일 실시간 기상/미세먼지 요약 배너 (슬림형) -->
+    <!-- 2. 모바일 실시간 기상/미세먼지 요약 배너 (클릭 버튼과 구분되는 배지 색상) -->
     <div class="bg-slate-900 text-slate-200 px-3.5 py-2 text-xs flex justify-between items-center border-b border-slate-800 gap-2">
       <div class="flex items-center gap-1.5 flex-wrap">
         <span class="bg-emerald-600 text-white font-black px-1.5 py-0.5 rounded text-[10px] animate-pulse">LIVE</span>
@@ -232,148 +232,198 @@
         <span class="text-slate-600">•</span>
         <span id="mobile-weather-dust">미세먼지 <strong class="text-emerald-400 font-bold">🟢 좋음</strong></span>
       </div>
-      <span class="bg-amber-400 text-slate-950 text-[10.5px] font-black px-2 py-1 rounded-md shadow-2xs whitespace-nowrap shrink-0">공식 예약·현장접수</span>
+      <span class="bg-slate-800 text-emerald-300 text-[10.5px] font-bold px-2 py-0.5 rounded-md border border-slate-700 whitespace-nowrap shrink-0">ℹ️ 공식 예약·현장접수</span>
     </div>
 
     <!-- 3. 실시간 구장 & 대기 현황 카드 4곳 (첫 화면 2개 동시 노출 컴팩트 세로 공간 최적화) -->
     <main class="p-2.5 space-y-2.5">
 
-      <!-- 대시보드 타이틀 (슬림 컴팩트) -->
+      <!-- 대시보드 타이틀 (클릭 버튼과 구분되는 차분한 초록 배지) -->
       <div class="bg-white px-3 py-2 rounded-xl border border-emerald-800 shadow-2xs flex items-center justify-between">
         <div class="flex items-center gap-1.5">
           <span class="text-base">⛳</span>
           <h2 class="font-black text-slate-900 text-xs md:text-sm">용인 주요 파크골프 시설 현황</h2>
         </div>
-        <span class="bg-amber-400 text-slate-950 font-black text-[9.5px] px-2 py-0.5 rounded-md shadow-2xs">🟢 오늘의 현황</span>
+        <span class="bg-emerald-100 text-emerald-950 font-bold text-[10px] px-2 py-0.5 rounded-md border border-emerald-300">🟢 오늘의 현황</span>
       </div>
 
       <!-- 1) 수지 아르피아 파크골프장 (9홀) -->
       <div class="bg-white p-3 rounded-xl border-2 border-emerald-300 shadow-sm space-y-2">
-        <div class="flex justify-between items-center border-b border-gray-100 pb-1.5">
+        <div class="flex justify-between items-start border-b border-gray-100 pb-2">
           <div>
-            <h3 class="font-black text-slate-900 text-sm">1. 수지 아르피아 파크골프장</h3>
-            <p class="text-[10.5px] text-gray-500 font-semibold">📍 수지구 포은대로 499 (죽전동 9홀)</p>
+            <h3 class="font-black text-slate-900 text-base">1. 수지 아르피아 파크골프장</h3>
+            <p class="text-xs text-gray-500 font-semibold mt-0.5">📍 수지구 포은대로 499 (죽전동 9홀)</p>
+            <!-- ⏱️ 가장 중요한 최신 제보 시간 (눈에 띄게 구장 이름 아래 대형 배치) -->
+            <div class="mt-1.5 inline-flex items-center gap-1 bg-amber-100 text-amber-950 px-2 py-0.5 rounded-md text-xs font-black border border-amber-300 shadow-2xs">
+              <span class="text-sm">⏱️</span>
+              <span>최신 제보시간 :</span>
+              <span id="m-suji-time" class="text-amber-900 font-black">55분 전 제보</span>
+            </div>
           </div>
-          <span class="bg-red-600 text-white font-black text-[10.5px] px-2 py-0.5 rounded-md shadow-2xs">화요일 휴장</span>
+          <span class="bg-red-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs shrink-0">화요일 휴장</span>
         </div>
-        <div class="bg-emerald-50/80 p-2.5 rounded-lg border border-emerald-200 space-y-1 text-xs">
-          <div class="flex justify-between items-center">
-            <span class="text-gray-700 font-bold">👥 현장 대기:</span>
-            <span id="m-suji-crowd" class="font-bold text-gray-700 bg-white px-2.5 py-0.5 rounded-md border border-gray-300 text-xs">⚪ 현장 제보 필요</span>
+
+        <!-- 대기 현황 & 잔디 상태 (붙여서 직관적 동일 크기 배치) -->
+        <div class="bg-emerald-50/90 p-2.5 rounded-xl border border-emerald-200 space-y-2 text-xs sm:text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-gray-800 font-black shrink-0 w-20 text-xs sm:text-sm">👥 현장 대기 :</span>
+            <span id="m-suji-crowd" class="font-black text-emerald-950 bg-white px-2.5 py-1 rounded-lg border border-emerald-300 text-xs sm:text-sm shadow-2xs">
+              🟢 여유 (대기없음)
+            </span>
           </div>
-          <div class="flex justify-between items-center text-[10.5px] text-gray-500 pt-0.5 border-t border-emerald-200/50">
-            <span>잔디: <strong id="m-suji-grass" class="text-gray-600">⚪ 제보 확인 필요</strong></span>
-            <span id="m-suji-time" class="text-gray-600 font-bold">⚪ 대기 현황 확인 필요</span>
+          <div class="flex items-center gap-2 border-t border-emerald-200/60 pt-2">
+            <span class="text-gray-800 font-black shrink-0 w-20 text-xs sm:text-sm">🌱 잔디 상태 :</span>
+            <span id="m-suji-grass" class="font-black text-emerald-950 bg-white px-2.5 py-1 rounded-lg border border-emerald-300 text-xs sm:text-sm shadow-2xs">
+              🟢 쾌적/양호
+            </span>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-2 text-base font-black pt-1">
-          <a href="https://map.naver.com/v5/search/아르피아파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 hover:bg-emerald-900 text-white min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border border-emerald-700 shadow-md font-black text-[16px]">
-            <span class="text-lg">📍</span>
-            <span>네이버 안내</span>
+
+        <!-- 네이버 지도 & 주소 복사 (슬림 1줄 배치) -->
+        <div class="grid grid-cols-2 gap-2 text-xs sm:text-sm font-bold pt-1">
+          <a href="https://map.naver.com/v5/search/아르피아파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-700 hover:bg-emerald-800 text-white min-h-[38px] py-1.5 rounded-lg text-center active:scale-95 transition flex items-center justify-center gap-1 border border-emerald-600 shadow-2xs font-bold text-xs sm:text-sm">
+            <span>📍</span>
+            <span>네이버 지도</span>
           </a>
-          <button type="button" onclick="copyAddress('수지구 포은대로 499', '수지 아르피아')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border-2 border-amber-300 shadow-md font-black text-[16px]">
-            <span class="text-lg">📋</span>
-            <span>주소복사</span>
+          <button type="button" onclick="copyAddress('수지구 포은대로 499', '수지 아르피아')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 min-h-[38px] py-1.5 rounded-lg text-center active:scale-95 transition flex items-center justify-center gap-1 border border-slate-300 shadow-2xs font-bold text-xs sm:text-sm">
+            <span>📋</span>
+            <span>주소 복사</span>
           </button>
         </div>
       </div>
 
       <!-- 2) 포곡 유운리 파크골프장 (9홀) -->
       <div class="bg-white p-3 rounded-xl border-2 border-emerald-300 shadow-sm space-y-2">
-        <div class="flex justify-between items-center border-b border-gray-100 pb-1.5">
+        <div class="flex justify-between items-start border-b border-gray-100 pb-2">
           <div>
-            <h3 class="font-black text-slate-900 text-sm">2. 포곡 유운리 파크골프장</h3>
-            <p class="text-[10.5px] text-gray-500 font-semibold">📍 처인구 포곡읍 삼계리 671 (9홀)</p>
+            <h3 class="font-black text-slate-900 text-base">2. 포곡 유운리 파크골프장</h3>
+            <p class="text-xs text-gray-500 font-semibold mt-0.5">📍 처인구 포곡읍 삼계리 671 (9홀)</p>
+            <!-- ⏱️ 가장 중요한 최신 제보 시간 -->
+            <div class="mt-1.5 inline-flex items-center gap-1 bg-amber-100 text-amber-950 px-2 py-0.5 rounded-md text-xs font-black border border-amber-300 shadow-2xs">
+              <span class="text-sm">⏱️</span>
+              <span>최신 제보시간 :</span>
+              <span id="m-pogok-time" class="text-amber-900 font-black">⚪ 대기 현황 확인 필요</span>
+            </div>
           </div>
-          <span class="bg-red-600 text-white font-black text-[10.5px] px-2 py-0.5 rounded-md shadow-2xs">화요일 휴장</span>
+          <span class="bg-red-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs shrink-0">화요일 휴장</span>
         </div>
-        <div class="bg-emerald-50/80 p-2.5 rounded-lg border border-emerald-200 space-y-1 text-xs">
-          <div class="flex justify-between items-center">
-            <span class="text-gray-700 font-bold">👥 현장 대기:</span>
-            <span id="m-pogok-crowd" class="font-bold text-gray-700 bg-white px-2.5 py-0.5 rounded-md border border-gray-300 text-xs">⚪ 현장 제보 필요</span>
+
+        <!-- 대기 현황 & 잔디 상태 (붙여서 직관적 동일 크기 배치) -->
+        <div class="bg-emerald-50/90 p-2.5 rounded-xl border border-emerald-200 space-y-2 text-xs sm:text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-gray-800 font-black shrink-0 w-20 text-xs sm:text-sm">👥 현장 대기 :</span>
+            <span id="m-pogok-crowd" class="font-black text-slate-700 bg-white px-2.5 py-1 rounded-lg border border-gray-300 text-xs sm:text-sm shadow-2xs">
+              ⚪ 현장 제보 필요
+            </span>
           </div>
-          <div class="flex justify-between items-center text-[10.5px] text-gray-500 pt-0.5 border-t border-emerald-200/50">
-            <span>잔디: <strong id="m-pogok-grass" class="text-gray-600">⚪ 제보 확인 필요</strong></span>
-            <span id="m-pogok-time" class="text-gray-600 font-bold">⚪ 대기 현황 확인 필요</span>
+          <div class="flex items-center gap-2 border-t border-emerald-200/60 pt-2">
+            <span class="text-gray-800 font-black shrink-0 w-20 text-xs sm:text-sm">🌱 잔디 상태 :</span>
+            <span id="m-pogok-grass" class="font-black text-slate-700 bg-white px-2.5 py-1 rounded-lg border border-gray-300 text-xs sm:text-sm shadow-2xs">
+              ⚪ 제보 확인 필요
+            </span>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-2 text-base font-black pt-1">
-          <a href="https://map.naver.com/v5/search/포곡파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 hover:bg-emerald-900 text-white min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border border-emerald-700 shadow-md font-black text-[16px]">
-            <span class="text-lg">📍</span>
-            <span>네이버 안내</span>
+
+        <!-- 네이버 지도 & 주소 복사 (슬림 1줄 배치) -->
+        <div class="grid grid-cols-2 gap-2 text-xs sm:text-sm font-bold pt-1">
+          <a href="https://map.naver.com/v5/search/포곡파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-700 hover:bg-emerald-800 text-white min-h-[38px] py-1.5 rounded-lg text-center active:scale-95 transition flex items-center justify-center gap-1 border border-emerald-600 shadow-2xs font-bold text-xs sm:text-sm">
+            <span>📍</span>
+            <span>네이버 지도</span>
           </a>
-          <button type="button" onclick="copyAddress('처인구 포곡읍 삼계리 671', '포곡 유운리')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border-2 border-amber-300 shadow-md font-black text-[16px]">
-            <span class="text-lg">📋</span>
-            <span>주소복사</span>
+          <button type="button" onclick="copyAddress('처인구 포곡읍 삼계리 671', '포곡 유운리')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 min-h-[38px] py-1.5 rounded-lg text-center active:scale-95 transition flex items-center justify-center gap-1 border border-slate-300 shadow-2xs font-bold text-xs sm:text-sm">
+            <span>📋</span>
+            <span>주소 복사</span>
           </button>
         </div>
       </div>
 
       <!-- 3) 기흥 호수공원 파크골프장 (14홀) -->
       <div class="bg-white p-3 rounded-xl border-2 border-emerald-300 shadow-sm space-y-2">
-        <div class="flex justify-between items-center border-b border-gray-100 pb-1.5">
+        <div class="flex justify-between items-start border-b border-gray-100 pb-2">
           <div>
-            <h3 class="font-black text-slate-900 text-sm">3. 기흥 호수공원 파크골프장</h3>
-            <p class="text-[10.5px] text-gray-500 font-semibold">📍 기흥구 하갈동 434-4 (14홀)</p>
+            <h3 class="font-black text-slate-900 text-base">3. 기흥 호수공원 파크골프장</h3>
+            <p class="text-xs text-gray-500 font-semibold mt-0.5">📍 기흥구 하갈동 434-4 (14홀)</p>
+            <!-- ⏱️ 가장 중요한 최신 제보 시간 -->
+            <div class="mt-1.5 inline-flex items-center gap-1 bg-amber-100 text-amber-950 px-2 py-0.5 rounded-md text-xs font-black border border-amber-300 shadow-2xs">
+              <span class="text-sm">⏱️</span>
+              <span>최신 제보시간 :</span>
+              <span id="m-giheung-time" class="text-amber-900 font-black">⚪ 대기 현황 확인 필요</span>
+            </div>
           </div>
-          <span class="bg-red-600 text-white font-black text-[10.5px] px-2 py-0.5 rounded-md shadow-2xs">화요일 휴장</span>
+          <span class="bg-red-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs shrink-0">화요일 휴장</span>
         </div>
-        <div class="bg-emerald-50/80 p-2.5 rounded-lg border border-emerald-200 space-y-1 text-xs">
-          <div class="flex justify-between items-center">
-            <span class="text-gray-700 font-bold">👥 현장 대기:</span>
-            <span id="m-giheung-crowd" class="font-bold text-gray-700 bg-white px-2.5 py-0.5 rounded-md border border-gray-300 text-xs">⚪ 현장 제보 필요</span>
+
+        <!-- 대기 현황 & 잔디 상태 (붙여서 직관적 동일 크기 배치) -->
+        <div class="bg-emerald-50/90 p-2.5 rounded-xl border border-emerald-200 space-y-2 text-xs sm:text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-gray-800 font-black shrink-0 w-20 text-xs sm:text-sm">👥 현장 대기 :</span>
+            <span id="m-giheung-crowd" class="font-black text-slate-700 bg-white px-2.5 py-1 rounded-lg border border-gray-300 text-xs sm:text-sm shadow-2xs">
+              ⚪ 현장 제보 필요
+            </span>
           </div>
-          <div class="flex justify-between items-center text-[10.5px] text-gray-500 pt-0.5 border-t border-emerald-200/50">
-            <span>잔디: <strong id="m-giheung-grass" class="text-gray-600">⚪ 제보 확인 필요</strong></span>
-            <span id="m-giheung-time" class="text-gray-600 font-bold">⚪ 대기 현황 확인 필요</span>
+          <div class="flex items-center gap-2 border-t border-emerald-200/60 pt-2">
+            <span class="text-gray-800 font-black shrink-0 w-20 text-xs sm:text-sm">🌱 잔디 상태 :</span>
+            <span id="m-giheung-grass" class="font-black text-slate-700 bg-white px-2.5 py-1 rounded-lg border border-gray-300 text-xs sm:text-sm shadow-2xs">
+              ⚪ 제보 확인 필요
+            </span>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-2 text-base font-black pt-1">
-          <a href="https://map.naver.com/v5/search/기흥호수공원파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 hover:bg-emerald-900 text-white min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border border-emerald-700 shadow-md font-black text-[16px]">
-            <span class="text-lg">📍</span>
-            <span>네이버 안내</span>
+
+        <!-- 네이버 지도 & 주소 복사 (슬림 1줄 배치) -->
+        <div class="grid grid-cols-2 gap-2 text-xs sm:text-sm font-bold pt-1">
+          <a href="https://map.naver.com/v5/search/기흥호수공원파크골프장" target="_blank" rel="noopener noreferrer" class="bg-emerald-700 hover:bg-emerald-800 text-white min-h-[38px] py-1.5 rounded-lg text-center active:scale-95 transition flex items-center justify-center gap-1 border border-emerald-600 shadow-2xs font-bold text-xs sm:text-sm">
+            <span>📍</span>
+            <span>네이버 지도</span>
           </a>
-          <button type="button" onclick="copyAddress('기흥구 하갈동 434-4', '기흥 호수공원')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border-2 border-amber-300 shadow-md font-black text-[16px]">
-            <span class="text-lg">📋</span>
-            <span>주소복사</span>
+          <button type="button" onclick="copyAddress('기흥구 하갈동 434-4', '기흥 호수공원')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 min-h-[38px] py-1.5 rounded-lg text-center active:scale-95 transition flex items-center justify-center gap-1 border border-slate-300 shadow-2xs font-bold text-xs sm:text-sm">
+            <span>📋</span>
+            <span>주소 복사</span>
           </button>
         </div>
       </div>
 
       <!-- 4) [신규 추가] 용인실내체육관 파크골프 스크린 연습장 (직관성 극대화) -->
       <div class="bg-white p-3 rounded-xl border-2 border-amber-400 shadow-sm space-y-2.5">
-        <div class="flex justify-between items-center border-b border-gray-100 pb-1.5">
+        <div class="flex justify-between items-start border-b border-gray-100 pb-2">
           <div>
             <div class="flex items-center gap-1">
               <span class="bg-amber-400 text-slate-950 font-black text-[9px] px-1.5 py-0.2 rounded">NEW</span>
-              <h3 class="font-black text-slate-900 text-sm">4. 용인실내체육관 스크린 연습장</h3>
+              <h3 class="font-black text-slate-900 text-base">4. 용인실내체육관 스크린 연습장</h3>
             </div>
-            <p class="text-[10.5px] text-gray-500 font-semibold mt-0.5">📍 처인구 경안천로 76 (실내 총 4타석)</p>
+            <p class="text-xs text-gray-500 font-semibold mt-0.5">📍 처인구 경안천로 76 (실내 총 4타석)</p>
+            <!-- ⏱️ 가장 중요한 최신 제보 시간 -->
+            <div class="mt-1.5 inline-flex items-center gap-1 bg-amber-100 text-amber-950 px-2 py-0.5 rounded-md text-xs font-black border border-amber-300 shadow-2xs">
+              <span class="text-sm">⏱️</span>
+              <span>최신 제보시간 :</span>
+              <span id="m-screen-time" class="text-amber-900 font-black">⚪ 대기 현황 확인 필요</span>
+            </div>
           </div>
-          <span class="bg-red-600 text-white font-black text-[10.5px] px-2 py-0.5 rounded-md shadow-2xs">일/공휴일 휴장</span>
+          <span class="bg-red-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs shrink-0">일/공휴일 휴장</span>
         </div>
 
         <!-- 🎯 대기 타석/시간 직관 강조 박스 -->
-        <div class="bg-amber-50/90 p-2.5 rounded-lg border border-amber-300 space-y-1.5 text-xs">
-          <div class="flex justify-between items-center">
-            <span class="text-slate-900 font-bold text-xs">🎯 대기 타석/시간:</span>
-            <span id="m-screen-crowd" class="font-bold text-gray-700 bg-white px-2.5 py-0.5 rounded-md border border-gray-300 text-xs">⚪ 현장 제보 필요</span>
+        <div class="bg-amber-50/90 p-2.5 rounded-xl border border-amber-300 space-y-2 text-xs sm:text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-900 font-black shrink-0 w-24 text-xs sm:text-sm">🎯 대기 타석/시간 :</span>
+            <span id="m-screen-crowd" class="font-black text-slate-700 bg-white px-2.5 py-1 rounded-lg border border-gray-300 text-xs sm:text-sm shadow-2xs">
+              ⚪ 현장 제보 필요
+            </span>
           </div>
-          <div class="space-y-0.5 text-[11px] text-gray-800 pt-1 border-t border-amber-200/70">
+          <div class="space-y-0.5 text-[11px] sm:text-xs text-gray-800 pt-1.5 border-t border-amber-200/70">
             <p class="font-bold text-slate-900">🕒 <strong>운영:</strong> 평일 09~22시 / 토 09~18시 (일·공휴일 휴장)</p>
             <p class="font-bold text-emerald-900">🎯 <strong>타석:</strong> 1·2번 좌/우 양타석, 3·4번 우타석 전용</p>
           </div>
         </div>
 
-        <!-- 📍 네이버 안내 직관 강조 대형 버튼 -->
-        <div class="grid grid-cols-2 gap-2 text-base font-black pt-1">
-          <a href="https://map.naver.com/v5/search/용인실내체육관" target="_blank" rel="noopener noreferrer" class="bg-emerald-800 hover:bg-emerald-900 text-white min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border border-emerald-700 shadow-md font-black text-[16px]">
-            <span class="text-lg">📍</span>
-            <span>네이버 안내</span>
+        <!-- 네이버 지도 & 주소 복사 (슬림 1줄 배치) -->
+        <div class="grid grid-cols-2 gap-2 text-xs sm:text-sm font-bold pt-1">
+          <a href="https://map.naver.com/v5/search/용인실내체육관" target="_blank" rel="noopener noreferrer" class="bg-emerald-700 hover:bg-emerald-800 text-white min-h-[38px] py-1.5 rounded-lg text-center active:scale-95 transition flex items-center justify-center gap-1 border border-emerald-600 shadow-2xs font-bold text-xs sm:text-sm">
+            <span>📍</span>
+            <span>네이버 지도</span>
           </a>
-          <button type="button" onclick="copyAddress('처인구 경안천로 76', '용인실내체육관')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 min-h-[52px] py-2.5 rounded-xl text-center active:scale-95 transition flex items-center justify-center gap-1.5 border-2 border-amber-300 shadow-md font-black text-[16px]">
-            <span class="text-lg">📋</span>
-            <span>주소복사</span>
+          <button type="button" onclick="copyAddress('처인구 경안천로 76', '용인실내체육관')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 min-h-[38px] py-1.5 rounded-lg text-center active:scale-95 transition flex items-center justify-center gap-1 border border-slate-300 shadow-2xs font-bold text-xs sm:text-sm">
+            <span>📋</span>
+            <span>주소 복사</span>
           </button>
         </div>
       </div>
@@ -443,9 +493,9 @@
         <div class="relative flex items-center shrink-0">
           <label for="font-scale-select" class="sr-only">글자 크기 조절</label>
           <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1.5 py-1.5 sm:px-3 sm:py-2 rounded-xl text-[11px] sm:text-xs md:text-sm border-2 border-amber-300 shadow-md cursor-pointer appearance-none pr-4 sm:pr-6 active:scale-95 focus:outline-none">
-            <option value="100">100%</option>
-            <option value="130" selected>130% ⭐</option>
-            <option value="160">160% 🔍</option>
+            <option value="100">글자크기 100%</option>
+            <option value="130" selected>글자크기 130% ⭐</option>
+            <option value="160">글자크기 160% 🔍</option>
           </select>
           <span class="pointer-events-none absolute right-1 sm:right-2 text-[9px] sm:text-[10px] text-slate-950 font-black">▼</span>
         </div>
