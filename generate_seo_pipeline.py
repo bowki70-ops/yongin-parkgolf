@@ -66,9 +66,30 @@ Sitemap: https://yonginparkgolf.co.kr/sitemap.xml
 </urlset>
 """
 
-    with open("sitemap.xml", "w", encoding="utf-8") as f:
-        f.write(sitemap_content.strip() + "\n")
-    print(f"[SUCCESS] Created sitemap.xml ({os.path.getsize('sitemap.xml')} bytes)")
+    # 3. rss.xml
+    rss_content = f"""<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+  <title>용인 파크골프 정보 포털</title>
+  <link>https://yonginparkgolf.co.kr</link>
+  <description>용인 파크골프 정보 포털 - 수지·포곡·기흥 주요 구장 실시간 운영현황, 날씨, 자격증 가이드</description>
+  <language>ko</language>
+  <pubDate>{datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0900")}</pubDate>
+  <item>
+    <title>용인 파크골프 정보 포털 메인</title>
+    <link>https://yonginparkgolf.co.kr/</link>
+    <description>용인 관내 주요 파크골프장 운영정보, 라운딩 조인, 레슨 정보</description>
+    <pubDate>{datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0900")}</pubDate>
+    <guid>https://yonginparkgolf.co.kr/</guid>
+  </item>
+</channel>
+</rss>
+"""
+
+    with open("rss.xml", "w", encoding="utf-8") as f:
+        f.write(rss_content.strip() + "\n")
+    print(f"[SUCCESS] Created rss.xml ({os.path.getsize('rss.xml')} bytes)")
 
 if __name__ == "__main__":
     generate_seo_files()
+
