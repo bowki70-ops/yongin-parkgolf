@@ -5,13 +5,41 @@
   <link>https://yonginparkgolf.co.kr</link>
   <description>용인 파크골프 정보 포털 - 수지·포곡·기흥 주요 구장 실시간 운영현황, 날씨, 자격증 가이드</description>
   <language>ko</language>
-  <pubDate>Wed, 16 Sep 2026 11:35:53 +0900</pubDate>
+  <pubDate>Thu, 17 Sep 2026 15:38:53 +0900</pubDate>
   <item>
     <title>용인 파크골프 정보 포털 메인</title>
     <link>https://yonginparkgolf.co.kr/</link>
-    <description>용인 관내 주요 파크골프장 운영정보, 라운딩 조인, 레슨 정보</description>
-    <pubDate>Wed, 16 Sep 2026 11:35:53 +0900</pubDate>
+    <description>용인 관내 주요 파크골프장 운영정보, 회원 직거래 장터, 라운딩 조인, 레슨 정보</description>
+    <pubDate>Thu, 17 Sep 2026 15:38:53 +0900</pubDate>
     <guid>https://yonginparkgolf.co.kr/</guid>
+  </item>
+  <item>
+    <title>포곡 파크골프장 이용 가이드 | 실시간 현황 및 위치</title>
+    <link>https://yonginparkgolf.co.kr/pogok</link>
+    <description>용인 포곡 파크골프장 18홀 위치, 월요일 휴장일, 실시간 대기시간 안내</description>
+    <pubDate>Thu, 17 Sep 2026 15:38:53 +0900</pubDate>
+    <guid>https://yonginparkgolf.co.kr/pogok</guid>
+  </item>
+  <item>
+    <title>수지 아르피아 파크골프장 이용 가이드</title>
+    <link>https://yonginparkgolf.co.kr/suji</link>
+    <description>수지 아르피아 파크골프장 9홀 코스 위치 및 이용시간 안내</description>
+    <pubDate>Thu, 17 Sep 2026 15:38:53 +0900</pubDate>
+    <guid>https://yonginparkgolf.co.kr/suji</guid>
+  </item>
+  <item>
+    <title>기흥 호수공원 파크골프장 가이드</title>
+    <link>https://yonginparkgolf.co.kr/giheung</link>
+    <description>기흥 호수공원 파크골프장 운영안내 및 이용 가이드</description>
+    <pubDate>Thu, 17 Sep 2026 15:38:53 +0900</pubDate>
+    <guid>https://yonginparkgolf.co.kr/giheung</guid>
+  </item>
+  <item>
+    <title>파크골프 자격증 가이드 | 생활스포츠지도사 2급 취득 방법</title>
+    <link>https://yonginparkgolf.co.kr/license</link>
+    <description>국가공인 생활스포츠지도사 2급 및 파크골프 지도자/심판 자격증 완벽 가이드</description>
+    <pubDate>Thu, 17 Sep 2026 15:38:53 +0900</pubDate>
+    <guid>https://yonginparkgolf.co.kr/license</guid>
   </item>
 </channel>
 </rss>
