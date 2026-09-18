@@ -341,8 +341,8 @@
   <script>
     // 파크골프 표준 18홀 Par 레이아웃 (Total Par = 66타: 1코스 33타 + 2코스 33타)
     const STANDARD_PARS = [
-      3, 4, 3, 4, 3, 3, 5, 3, 3, // 1코스 (1~9홀, 합계 33타)
-      3, 4, 3, 4, 3, 3, 5, 3, 3  // 2코스 (10~18홀, 합계 33타)
+      3, 4, 4, 3, 4, 3, 5, 3, 4, // 1코스 (1~9홀, 합계 33타)
+      3, 4, 4, 3, 4, 3, 5, 3, 4  // 2코스 (10~18홀, 합계 33타)
     ];
 
     // 스코어카드 기본 상태 구조
@@ -616,10 +616,18 @@
 
       // 최소 타수(1위) 탐색
       pTotals.sort((a, b) => a.sum - b.sum);
-      const leader = pTotals[0];
-      document.getElementById('summary-leader-text').innerHTML = `
-        🏆 현재 1위 : <span class="text-amber-300 font-black">${leader.name}</span> (${leader.sum}타 / <span class="${leader.diff < 0 ? 'text-red-400 font-black' : 'text-amber-300'}">${leaderLeaderDiffText(leader.diff)}</span>)
-      `;
+      
+      const allTied = pTotals.every(p => p.sum === pTotals[0].sum);
+      if (allTied) {
+        document.getElementById('summary-leader-text').innerHTML = `
+          🏆 현재 1위 : <span class="text-amber-300 font-black">공동 1위 (전원 동점)</span> (${pTotals[0].sum}타 / <span class="${pTotals[0].diff < 0 ? 'text-red-400 font-black' : 'text-amber-300'}">${leaderLeaderDiffText(pTotals[0].diff)}</span>)
+        `;
+      } else {
+        const leader = pTotals[0];
+        document.getElementById('summary-leader-text').innerHTML = `
+          🏆 현재 1위 : <span class="text-amber-300 font-black">${leader.name}</span> (${leader.sum}타 / <span class="${leader.diff < 0 ? 'text-red-400 font-black' : 'text-amber-300'}">${leaderLeaderDiffText(leader.diff)}</span>)
+        `;
+      }
     }
 
     function leaderLeaderDiffText(diff) {
