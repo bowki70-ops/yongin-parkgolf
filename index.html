@@ -224,37 +224,36 @@
   <!-- 📱 모바일 전용 6080 시니어 3초 대시보드 (block lg:hidden) -->
   <div id="mobile-dashboard-container" class="block lg:hidden bg-[#faf7f2] min-h-screen pb-20">
     
-    <!-- 1. 모바일 전용 상단 헤더 (슬림 슬림화) -->
-    <header class="bg-emerald-900 text-white px-2.5 py-2 sticky top-0 z-40 shadow-md flex justify-between items-center border-b-2 border-emerald-950">
-      <div class="flex items-center gap-1.5 min-w-0 shrink">
-        <span class="text-lg sm:text-xl shrink-0">⛳</span>
+    <!-- 1. 모바일 전용 상단 헤더 (375px 모바일 화면 완벽 밀착 맞춤) -->
+    <header class="bg-emerald-900 text-white px-2 py-2 sticky top-0 z-40 shadow-md flex justify-between items-center border-b-2 border-emerald-950 gap-1 overflow-x-hidden">
+      <div class="flex items-center gap-1 min-w-0 shrink">
+        <span class="text-base sm:text-lg shrink-0">⛳</span>
         <div class="min-w-0">
-          <h1 class="font-black text-xs sm:text-sm leading-tight text-amber-300 truncate">용인 파크골프 포털</h1>
-          <p class="text-[9px] text-emerald-200 font-bold truncate">수지·포곡·기흥·스크린</p>
+          <h1 class="font-black text-xs leading-tight text-amber-300 truncate">용인 파크골프</h1>
         </div>
       </div>
-      <div class="flex items-center gap-1.5 shrink-0">
-        <!-- 🔍 모바일 직관적 글자 크기 100% / 130% / 160% 조절 셀렉트 -->
+      <div class="flex items-center gap-1 shrink-0 flex-wrap justify-end">
+        <!-- 🔍 모바일 글자 크기 조절 셀렉트 (컴팩트) -->
         <div class="relative flex items-center shrink-0">
           <label for="m-font-scale-select" class="sr-only">모바일 글자 크기 조절</label>
-          <select id="m-font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1.5 py-1 rounded-lg text-xs border border-amber-300 shadow-xs cursor-pointer appearance-none pr-4 active:scale-95 focus:outline-none min-h-[34px]">
-            <option value="100">글자크기 100%</option>
-            <option value="130" selected>글자크기 130% ⭐</option>
-            <option value="160">글자크기 160% 🔍</option>
+          <select id="m-font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1.5 py-1 rounded-md text-[11px] border border-amber-300 shadow-xs cursor-pointer appearance-none pr-3.5 active:scale-95 focus:outline-none min-h-[32px]">
+            <option value="100">100%</option>
+            <option value="130" selected>130%⭐</option>
+            <option value="160">160%🔍</option>
           </select>
-          <span class="pointer-events-none absolute right-1 text-[8px] text-slate-950 font-black">▼</span>
+          <span class="pointer-events-none absolute right-0.5 text-[8px] text-slate-950 font-black">▼</span>
         </div>
-        <a href="score.html" class="bg-amber-400 text-slate-950 font-black text-xs px-2 py-1 rounded-lg shadow border border-amber-300 active:scale-95 flex items-center gap-1 cursor-pointer min-h-[34px] shrink-0">
+        <a href="score.html" class="bg-amber-400 text-slate-950 font-black text-[11px] px-1.5 py-1 rounded-md shadow border border-amber-300 active:scale-95 flex items-center gap-0.5 cursor-pointer min-h-[32px] shrink-0">
           <span>📱</span>
           <span>스코어</span>
         </a>
-        <button type="button" onclick="openLicenseGuideModal()" class="bg-amber-400 text-slate-950 font-black text-xs px-2 py-1 rounded-lg shadow border border-amber-300 active:scale-95 flex items-center gap-1 cursor-pointer min-h-[34px] shrink-0">
+        <button type="button" onclick="openLicenseGuideModal()" class="bg-amber-400 text-slate-950 font-black text-[11px] px-1.5 py-1 rounded-md shadow border border-amber-300 active:scale-95 flex items-center gap-0.5 cursor-pointer min-h-[32px] shrink-0">
           <span>🏅</span>
           <span>자격증</span>
         </button>
-        <button type="button" onclick="toggleFullPcView()" id="btn-toggle-pcview" class="bg-amber-400 text-slate-950 font-black text-xs sm:text-xs px-2 py-1 rounded-lg shadow border border-amber-300 active:scale-95 flex items-center gap-1 cursor-pointer min-h-[34px] shrink-0">
+        <button type="button" onclick="toggleFullPcView()" id="btn-toggle-pcview" class="bg-amber-400 text-slate-950 font-black text-[11px] px-1.5 py-1 rounded-md shadow border border-amber-300 active:scale-95 flex items-center gap-0.5 cursor-pointer min-h-[32px] shrink-0">
           <span>📋</span>
-          <span id="txt-toggle-pcview">전체메뉴</span>
+          <span id="txt-toggle-pcview">메뉴</span>
         </button>
       </div>
     </header>

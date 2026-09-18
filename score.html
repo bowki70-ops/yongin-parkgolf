@@ -85,10 +85,10 @@
     }
   </style>
 </head>
-<body class="pb-16 min-h-screen flex flex-col justify-between">
+<body class="pb-20 min-h-screen flex flex-col justify-between">
 
   <!-- 📱 상단 헤더 바 -->
-  <header class="bg-emerald-900 text-white p-3 shadow-md sticky top-0 z-50 border-b-2 border-emerald-600">
+  <header class="bg-emerald-900 text-white p-3 shadow-md sticky top-0 z-40 border-b-2 border-emerald-600">
     <div class="max-w-2xl mx-auto flex justify-between items-center">
       <a href="index.html" class="bg-emerald-800 hover:bg-emerald-700 text-amber-300 font-bold text-xs px-2.5 py-1.5 rounded-lg border border-emerald-600 flex items-center gap-1 active:scale-95 transition">
         <span>🏠</span>
@@ -121,17 +121,17 @@
       <!-- 구장 선택 & 라운드 일자 -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
         <div>
-          <label class="block font-bold text-slate-700 mb-1">📍 구장 선택 :</label>
+          <label for="course-preset-select" class="block font-bold text-slate-700 mb-1">📍 구장 선택 :</label>
           <select id="course-preset-select" onchange="handleCoursePresetChange(this.value)" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[44px]">
+            <option value="custom" selected>✏️ 직접 입력 (전국 모든 타구장)</option>
             <option value="수지 아르피아">수지 아르피아 파크골프장 (9홀)</option>
             <option value="포곡 유운리">포곡 유운리 파크골프장 (9홀)</option>
             <option value="기흥 호수공원">기흥 호수공원 파크골프장 (14홀)</option>
-            <option value="custom" selected>✏️ 직접 입력 (전국 모든 타구장)</option>
           </select>
         </div>
         <div id="custom-course-container">
-          <label class="block font-bold text-slate-700 mb-1">✏️ 구장 이름 직접 입력 :</label>
-          <input type="text" id="custom-course-name" value="전국 파크골프장" placeholder="예: 양평 파크골프장" oninput="saveCurrentState()" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[44px]">
+          <label for="custom-course-name" class="block font-bold text-slate-700 mb-1">✏️ 구장 이름 직접 입력 :</label>
+          <input type="text" id="custom-course-name" value="" placeholder="구장 이름을 입력하세요 (예: 양평 파크골프장)" onfocus="this.select()" oninput="saveCurrentState()" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[44px]">
         </div>
       </div>
 
@@ -148,7 +148,7 @@
         </div>
         
         <div id="player-inputs-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          <!-- JS로 플레이어 입력창 동적 생성 -->
+          <!-- JS로 플레이어 입력창 동적 생성 (onfocus="this.select()" 원클릭 자동선택 적용) -->
         </div>
       </div>
     </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="bg-slate-800/90 px-3 py-1.5 rounded-xl border border-slate-700 text-center shrink-0">
         <span class="text-[10px] text-slate-400 font-bold block">전반+후반 총 Par</span>
-        <span class="text-amber-300 font-black text-sm sm:text-base" id="total-par-sum">Par 66</span>
+        <span class="text-amber-300 font-black text-sm sm:text-base" id="total-par-sum">Total Par 66</span>
       </div>
     </div>
 
@@ -250,6 +250,87 @@
 
   </main>
 
+  <!-- 🎯 [신규] 화면 좌측 하단 고정 [📊 1~9홀 표로 보기] 플로팅 버튼 -->
+  <div class="fixed bottom-3 left-3 z-50">
+    <button type="button" onclick="openTableViewModal()" class="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-black px-3.5 py-2.5 rounded-full shadow-2xl border-2 border-amber-300 flex items-center gap-1.5 active:scale-95 transition cursor-pointer text-xs sm:text-sm">
+      <span class="text-base animate-bounce">📊</span>
+      <span id="floating-btn-text">1~9홀 표로 보기</span>
+    </button>
+  </div>
+
+  <!-- 🎯 [신규] 1~9홀 한눈에 보기 표 모달 팝업 -->
+  <div id="table-view-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-3">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border-2 border-emerald-500 overflow-hidden flex flex-col max-h-[90vh]">
+      <!-- 모달 헤더 -->
+      <div class="bg-emerald-900 text-white p-3.5 flex justify-between items-center border-b border-emerald-800 shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">📊</span>
+          <h3 id="modal-table-title" class="font-black text-amber-300 text-sm sm:text-base">
+            1코스 (1~9홀) 한눈에 보는 스코어 표
+          </h3>
+        </div>
+        <button type="button" onclick="closeTableViewModal()" class="bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs px-2.5 py-1 rounded-lg border border-emerald-600">
+          ✕ 닫기
+        </button>
+      </div>
+
+      <!-- 모달 코스 선택 탭 -->
+      <div class="bg-slate-100 p-2 flex gap-2 border-b border-slate-200 shrink-0">
+        <button type="button" id="modal-tab-c1" onclick="switchModalCourseTab(1)" class="w-1/2 py-2 rounded-lg font-bold text-xs sm:text-sm bg-emerald-700 text-white shadow-2xs">
+          ⛳ 1코스 (1~9홀)
+        </button>
+        <button type="button" id="modal-tab-c2" onclick="switchModalCourseTab(2)" class="w-1/2 py-2 rounded-lg font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-300">
+          ⛳ 2코스 (10~18홀)
+        </button>
+      </div>
+
+      <!-- 모달 표 본문 (스크롤 가능) -->
+      <div class="p-3 overflow-x-auto overflow-y-auto flex-grow">
+        <table class="w-full text-center border-collapse text-xs font-bold min-w-[500px]">
+          <thead>
+            <tr class="bg-slate-800 text-white border-b-2 border-slate-900">
+              <th class="p-2 border border-slate-700 w-24 sticky left-0 bg-slate-800">구분 / 홀</th>
+              <th id="th-h1" class="p-1.5 border border-slate-700">1홀</th>
+              <th id="th-h2" class="p-1.5 border border-slate-700">2홀</th>
+              <th id="th-h3" class="p-1.5 border border-slate-700">3홀</th>
+              <th id="th-h4" class="p-1.5 border border-slate-700">4홀</th>
+              <th id="th-h5" class="p-1.5 border border-slate-700">5홀</th>
+              <th id="th-h6" class="p-1.5 border border-slate-700">6홀</th>
+              <th id="th-h7" class="p-1.5 border border-slate-700">7홀</th>
+              <th id="th-h8" class="p-1.5 border border-slate-700">8홀</th>
+              <th id="th-h9" class="p-1.5 border border-slate-700">9홀</th>
+              <th class="p-2 border border-slate-700 bg-amber-400 text-slate-950 font-black">9홀 합계</th>
+            </tr>
+            <tr class="bg-amber-100 text-amber-950 border-b border-amber-300">
+              <td class="p-2 border border-amber-300 font-black sticky left-0 bg-amber-100">기준 Par</td>
+              <td id="m-par-0" class="p-1.5 border border-amber-300">P3</td>
+              <td id="m-par-1" class="p-1.5 border border-amber-300">P4</td>
+              <td id="m-par-2" class="p-1.5 border border-amber-300">P3</td>
+              <td id="m-par-3" class="p-1.5 border border-amber-300">P4</td>
+              <td id="m-par-4" class="p-1.5 border border-amber-300">P3</td>
+              <td id="m-par-5" class="p-1.5 border border-amber-300">P3</td>
+              <td id="m-par-6" class="p-1.5 border border-amber-300">P5</td>
+              <td id="m-par-7" class="p-1.5 border border-amber-300">P3</td>
+              <td id="m-par-8" class="p-1.5 border border-amber-300">P3</td>
+              <td id="m-par-total" class="p-2 border border-amber-300 font-black text-amber-950 bg-amber-200">Par 33</td>
+            </tr>
+          </thead>
+          <tbody id="modal-table-tbody">
+            <!-- JS로 각 플레이어별 9개 홀 타수 행 생성 -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 모달 푸터 -->
+      <div class="bg-slate-50 p-3 border-t border-slate-200 flex justify-between items-center text-xs shrink-0">
+        <span class="text-slate-500 font-medium">🔴 언더파 / 🔵 오버파 / ⚪ 이븐파</span>
+        <button type="button" onclick="closeTableViewModal()" class="bg-emerald-800 text-white font-bold px-4 py-2 rounded-xl shadow active:scale-95 transition">
+          확인 (닫기)
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- 하단 안내 푸터 -->
   <footer class="bg-slate-900 text-slate-400 text-center text-xs py-4 px-3 border-t border-slate-800">
     <p class="font-bold text-amber-300">⛳ 용인 파크골프 포털 스마트폰 전용 스코어카드</p>
@@ -258,17 +339,24 @@
 
   <!-- 💡 스코어카드 코어 자바스크립트 엔진 -->
   <script>
+    // 파크골프 표준 18홀 Par 레이아웃 (Total Par = 66타: 1코스 33타 + 2코스 33타)
+    const STANDARD_PARS = [
+      3, 4, 3, 4, 3, 3, 5, 3, 3, // 1코스 (1~9홀, 합계 33타)
+      3, 4, 3, 4, 3, 3, 5, 3, 3  // 2코스 (10~18홀, 합계 33타)
+    ];
+
     // 스코어카드 기본 상태 구조
     let state = {
       coursePreset: 'custom',
-      courseName: '전국 파크골프장',
+      courseName: '',
       playerCount: 4,
-      players: ['나 (선수1)', '동반자 2', '동반자 3', '동반자 4'],
+      players: ['선수 1', '선수 2', '선수 3', '선수 4'],
       currentTab: 1, // 1: 1코스(1~9홀), 2: 2코스(10~18홀)
+      modalTab: 1,   // 표 모달 내 탭
       // 18홀 각 홀별 설정 (index 0~17)
-      holes: Array.from({ length: 18 }, (_, i) => ({
-        par: 3, // 기본 Par 3 (드롭다운으로 3, 4, 5 변경 가능)
-        scores: [3, 3, 3, 3] // 각 플레이어별 타수
+      holes: STANDARD_PARS.map(par => ({
+        par: par,
+        scores: [par, par, par, par] // 초기 스코어를 홀 Par와 100% 동기화 (Diff 0 이븐파)
       }))
     };
 
@@ -286,11 +374,11 @@
 
     // 1. 상태 저장 & 로드 (LocalStorage)
     function saveCurrentState() {
-      state.courseName = document.getElementById('custom-course-name').value || '전국 파크골프장';
+      state.courseName = document.getElementById('custom-course-name').value;
       for (let p = 0; p < state.playerCount; p++) {
         const inp = document.getElementById(`p-name-inp-${p}`);
-        if (inp && inp.value.trim()) {
-          state.players[p] = inp.value.trim();
+        if (inp) {
+          state.players[p] = inp.value;
         }
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -305,9 +393,11 @@
           const parsed = JSON.parse(saved);
           state = { ...state, ...parsed };
           document.getElementById('course-preset-select').value = state.coursePreset;
-          document.getElementById('custom-course-name').value = state.courseName;
+          document.getElementById('custom-course-name').value = state.courseName || '';
           if (state.coursePreset !== 'custom') {
             document.getElementById('custom-course-container').classList.add('hidden');
+          } else {
+            document.getElementById('custom-course-container').classList.remove('hidden');
           }
         } catch (e) {
           console.error('기록 로드 실패:', e);
@@ -323,7 +413,10 @@
       
       if (val === 'custom') {
         customContainer.classList.remove('hidden');
-        state.courseName = customInput.value || '전국 파크골프장';
+        // 직접 입력 선택 시 이전 구장 이름 완전히 비우기!
+        customInput.value = '';
+        state.courseName = '';
+        customInput.focus();
       } else {
         customContainer.classList.add('hidden');
         state.courseName = val + ' 파크골프장';
@@ -347,16 +440,16 @@
       saveCurrentState();
     }
 
-    // 4. 플레이어 이름 입력창 렌더링
+    // 4. 플레이어 이름 입력창 렌더링 (onfocus="this.select()" 원클릭 전처리 적용)
     function renderPlayerInputs() {
       const grid = document.getElementById('player-inputs-grid');
       grid.innerHTML = '';
       for (let i = 0; i < state.playerCount; i++) {
-        const defaultName = state.players[i] || (i === 0 ? '나 (선수1)' : `동반자 ${i+1}`);
+        const defaultName = state.players[i] || `선수 ${i+1}`;
         grid.innerHTML += `
           <div>
             <label class="block text-[11px] font-bold text-slate-500 mb-0.5">선수 ${i+1} :</label>
-            <input type="text" id="p-name-inp-${i}" value="${defaultName}" onchange="saveCurrentState()" oninput="saveCurrentState()" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 text-xs rounded-lg p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[40px]">
+            <input type="text" id="p-name-inp-${i}" value="${defaultName}" placeholder="선수 ${i+1} 이름 입력" onfocus="this.select()" onchange="saveCurrentState()" oninput="saveCurrentState()" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 text-xs rounded-lg p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[40px]">
           </div>
         `;
       }
@@ -365,15 +458,19 @@
     // 5. 1코스 / 2코스 탭 전환
     function switchCourseTab(tabNum) {
       state.currentTab = tabNum;
+      state.modalTab = tabNum;
       const btn1 = document.getElementById('tab-course-1');
       const btn2 = document.getElementById('tab-course-2');
+      const floatBtnText = document.getElementById('floating-btn-text');
       
       if (tabNum === 1) {
         btn1.className = 'w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent tab-active flex items-center justify-center gap-1.5';
         btn2.className = 'w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent bg-slate-100 text-slate-700 hover:bg-slate-200 flex items-center justify-center gap-1.5';
+        if (floatBtnText) floatBtnText.textContent = '1~9홀 표로 보기';
       } else {
         btn2.className = 'w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent tab-active flex items-center justify-center gap-1.5';
         btn1.className = 'w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent bg-slate-100 text-slate-700 hover:bg-slate-200 flex items-center justify-center gap-1.5';
+        if (floatBtnText) floatBtnText.textContent = '10~18홀 표로 보기';
       }
       renderHoleCards();
     }
@@ -471,15 +568,13 @@
       }
     }
 
-    // 7. Par 변경 함수
+    // 7. Par 변경 시 해당 홀 스코어 타수도 Par와 동기화 변경!
     function changePar(holeIdx, newParVal) {
       const par = parseInt(newParVal, 10);
       state.holes[holeIdx].par = par;
-      // 기본 타수도 Par와 동일하게 맞춤
+      // Par 지정 시 선수들의 스코어 타수도 새로운 Par에 맞춰 자동 업데이트!
       for (let p = 0; p < state.playerCount; p++) {
-        if (state.holes[holeIdx].scores[p] === 0) {
-          state.holes[holeIdx].scores[p] = par;
-        }
+        state.holes[holeIdx].scores[p] = par;
       }
       saveCurrentState();
       renderHoleCards();
@@ -502,7 +597,8 @@
       state.holes.forEach(h => totalParSum += h.par);
       document.getElementById('total-par-sum').textContent = `Total Par ${totalParSum}`;
 
-      const courseTitle = `${state.courseName} • 18홀 라운딩`;
+      const nameShow = state.courseName || '전국 파크골프장';
+      const courseTitle = `${nameShow} • 18홀 라운딩`;
       document.getElementById('summary-course-title').textContent = courseTitle;
 
       // 각 플레이어별 18홀 총 타수 계산
@@ -522,7 +618,7 @@
       pTotals.sort((a, b) => a.sum - b.sum);
       const leader = pTotals[0];
       document.getElementById('summary-leader-text').innerHTML = `
-        🏆 현재 1위 : <span class="text-amber-300 font-black">${leader.name}</span> (${leader.sum}타 / <span class="${leader.diff < 0 ? 'text-red-400' : 'text-amber-300'}">${leaderLeaderDiffText(leader.diff)}</span>)
+        🏆 현재 1위 : <span class="text-amber-300 font-black">${leader.name}</span> (${leader.sum}타 / <span class="${leader.diff < 0 ? 'text-red-400 font-black' : 'text-amber-300'}">${leaderLeaderDiffText(leader.diff)}</span>)
       `;
     }
 
@@ -537,7 +633,8 @@
       const tbody = document.getElementById('summary-table-body');
       tbody.innerHTML = '';
 
-      document.getElementById('capture-course-name').textContent = `${state.courseName} 스코어 종합`;
+      const nameShow = state.courseName || '전국 파크골프장';
+      document.getElementById('capture-course-name').textContent = `${nameShow} 스코어 종합`;
       const now = new Date();
       const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
       document.getElementById('capture-date-str').textContent = `기록 일시 : ${dateStr}`;
@@ -577,16 +674,28 @@
       }
     }
 
-    // 11. 초기화 확인 모달
+    // 11. 초기화 실행 (선수 이름도 깨끗이 초기화 & 표준 66타 복원)
     function confirmReset() {
-      if (confirm('새 라운드를 시작하시겠습니까?\n현재 입력된 모든 홀 스코어가 기본값으로 초기화됩니다.')) {
-        state.holes = Array.from({ length: 18 }, () => ({
-          par: 3,
-          scores: [3, 3, 3, 3]
+      if (confirm('새 라운드를 시작하시겠습니까?\n모든 선수 이름, 구장 입력 및 스코어가 기본값으로 초기화됩니다.')) {
+        state.coursePreset = 'custom';
+        state.courseName = '';
+        state.players = ['선수 1', '선수 2', '선수 3', '선수 4'];
+        
+        // 표준 66타 (18홀) 레이아웃으로 완벽 리셋
+        state.holes = STANDARD_PARS.map(par => ({
+          par: par,
+          scores: [par, par, par, par]
         }));
-        saveCurrentState();
+
+        document.getElementById('course-preset-select').value = 'custom';
+        document.getElementById('custom-course-container').classList.remove('hidden');
+        document.getElementById('custom-course-name').value = '';
+
+        localStorage.removeItem(STORAGE_KEY);
+        renderPlayerInputs();
         renderHoleCards();
-        alert('스코어카드가 깨끗하게 초기화되었습니다!');
+        saveCurrentState();
+        alert('모든 입력값과 스코어가 깨끗하게 초기화되었습니다!');
       }
     }
 
@@ -600,11 +709,12 @@
 
       const now = new Date();
       const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-      
+      const nameSave = state.courseName || '전국 파크골프장';
+
       const record = {
         id: Date.now(),
         date: dateStr,
-        courseName: state.courseName,
+        courseName: nameSave,
         players: [...state.players],
         playerCount: state.playerCount,
         holes: JSON.parse(JSON.stringify(state.holes))
@@ -613,7 +723,7 @@
       history.unshift(record);
       localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
       renderHistoryList();
-      alert(`[${state.courseName}] 스코어 기록이 내 스마트폰에 저장되었습니다!`);
+      alert(`[${nameSave}] 스코어 기록이 내 스마트폰에 저장되었습니다!`);
     }
 
     // 13. 이전 기록함 목록 렌더링
@@ -695,13 +805,123 @@
         backgroundColor: '#ffffff'
       }).then(canvas => {
         const link = document.createElement('a');
-        link.download = `파크골프스코어_${state.courseName}_${new Date().toISOString().slice(0,10)}.png`;
+        const nameSave = state.courseName || '전국파크골프장';
+        link.download = `파크골프스코어_${nameSave}_${new Date().toISOString().slice(0,10)}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
       }).catch(err => {
         console.error('이미지 캡처 실패:', err);
         alert('이미지 저장 중 오류가 발생했습니다.');
       });
+    }
+
+    // 15. 🎯 [신규] 1~9홀 한눈에 표로 보기 모달 엔진
+    function openTableViewModal() {
+      state.modalTab = state.currentTab; // 현재 선택된 코스로 모달 탭 동기화
+      const modal = document.getElementById('table-view-modal');
+      modal.classList.remove('hidden');
+      renderModalTable();
+    }
+
+    function closeTableViewModal() {
+      const modal = document.getElementById('table-view-modal');
+      modal.classList.add('hidden');
+    }
+
+    function switchModalCourseTab(tabNum) {
+      state.modalTab = tabNum;
+      renderModalTable();
+    }
+
+    function renderModalTable() {
+      const tabNum = state.modalTab;
+      const btn1 = document.getElementById('modal-tab-c1');
+      const btn2 = document.getElementById('modal-tab-c2');
+      const title = document.getElementById('modal-table-title');
+
+      if (tabNum === 1) {
+        btn1.className = 'w-1/2 py-2 rounded-lg font-bold text-xs sm:text-sm bg-emerald-700 text-white shadow-2xs';
+        btn2.className = 'w-1/2 py-2 rounded-lg font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-300';
+        title.textContent = '1코스 (전반 1~9홀) 한눈에 보는 스코어 표';
+      } else {
+        btn2.className = 'w-1/2 py-2 rounded-lg font-bold text-xs sm:text-sm bg-emerald-700 text-white shadow-2xs';
+        btn1.className = 'w-1/2 py-2 rounded-lg font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-300';
+        title.textContent = '2코스 (후반 10~18홀) 한눈에 보는 스코어 표';
+      }
+
+      const startHole = (tabNum - 1) * 9;
+      
+      // 테이블 헤더 및 Par 행 업데이트
+      let nineParTotal = 0;
+      for (let h = 0; h < 9; h++) {
+        const holeIdx = startHole + h;
+        const holeNum = holeIdx + 1;
+        const parVal = state.holes[holeIdx].par;
+        nineParTotal += parVal;
+
+        const th = document.getElementById(`th-h${h+1}`);
+        if (th) th.textContent = `${holeNum}홀`;
+
+        const tdPar = document.getElementById(`m-par-${h}`);
+        if (tdPar) tdPar.textContent = `P${parVal}`;
+      }
+      document.getElementById('m-par-total').textContent = `Par ${nineParTotal}`;
+
+      // 플레이어별 행 생성
+      const tbody = document.getElementById('modal-table-tbody');
+      tbody.innerHTML = '';
+
+      for (let p = 0; p < state.playerCount; p++) {
+        const pName = state.players[p] || `선수 ${p+1}`;
+        let nineScoreTotal = 0;
+        let cellsHtml = '';
+
+        for (let h = 0; h < 9; h++) {
+          const holeIdx = startHole + h;
+          const stroke = state.holes[holeIdx].scores[p];
+          const diff = stroke - state.holes[holeIdx].par;
+          nineScoreTotal += stroke;
+
+          let cellClass = 'score-even';
+          let diffMark = '';
+          if (diff < 0) {
+            cellClass = 'score-under bg-red-50';
+            diffMark = `<span class="text-[9px] block text-red-500">(${diff})</span>`;
+          } else if (diff > 0) {
+            cellClass = 'score-over bg-blue-50';
+            diffMark = `<span class="text-[9px] block text-blue-500">(+${diff})</span>`;
+          }
+
+          cellsHtml += `
+            <td class="p-1 border border-slate-200 ${cellClass}">
+              ${stroke}
+              ${diffMark}
+            </td>
+          `;
+        }
+
+        const nineDiff = nineScoreTotal - nineParTotal;
+        let sumDiffText = '0(E)';
+        let sumDiffClass = 'score-even';
+        if (nineDiff < 0) {
+          sumDiffText = `${nineDiff}`;
+          sumDiffClass = 'score-under';
+        } else if (nineDiff > 0) {
+          sumDiffText = `+${nineDiff}`;
+          sumDiffClass = 'score-over';
+        }
+
+        tbody.innerHTML += `
+          <tr class="${p % 2 === 0 ? 'bg-white' : 'bg-slate-50'} border-b border-slate-200">
+            <td class="p-2 border border-slate-200 font-black text-slate-900 sticky left-0 ${p % 2 === 0 ? 'bg-white' : 'bg-slate-50'} shadow-2xs">${pName}</td>
+            ${cellsHtml}
+            <td class="p-2 border border-slate-200 font-black bg-amber-50 text-slate-900">
+              ${nineScoreTotal}타
+              <span class="text-[10px] block ${sumDiffClass}">(${sumDiffText})</span>
+            </td>
+          </tr>
+        `;
+      }
     }
   </script>
 </body>
