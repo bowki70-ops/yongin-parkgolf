@@ -404,9 +404,18 @@
         try {
           const parsed = JSON.parse(saved);
           state = { ...state, ...parsed };
-          document.getElementById('course-preset-select').value = state.coursePreset;
+          
+          // 기존 저장 데이터가 있더라도 포곡구장/수지아르피아 프리셋인 경우 최신 Par 레이아웃 동기화
+          if (state.coursePreset && COURSE_PAR_PRESETS[state.coursePreset]) {
+            const presetPars = COURSE_PAR_PRESETS[state.coursePreset];
+            for (let i = 0; i < 18; i++) {
+              state.holes[i].par = presetPars[i];
+            }
+          }
+
+          document.getElementById('course-preset-select').value = state.coursePreset || 'custom';
           document.getElementById('custom-course-name').value = state.courseName || '';
-          if (state.coursePreset !== 'custom') {
+          if (state.coursePreset && state.coursePreset !== 'custom') {
             document.getElementById('custom-course-container').classList.add('hidden');
           } else {
             document.getElementById('custom-course-container').classList.remove('hidden');
