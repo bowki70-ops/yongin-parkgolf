@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ko" class="text-[18px]">
+<head>
+  <meta charset="UTF-8">
+  <title>스마트폰 파크골프 스코어카드 | 전국 타구장 겸용 (용인 파크골프)</title>
+  
+  <!-- 모바일 반응형 뷰포트 메타 태그 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  
+  <!-- 브라우저 캐시 방지 메타 태그 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- SEO 및 OG Tag -->
+  <meta name="description" content="종이 스코어카드 대신 스마트폰에서 간편하게! 1·2코스 탭 분리, Par3·4·5 드롭다운 선택, -빨강/+파랑 자동 계산 지원 전국 파크골프 스코어카드">
+  <meta property="og:title" content="스마트폰 파크골프 스코어카드">
+  <meta property="og:description" content="전국 파크골프장 겸용! 6080 시니어 맞춤 큰 글씨 스코어카드 웹앱">
+  <meta property="og:image" content="https://yonginparkgolf.co.kr/og-image.jpg">
+  
+  <!-- 모바일 웹앱 PWA 지원 -->
+  <meta name="theme-color" content="#064e3b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="파크골프 스코어">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- html2canvas for scorecard image export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    /* 🌿 시니어 맞춤 힐링 크림 톤 & 왕대형 폰트 스타일 */
+    html { font-size: 18px; }
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', AppleSDGothicNeo-Regular, sans-serif;
+      word-break: keep-all;
+      background-color: #faf7f2 !important;
+      color: #1e293b !important;
+      line-height: 1.7 !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* 언더파 (-): 강렬하고 또렷한 빨간색 배지 & 글씨 */
+    .score-under {
+      color: #dc2626 !important; /* Red 600 */
+      font-weight: 900 !important;
+    }
+    .badge-under {
+      background-color: #fef2f2 !important;
+      color: #dc2626 !important;
+      border: 1.5px solid #fca5a5 !important;
+    }
+
+    /* 오버파 (+): 명확한 파란색 배지 & 글씨 */
+    .score-over {
+      color: #2563eb !important; /* Blue 600 */
+      font-weight: 900 !important;
+    }
+    .badge-over {
+      background-color: #eff6ff !important;
+      color: #2563eb !important;
+      border: 1.5px solid #93c5fd !important;
+    }
+
+    /* 이븐파 (0): 차분한 다크 슬레이트 */
+    .score-even {
+      color: #334155 !important; /* Slate 700 */
+      font-weight: 800 !important;
+    }
+    .badge-even {
+      background-color: #f8fafc !important;
+      color: #475569 !important;
+      border: 1.5px solid #cbd5e1 !important;
+    }
+
+    /* 애니메이션 효과 */
+    .tab-active {
+      background-color: #047857 !important;
+      color: #ffffff !important;
+      border-color: #059669 !important;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="pb-16 min-h-screen flex flex-col justify-between">
+
+  <!-- 📱 상단 헤더 바 -->
+  <header class="bg-emerald-900 text-white p-3 shadow-md sticky top-0 z-50 border-b-2 border-emerald-600">
+    <div class="max-w-2xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="bg-emerald-800 hover:bg-emerald-700 text-amber-300 font-bold text-xs px-2.5 py-1.5 rounded-lg border border-emerald-600 flex items-center gap-1 active:scale-95 transition">
+        <span>🏠</span>
+        <span>메인 홈</span>
+      </a>
+      <h1 class="font-black text-sm sm:text-base text-amber-300 flex items-center gap-1">
+        <span>📱</span>
+        <span>파크골프 스코어카드</span>
+      </h1>
+      <button type="button" onclick="confirmReset()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-2.5 py-1.5 rounded-lg shadow border border-amber-300 active:scale-95 transition flex items-center gap-1">
+        <span>🔄</span>
+        <span>초기화</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 본문 컨테이너 -->
+  <main class="max-w-2xl mx-auto p-2.5 space-y-3 w-full flex-grow">
+
+    <!-- 1. 구장 정보 & 동반자 설정 카드 -->
+    <div class="bg-white p-3.5 rounded-2xl border-2 border-emerald-300 shadow-sm space-y-3">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+        <h2 class="font-black text-slate-900 text-sm sm:text-base flex items-center gap-1.5">
+          <span>⛳</span>
+          <span>라운드 정보 설정</span>
+        </h2>
+        <span class="bg-emerald-100 text-emerald-950 font-bold text-xs px-2 py-0.5 rounded-md border border-emerald-300">전국 타구장 겸용</span>
+      </div>
+
+      <!-- 구장 선택 & 라운드 일자 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">📍 구장 선택 :</label>
+          <select id="course-preset-select" onchange="handleCoursePresetChange(this.value)" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[44px]">
+            <option value="수지 아르피아">수지 아르피아 파크골프장 (9홀)</option>
+            <option value="포곡 유운리">포곡 유운리 파크골프장 (9홀)</option>
+            <option value="기흥 호수공원">기흥 호수공원 파크골프장 (14홀)</option>
+            <option value="custom" selected>✏️ 직접 입력 (전국 모든 타구장)</option>
+          </select>
+        </div>
+        <div id="custom-course-container">
+          <label class="block font-bold text-slate-700 mb-1">✏️ 구장 이름 직접 입력 :</label>
+          <input type="text" id="custom-course-name" value="전국 파크골프장" placeholder="예: 양평 파크골프장" oninput="saveCurrentState()" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[44px]">
+        </div>
+      </div>
+
+      <!-- 플레이어 이름 입력 (1~4명) -->
+      <div>
+        <div class="flex justify-between items-center mb-1.5">
+          <label class="font-bold text-slate-700 text-xs sm:text-sm">👥 동반 플레이어 (최대 4인) :</label>
+          <div class="flex gap-1">
+            <button type="button" onclick="setPlayerCount(1)" class="p-btn-cnt px-2 py-0.5 text-xs font-bold rounded-lg border border-slate-300 bg-white">1인</button>
+            <button type="button" onclick="setPlayerCount(2)" class="p-btn-cnt px-2 py-0.5 text-xs font-bold rounded-lg border border-slate-300 bg-white">2인</button>
+            <button type="button" onclick="setPlayerCount(3)" class="p-btn-cnt px-2 py-0.5 text-xs font-bold rounded-lg border border-slate-300 bg-white">3인</button>
+            <button type="button" onclick="setPlayerCount(4)" class="p-btn-cnt px-2 py-0.5 text-xs font-bold rounded-lg border border-emerald-500 bg-emerald-100 text-emerald-900">4인</button>
+          </div>
+        </div>
+        
+        <div id="player-inputs-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <!-- JS로 플레이어 입력창 동적 생성 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 실시간 스코어 요약 배너 (총 타수 & 언더/오버) -->
+    <div class="bg-gradient-to-r from-slate-900 to-emerald-950 text-white p-3 rounded-2xl shadow-md border border-slate-800 flex justify-between items-center gap-2">
+      <div class="min-w-0">
+        <span class="text-xs text-amber-300 font-bold block" id="summary-course-title">전국 파크골프장 • 18홀 라운딩</span>
+        <h3 class="font-black text-sm sm:text-base truncate text-white" id="summary-leader-text">
+          🏆 현재 1위 : <span class="text-amber-300">--</span>
+        </h3>
+      </div>
+      <div class="bg-slate-800/90 px-3 py-1.5 rounded-xl border border-slate-700 text-center shrink-0">
+        <span class="text-[10px] text-slate-400 font-bold block">전반+후반 총 Par</span>
+        <span class="text-amber-300 font-black text-sm sm:text-base" id="total-par-sum">Par 66</span>
+      </div>
+    </div>
+
+    <!-- 3. 코스 분리 탭 (1코스 전반 1~9홀 / 2코스 후반 1~9홀) -->
+    <div class="bg-white p-1.5 rounded-2xl border-2 border-emerald-300 shadow-xs flex gap-1.5">
+      <button type="button" id="tab-course-1" onclick="switchCourseTab(1)" class="w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent tab-active flex items-center justify-center gap-1.5">
+        <span>⛳ 1코스</span>
+        <span class="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">(전반 1~9홀)</span>
+      </button>
+      <button type="button" id="tab-course-2" onclick="switchCourseTab(2)" class="w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent bg-slate-100 text-slate-700 hover:bg-slate-200 flex items-center justify-center gap-1.5">
+        <span>⛳ 2코스</span>
+        <span class="text-xs font-bold bg-slate-200/80 px-2 py-0.5 rounded-full text-slate-700">(후반 1~9홀)</span>
+      </button>
+    </div>
+
+    <!-- 4. 홀별 스코어 입력 매트릭스 카드 (시니어 맞춤 대형 + / - 버튼) -->
+    <div id="hole-cards-container" class="space-y-2.5">
+      <!-- JS로 9개 홀 카드 동적 생성 -->
+    </div>
+
+    <!-- 5. 18홀 전체 라운드 최종 요약 표 (이미지 캡처 대상) -->
+    <div id="scorecard-capture-area" class="bg-white p-3.5 rounded-2xl border-2 border-emerald-400 shadow-sm space-y-3">
+      <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+        <div>
+          <h3 class="font-black text-slate-900 text-sm sm:text-base flex items-center gap-1">
+            <span>📊</span>
+            <span id="capture-course-name">전국 파크골프장 스코어 종합</span>
+          </h3>
+          <p class="text-[11px] text-slate-500 font-semibold" id="capture-date-str">기록 일시 : 2026-09-18</p>
+        </div>
+        <span class="bg-red-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs">
+          🔴-빨강 / 🔵+파랑
+        </span>
+      </div>
+
+      <!-- 종합 스코어 테이블 -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-center border-collapse text-xs sm:text-sm font-bold">
+          <thead>
+            <tr class="bg-emerald-900 text-white border-b-2 border-emerald-950">
+              <th class="p-2 border border-emerald-800 whitespace-nowrap">선수</th>
+              <th class="p-2 border border-emerald-800 whitespace-nowrap">1코스(9홀)</th>
+              <th class="p-2 border border-emerald-800 whitespace-nowrap">2코스(9홀)</th>
+              <th class="p-2 border border-emerald-800 whitespace-nowrap bg-emerald-950 text-amber-300">18홀 총타</th>
+              <th class="p-2 border border-emerald-800 whitespace-nowrap bg-slate-900">최종 성적</th>
+            </tr>
+          </thead>
+          <tbody id="summary-table-body">
+            <!-- JS로 요약 행 동적 생성 -->
+          </tbody>
+        </table>
+      </div>
+      
+      <p class="text-[11px] text-slate-500 text-center font-medium pt-1">
+        ※ 빨간색: 언더파(이글/버디), 파란색: 오버파(보기), 검정색: 이븐파
+      </p>
+    </div>
+
+    <!-- 6. 하단 액션 버튼 그룹 (저장 / 캡처 / 공유) -->
+    <div class="grid grid-cols-2 gap-2 pt-1">
+      <button type="button" onclick="saveRoundToHistory()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-black py-3 rounded-xl border border-emerald-600 shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 text-xs sm:text-sm cursor-pointer">
+        <span>💾</span>
+        <span>라운드 기록 저장</span>
+      </button>
+      <button type="button" onclick="captureScorecardImage()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black py-3 rounded-xl border border-amber-300 shadow-md active:scale-95 transition flex items-center justify-center gap-1.5 text-xs sm:text-sm cursor-pointer">
+        <span>📸</span>
+        <span>스코어카드 이미지 저장</span>
+      </button>
+    </div>
+
+    <!-- 7. 저장된 이전 라운드 기록함 (접이식) -->
+    <div class="bg-white p-3 rounded-2xl border border-slate-300 shadow-2xs space-y-2">
+      <button type="button" onclick="toggleHistoryList()" class="w-full flex justify-between items-center font-black text-slate-800 text-xs sm:text-sm">
+        <span class="flex items-center gap-1.5">
+          <span>📜</span>
+          <span>내 스마트폰 이전 라운드 기록함 (<span id="history-count">0</span>건)</span>
+        </span>
+        <span id="history-toggle-icon" class="text-slate-400">▼</span>
+      </button>
+      <div id="history-list-container" class="hidden space-y-2 border-t border-slate-100 pt-2 text-xs">
+        <!-- JS로 이전 기록 내역 표시 -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 하단 안내 푸터 -->
+  <footer class="bg-slate-900 text-slate-400 text-center text-xs py-4 px-3 border-t border-slate-800">
+    <p class="font-bold text-amber-300">⛳ 용인 파크골프 포털 스마트폰 전용 스코어카드</p>
+    <p class="text-[11px] text-slate-500 mt-1">인터넷 연결이 불안정해도 브라우저 내부에 안전하게 스코어가 저장됩니다.</p>
+  </footer>
+
+  <!-- 💡 스코어카드 코어 자바스크립트 엔진 -->
+  <script>
+    // 스코어카드 기본 상태 구조
+    let state = {
+      coursePreset: 'custom',
+      courseName: '전국 파크골프장',
+      playerCount: 4,
+      players: ['나 (선수1)', '동반자 2', '동반자 3', '동반자 4'],
+      currentTab: 1, // 1: 1코스(1~9홀), 2: 2코스(10~18홀)
+      // 18홀 각 홀별 설정 (index 0~17)
+      holes: Array.from({ length: 18 }, (_, i) => ({
+        par: 3, // 기본 Par 3 (드롭다운으로 3, 4, 5 변경 가능)
+        scores: [3, 3, 3, 3] // 각 플레이어별 타수
+      }))
+    };
+
+    const STORAGE_KEY = 'yongin_parkgolf_scorecard_v1';
+    const HISTORY_KEY = 'yongin_parkgolf_scorecard_history_v1';
+
+    // 페이지 로드 초기화
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSavedState();
+      renderPlayerInputs();
+      renderHoleCards();
+      renderSummaryTable();
+      renderHistoryList();
+    });
+
+    // 1. 상태 저장 & 로드 (LocalStorage)
+    function saveCurrentState() {
+      state.courseName = document.getElementById('custom-course-name').value || '전국 파크골프장';
+      for (let p = 0; p < state.playerCount; p++) {
+        const inp = document.getElementById(`p-name-inp-${p}`);
+        if (inp && inp.value.trim()) {
+          state.players[p] = inp.value.trim();
+        }
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateLeaderAndSummary();
+      renderSummaryTable();
+    }
+
+    function loadSavedState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          state = { ...state, ...parsed };
+          document.getElementById('course-preset-select').value = state.coursePreset;
+          document.getElementById('custom-course-name').value = state.courseName;
+          if (state.coursePreset !== 'custom') {
+            document.getElementById('custom-course-container').classList.add('hidden');
+          }
+        } catch (e) {
+          console.error('기록 로드 실패:', e);
+        }
+      }
+    }
+
+    // 2. 구장 프리셋 변경 핸들러
+    function handleCoursePresetChange(val) {
+      state.coursePreset = val;
+      const customContainer = document.getElementById('custom-course-container');
+      const customInput = document.getElementById('custom-course-name');
+      
+      if (val === 'custom') {
+        customContainer.classList.remove('hidden');
+        state.courseName = customInput.value || '전국 파크골프장';
+      } else {
+        customContainer.classList.add('hidden');
+        state.courseName = val + ' 파크골프장';
+        customInput.value = state.courseName;
+      }
+      saveCurrentState();
+    }
+
+    // 3. 인원 수 변경 핸들러 (1~4인)
+    function setPlayerCount(cnt) {
+      state.playerCount = cnt;
+      document.querySelectorAll('.p-btn-cnt').forEach((btn, idx) => {
+        if (idx + 1 === cnt) {
+          btn.className = 'p-btn-cnt px-2 py-0.5 text-xs font-bold rounded-lg border border-emerald-500 bg-emerald-100 text-emerald-900';
+        } else {
+          btn.className = 'p-btn-cnt px-2 py-0.5 text-xs font-bold rounded-lg border border-slate-300 bg-white';
+        }
+      });
+      renderPlayerInputs();
+      renderHoleCards();
+      saveCurrentState();
+    }
+
+    // 4. 플레이어 이름 입력창 렌더링
+    function renderPlayerInputs() {
+      const grid = document.getElementById('player-inputs-grid');
+      grid.innerHTML = '';
+      for (let i = 0; i < state.playerCount; i++) {
+        const defaultName = state.players[i] || (i === 0 ? '나 (선수1)' : `동반자 ${i+1}`);
+        grid.innerHTML += `
+          <div>
+            <label class="block text-[11px] font-bold text-slate-500 mb-0.5">선수 ${i+1} :</label>
+            <input type="text" id="p-name-inp-${i}" value="${defaultName}" onchange="saveCurrentState()" oninput="saveCurrentState()" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 text-xs rounded-lg p-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-h-[40px]">
+          </div>
+        `;
+      }
+    }
+
+    // 5. 1코스 / 2코스 탭 전환
+    function switchCourseTab(tabNum) {
+      state.currentTab = tabNum;
+      const btn1 = document.getElementById('tab-course-1');
+      const btn2 = document.getElementById('tab-course-2');
+      
+      if (tabNum === 1) {
+        btn1.className = 'w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent tab-active flex items-center justify-center gap-1.5';
+        btn2.className = 'w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent bg-slate-100 text-slate-700 hover:bg-slate-200 flex items-center justify-center gap-1.5';
+      } else {
+        btn2.className = 'w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent tab-active flex items-center justify-center gap-1.5';
+        btn1.className = 'w-1/2 py-3 rounded-xl font-black text-sm sm:text-base transition border border-transparent bg-slate-100 text-slate-700 hover:bg-slate-200 flex items-center justify-center gap-1.5';
+      }
+      renderHoleCards();
+    }
+
+    // 6. 홀별 스코어 카드 렌더링 (9개 홀)
+    function renderHoleCards() {
+      const container = document.getElementById('hole-cards-container');
+      container.innerHTML = '';
+      
+      const startHole = (state.currentTab - 1) * 9; // 0 or 9
+      const courseLabel = state.currentTab === 1 ? '1코스 (전반)' : '2코스 (후반)';
+
+      for (let h = 0; h < 9; h++) {
+        const holeIdx = startHole + h;
+        const holeNumber = holeIdx + 1;
+        const holeData = state.holes[holeIdx];
+
+        let playersHtml = '';
+        for (let p = 0; p < state.playerCount; p++) {
+          const pName = state.players[p] || `선수 ${p+1}`;
+          const stroke = holeData.scores[p];
+          const diff = stroke - holeData.par;
+
+          // -빨강 / +파랑 / 0이븐 색상 클래스 계산
+          let scoreClass = 'score-even';
+          let badgeClass = 'badge-even';
+          let diffStr = '0 (Par)';
+
+          if (diff < 0) {
+            scoreClass = 'score-under';
+            badgeClass = 'badge-under';
+            diffStr = `${diff} (언더파)`;
+          } else if (diff > 0) {
+            scoreClass = 'score-over';
+            badgeClass = 'badge-over';
+            diffStr = `+${diff} (오버파)`;
+          }
+
+          playersHtml += `
+            <div class="flex items-center justify-between bg-slate-50/90 p-2 rounded-xl border border-slate-200 gap-2">
+              <span class="font-black text-slate-800 text-xs sm:text-sm shrink-0 w-24 truncate">
+                ${pName}
+              </span>
+              
+              <!-- 왕대형 + / - 타수 조절 버튼 -->
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="adjustScore(${holeIdx}, ${p}, -1)" class="w-10 h-10 bg-white hover:bg-slate-100 border-2 border-slate-300 text-slate-900 font-black text-lg rounded-lg shadow-2xs active:scale-90 transition flex items-center justify-center">
+                  -
+                </button>
+                
+                <span class="text-lg sm:text-xl font-black min-w-[2.2rem] text-center ${scoreClass}">
+                  ${stroke}타
+                </span>
+                
+                <button type="button" onclick="adjustScore(${holeIdx}, ${p}, 1)" class="w-10 h-10 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-lg rounded-lg shadow-2xs active:scale-90 transition flex items-center justify-center">
+                  +
+                </button>
+              </div>
+
+              <!-- vs Par 성적 배지 (-빨강 / +파랑) -->
+              <span class="text-[11px] sm:text-xs font-black px-2 py-1 rounded-lg shrink-0 ${badgeClass}">
+                ${diffStr}
+              </span>
+            </div>
+          `;
+        }
+
+        container.innerHTML += `
+          <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-xs space-y-2">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-1.5">
+              <div class="flex items-center gap-2">
+                <span class="bg-emerald-800 text-amber-300 font-black text-xs px-2.5 py-0.5 rounded-md shadow-2xs">
+                  ${holeNumber}번 홀
+                </span>
+                <span class="text-xs font-bold text-slate-500">${courseLabel}</span>
+              </div>
+              
+              <!-- Par 지정 드롭다운 (3, 4, 5) -->
+              <div class="flex items-center gap-1">
+                <label for="par-select-${holeIdx}" class="text-xs font-bold text-slate-700">Par 지정 :</label>
+                <select id="par-select-${holeIdx}" onchange="changePar(${holeIdx}, this.value)" class="bg-amber-100 text-amber-950 font-black text-xs border border-amber-300 rounded-lg px-2 py-1 cursor-pointer focus:outline-none min-h-[36px]">
+                  <option value="3" ${holeData.par === 3 ? 'selected' : ''}>파 3 (PAR 3)</option>
+                  <option value="4" ${holeData.par === 4 ? 'selected' : ''}>파 4 (PAR 4)</option>
+                  <option value="5" ${holeData.par === 5 ? 'selected' : ''}>파 5 (PAR 5)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 플레이어별 스코어 행 목록 -->
+            <div class="space-y-1.5">
+              ${playersHtml}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // 7. Par 변경 함수
+    function changePar(holeIdx, newParVal) {
+      const par = parseInt(newParVal, 10);
+      state.holes[holeIdx].par = par;
+      // 기본 타수도 Par와 동일하게 맞춤
+      for (let p = 0; p < state.playerCount; p++) {
+        if (state.holes[holeIdx].scores[p] === 0) {
+          state.holes[holeIdx].scores[p] = par;
+        }
+      }
+      saveCurrentState();
+      renderHoleCards();
+    }
+
+    // 8. 타수 증감 함수 (+ / -)
+    function adjustScore(holeIdx, playerIdx, delta) {
+      let current = state.holes[holeIdx].scores[playerIdx];
+      current += delta;
+      if (current < 1) current = 1; // 최소 1타 이상
+      state.holes[holeIdx].scores[playerIdx] = current;
+      
+      saveCurrentState();
+      renderHoleCards();
+    }
+
+    // 9. 리더 및 종합 업데이트
+    function updateLeaderAndSummary() {
+      let totalParSum = 0;
+      state.holes.forEach(h => totalParSum += h.par);
+      document.getElementById('total-par-sum').textContent = `Total Par ${totalParSum}`;
+
+      const courseTitle = `${state.courseName} • 18홀 라운딩`;
+      document.getElementById('summary-course-title').textContent = courseTitle;
+
+      // 각 플레이어별 18홀 총 타수 계산
+      let pTotals = [];
+      for (let p = 0; p < state.playerCount; p++) {
+        let sum = 0;
+        state.holes.forEach(h => sum += (h.scores[p] || h.par));
+        const diff = sum - totalParSum;
+        pTotals.push({
+          name: state.players[p] || `선수 ${p+1}`,
+          sum: sum,
+          diff: diff
+        });
+      }
+
+      // 최소 타수(1위) 탐색
+      pTotals.sort((a, b) => a.sum - b.sum);
+      const leader = pTotals[0];
+      document.getElementById('summary-leader-text').innerHTML = `
+        🏆 현재 1위 : <span class="text-amber-300 font-black">${leader.name}</span> (${leader.sum}타 / <span class="${leader.diff < 0 ? 'text-red-400' : 'text-amber-300'}">${leaderLeaderDiffText(leader.diff)}</span>)
+      `;
+    }
+
+    function leaderLeaderDiffText(diff) {
+      if (diff < 0) return `${diff}언더파`;
+      if (diff > 0) return `+${diff}오버파`;
+      return '이븐파';
+    }
+
+    // 10. 종합 스코어 표 렌더링
+    function renderSummaryTable() {
+      const tbody = document.getElementById('summary-table-body');
+      tbody.innerHTML = '';
+
+      document.getElementById('capture-course-name').textContent = `${state.courseName} 스코어 종합`;
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      document.getElementById('capture-date-str').textContent = `기록 일시 : ${dateStr}`;
+
+      // 1코스 Par 합, 2코스 Par 합, 전체 Par 합
+      let c1Par = 0, c2Par = 0;
+      for (let h = 0; h < 9; h++) c1Par += state.holes[h].par;
+      for (let h = 9; h < 18; h++) c2Par += state.holes[h].par;
+      const totalPar = c1Par + c2Par;
+
+      for (let p = 0; p < state.playerCount; p++) {
+        let c1Score = 0, c2Score = 0;
+        for (let h = 0; h < 9; h++) c1Score += state.holes[h].scores[p];
+        for (let h = 9; h < 18; h++) c2Score += state.holes[h].scores[p];
+        
+        const totalScore = c1Score + c2Score;
+        const totalDiff = totalScore - totalPar;
+
+        let diffBadge = `<span class="score-even font-bold">0 (E)</span>`;
+        if (totalDiff < 0) {
+          diffBadge = `<span class="score-under font-black">${totalDiff} (언더)</span>`;
+        } else if (totalDiff > 0) {
+          diffBadge = `<span class="score-over font-black">+${totalDiff} (오버)</span>`;
+        }
+
+        const pName = state.players[p] || `선수 ${p+1}`;
+
+        tbody.innerHTML += `
+          <tr class="${p % 2 === 0 ? 'bg-white' : 'bg-slate-50'} border-b border-slate-200">
+            <td class="p-2 border border-slate-200 font-black text-slate-900">${pName}</td>
+            <td class="p-2 border border-slate-200 text-slate-700">${c1Score}타 <span class="text-[10px] text-slate-400">(${c1Score - c1Par})</span></td>
+            <td class="p-2 border border-slate-200 text-slate-700">${c2Score}타 <span class="text-[10px] text-slate-400">(${c2Score - c2Par})</span></td>
+            <td class="p-2 border border-slate-200 font-black text-amber-950 bg-amber-50">${totalScore}타</td>
+            <td class="p-2 border border-slate-200 font-black">${diffBadge}</td>
+          </tr>
+        `;
+      }
+    }
+
+    // 11. 초기화 확인 모달
+    function confirmReset() {
+      if (confirm('새 라운드를 시작하시겠습니까?\n현재 입력된 모든 홀 스코어가 기본값으로 초기화됩니다.')) {
+        state.holes = Array.from({ length: 18 }, () => ({
+          par: 3,
+          scores: [3, 3, 3, 3]
+        }));
+        saveCurrentState();
+        renderHoleCards();
+        alert('스코어카드가 깨끗하게 초기화되었습니다!');
+      }
+    }
+
+    // 12. 라운드 저장 (내역 보관)
+    function saveRoundToHistory() {
+      let history = [];
+      const savedHist = localStorage.getItem(HISTORY_KEY);
+      if (savedHist) {
+        try { history = JSON.parse(savedHist); } catch (e) {}
+      }
+
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      
+      const record = {
+        id: Date.now(),
+        date: dateStr,
+        courseName: state.courseName,
+        players: [...state.players],
+        playerCount: state.playerCount,
+        holes: JSON.parse(JSON.stringify(state.holes))
+      };
+
+      history.unshift(record);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      renderHistoryList();
+      alert(`[${state.courseName}] 스코어 기록이 내 스마트폰에 저장되었습니다!`);
+    }
+
+    // 13. 이전 기록함 목록 렌더링
+    function renderHistoryList() {
+      const savedHist = localStorage.getItem(HISTORY_KEY);
+      let history = [];
+      if (savedHist) {
+        try { history = JSON.parse(savedHist); } catch (e) {}
+      }
+
+      document.getElementById('history-count').textContent = history.length;
+      const container = document.getElementById('history-list-container');
+      container.innerHTML = '';
+
+      if (history.length === 0) {
+        container.innerHTML = `<p class="text-slate-400 text-center py-2">저장된 과거 라운드 기록이 없습니다.</p>`;
+        return;
+      }
+
+      history.forEach((rec) => {
+        let playersSummary = '';
+        for (let p = 0; p < rec.playerCount; p++) {
+          let sum = 0;
+          let parSum = 0;
+          rec.holes.forEach(h => {
+            sum += (h.scores[p] || h.par);
+            parSum += h.par;
+          });
+          const diff = sum - parSum;
+          const name = rec.players[p] || `선수 ${p+1}`;
+          playersSummary += `${name}: ${sum}타(${diff > 0 ? '+'+diff : diff})  `;
+        }
+
+        container.innerHTML += `
+          <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 flex justify-between items-center gap-2">
+            <div class="min-w-0">
+              <span class="font-bold text-emerald-900 block">${rec.courseName} (${rec.date})</span>
+              <p class="text-[11px] text-slate-600 truncate">${playersSummary}</p>
+            </div>
+            <button type="button" onclick="deleteHistoryItem(${rec.id})" class="text-red-600 hover:text-red-800 text-[11px] font-bold px-2 py-1 rounded bg-white border border-red-200 shrink-0">
+              삭제
+            </button>
+          </div>
+        `;
+      });
+    }
+
+    function toggleHistoryList() {
+      const container = document.getElementById('history-list-container');
+      const icon = document.getElementById('history-toggle-icon');
+      if (container.classList.contains('hidden')) {
+        container.classList.remove('hidden');
+        icon.textContent = '▲';
+      } else {
+        container.classList.add('hidden');
+        icon.textContent = '▼';
+      }
+    }
+
+    function deleteHistoryItem(id) {
+      if (confirm('이 라운드 기록을 삭제하시겠습니까?')) {
+        let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+        history = history.filter(item => item.id !== id);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        renderHistoryList();
+      }
+    }
+
+    // 14. 스코어카드 이미지 캡처/저장
+    function captureScorecardImage() {
+      const target = document.getElementById('scorecard-capture-area');
+      if (!target) return;
+
+      alert('스코어카드 이미지를 생성합니다. 잠시만 기다려주세요...');
+
+      html2canvas(target, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `파크골프스코어_${state.courseName}_${new Date().toISOString().slice(0,10)}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }).catch(err => {
+        console.error('이미지 캡처 실패:', err);
+        alert('이미지 저장 중 오류가 발생했습니다.');
+      });
+    }
+  </script>
+</body>
+</html>

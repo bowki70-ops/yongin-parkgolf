@@ -244,6 +244,10 @@
           </select>
           <span class="pointer-events-none absolute right-1 text-[8px] text-slate-950 font-black">▼</span>
         </div>
+        <a href="score.html" class="bg-amber-400 text-slate-950 font-black text-xs px-2 py-1 rounded-lg shadow border border-amber-300 active:scale-95 flex items-center gap-1 cursor-pointer min-h-[34px] shrink-0">
+          <span>📱</span>
+          <span>스코어</span>
+        </a>
         <button type="button" onclick="openLicenseGuideModal()" class="bg-amber-400 text-slate-950 font-black text-xs px-2 py-1 rounded-lg shadow border border-amber-300 active:scale-95 flex items-center gap-1 cursor-pointer min-h-[34px] shrink-0">
           <span>🏅</span>
           <span>자격증</span>
@@ -268,6 +272,32 @@
 
     <!-- 3. 실시간 구장 & 대기 현황 카드 4곳 (첫 화면 2개 동시 노출 컴팩트 세로 공간 최적화) -->
     <main class="p-2.5 space-y-2.5">
+
+      <!-- 📢 [신규] 용인 파크골프 긴급 휴장 & 공사 공지사항 배너 (네이버 밴드 연동) -->
+      <div class="bg-gradient-to-r from-amber-50 to-amber-100/90 p-3 rounded-xl border-2 border-amber-400 shadow-sm space-y-2">
+        <div class="flex items-center justify-between border-b border-amber-200 pb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="bg-red-600 text-white font-black text-xs px-2 py-0.5 rounded-md animate-pulse">📢 긴급공지</span>
+            <h3 class="font-black text-slate-900 text-xs sm:text-sm">구장 임시 휴장 & 공사 안내</h3>
+          </div>
+          <a href="https://band.us" target="_blank" rel="noopener noreferrer" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-2 py-1 rounded-lg border border-emerald-600 shadow-2xs flex items-center gap-1 shrink-0 transition active:scale-95">
+            <span>💚</span>
+            <span>네이버 밴드 공지</span>
+          </a>
+        </div>
+        <div class="bg-white p-2.5 rounded-lg border border-amber-200 shadow-2xs text-slate-800 space-y-1">
+          <div class="flex items-center justify-between font-bold text-xs">
+            <span class="text-amber-900 flex items-center gap-1">
+              <span class="bg-amber-200 text-amber-900 font-black text-[11px] px-1.5 py-0.2 rounded">공사/보수</span>
+              <span>수지·포곡·기흥 구장 사정 안내</span>
+            </span>
+            <span class="text-slate-500 text-[11px]">실시간 소식</span>
+          </div>
+          <p class="text-slate-700 font-medium text-xs sm:text-sm leading-snug">
+            🚧 잔디 보수 공사 및 구장 사정으로 인한 임시/오전 휴장이 수시 발생합니다. 출구 전 <strong>네이버 밴드 "용인 파크골프 동호회"</strong> 최신 공지를 반드시 확인해 주세요!
+          </p>
+        </div>
+      </div>
 
       <!-- 대시보드 타이틀 (클릭 버튼과 구분되는 차분한 초록 배지) -->
       <div class="bg-white px-3 py-2 rounded-xl border border-emerald-800 shadow-2xs flex items-center justify-between">
@@ -474,6 +504,18 @@
           </a>
         </div>
       </div>
+
+      <!-- 📱 [신규] 전국 타구장 겸용! 모바일 파크골프 스코어카드 시작 고정 배너 -->
+      <a href="score.html" class="block w-full bg-gradient-to-r from-emerald-800 via-teal-800 to-emerald-900 hover:from-emerald-900 hover:to-teal-950 text-white p-3.5 rounded-xl border-2 border-amber-400 shadow-md transition active:scale-[0.98] text-center space-y-1.5 group">
+        <div class="flex items-center justify-center gap-2">
+          <span class="text-xl animate-bounce">📱</span>
+          <span class="font-black text-base sm:text-lg text-amber-300 group-hover:underline">스마트폰 파크골프 스코어카드</span>
+          <span class="bg-amber-400 text-slate-950 font-black text-xs px-2 py-0.5 rounded-full shadow-2xs">무료 / 전국 겸용</span>
+        </div>
+        <p class="text-xs text-emerald-100 font-medium">
+          종이 스코어카드 대신 손쉽게! (1·2코스 탭 분리 / -빨강, +파랑 색상 지원 / 자동저장)
+        </p>
+      </a>
 
       <!-- 5) 신규 구장 및 연습장 추가 등록 예정 안내 박스 (모바일) -->
       <div class="bg-slate-50/90 p-3.5 rounded-xl border-2 border-dashed border-gray-300 text-center space-y-1 shadow-2xs">
