@@ -254,9 +254,9 @@
       </div>
     </header>
 
-    <!-- 📱 화면 우측 중간 고정 [📱 스코어카드 이용 ➔] 플로팅 버튼 (스크롤 안 내려도 바로 이용) -->
-    <div class="fixed right-2 top-1/2 -translate-y-1/2 z-50 pointer-events-auto">
-      <a href="score.html" class="bg-gradient-to-r from-emerald-800 via-teal-900 to-slate-950 hover:from-emerald-900 hover:to-slate-900 text-white font-black px-2.5 py-3 rounded-2xl shadow-2xl border-2 border-amber-400 flex items-center gap-1.5 active:scale-95 transition cursor-pointer hover:shadow-emerald-900/60">
+    <!-- 📱 화면 우측 하단 고정 [📱 스코어카드 이용 ➔] 플로팅 버튼 (하단 바 위 유동적 배치) -->
+    <div class="fixed bottom-20 right-3.5 z-40 pointer-events-auto">
+      <a href="score.html" class="bg-gradient-to-r from-emerald-800 via-teal-900 to-slate-950 hover:from-emerald-900 hover:to-slate-900 text-white font-black px-3 py-3 rounded-2xl shadow-2xl border-2 border-amber-400 flex items-center gap-1.5 active:scale-95 transition cursor-pointer hover:shadow-emerald-900/60">
         <span class="text-base animate-bounce">📱</span>
         <span class="flex flex-col text-left">
           <span class="text-[9px] text-amber-300 font-bold leading-none">모바일 전용</span>
@@ -279,27 +279,34 @@
     <!-- 3. 실시간 구장 & 대기 현황 카드 4곳 (첫 화면 2개 동시 노출 컴팩트 세로 공간 최적화) -->
     <main class="p-2.5 space-y-2.5">
 
-      <!-- 📢 [신규] 용인 파크골프 긴급 휴장 & 공사 공지사항 배너 (최신공지 연동) -->
+      <!-- 📢 [신규] 용인 파크골프 긴급 휴장 & 공사 공지사항 배너 (최신공지 & 공지등록 연동) -->
       <div class="bg-gradient-to-r from-amber-50 to-amber-100/90 p-3 rounded-xl border-2 border-amber-400 shadow-sm space-y-2">
         <div class="flex items-center justify-between border-b border-amber-200 pb-2">
-          <div class="flex items-center gap-1.5">
-            <span class="bg-red-600 text-white font-black text-xs px-2 py-0.5 rounded-md animate-pulse">📢 긴급공지</span>
-            <h3 class="font-black text-slate-900 text-xs sm:text-sm">구장 임시 휴장 & 공사 안내</h3>
+          <div class="flex items-center gap-1.5 min-w-0">
+            <span class="bg-red-600 text-white font-black text-xs px-2 py-0.5 rounded-md animate-pulse shrink-0">📢 긴급공지</span>
+            <h3 class="font-black text-slate-900 text-xs sm:text-sm truncate">구장 임시 휴장 & 공사 안내</h3>
           </div>
-          <button type="button" onclick="openNoticeBoardModal()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-2.5 py-1 rounded-lg border border-amber-300 shadow-2xs flex items-center gap-1 shrink-0 transition active:scale-95 cursor-pointer">
-            <span>📢</span>
-            <span>최신공지 ➔</span>
-          </button>
+          <div class="flex items-center gap-1 shrink-0">
+            <button type="button" onclick="openNoticeRegisterModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-2 py-1 rounded-lg border border-emerald-600 shadow-2xs flex items-center gap-1 transition active:scale-95 cursor-pointer">
+              <span>✏️</span>
+              <span>공지 등록</span>
+            </button>
+            <button type="button" onclick="openNoticeBoardModal()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-2.5 py-1 rounded-lg border border-amber-300 shadow-2xs flex items-center gap-1 transition active:scale-95 cursor-pointer">
+              <span>📢</span>
+              <span>최신공지 ➔</span>
+            </button>
+          </div>
         </div>
-        <div class="bg-white p-2.5 rounded-lg border border-amber-200 shadow-2xs text-slate-800 space-y-1">
+        <div id="latest-notice-banner-box" class="bg-white p-2.5 rounded-lg border border-amber-200 shadow-2xs text-slate-800 space-y-1">
+          <!-- JS로 최신 공지 동적 노출 -->
           <div class="flex items-center justify-between font-bold text-xs">
             <span class="text-amber-900 flex items-center gap-1">
-              <span class="bg-amber-200 text-amber-900 font-black text-[11px] px-1.5 py-0.2 rounded">공사/보수</span>
-              <span>수지·포곡·기흥 구장 사정 안내</span>
+              <span id="banner-notice-badge" class="bg-amber-200 text-amber-900 font-black text-[11px] px-1.5 py-0.2 rounded">공사/보수</span>
+              <span id="banner-notice-title">수지·포곡·기흥 구장 사정 안내</span>
             </span>
-            <span class="text-slate-500 text-[11px]">실시간 소식</span>
+            <span id="banner-notice-date" class="text-slate-500 text-[11px]">최신 소식</span>
           </div>
-          <p class="text-slate-700 font-medium text-xs sm:text-sm leading-snug">
+          <p id="banner-notice-body" class="text-slate-700 font-medium text-xs sm:text-sm leading-snug">
             🚧 잔디 보수 공사 및 구장 사정으로 인한 임시/오전 휴장이 수시 발생합니다. 출구 전 <strong>최신 공지사항을 꼭 확인하시기 바랍니다.</strong>
           </p>
         </div>
@@ -4204,86 +4211,285 @@
           <span class="text-lg">📢</span>
           <h3 class="font-black text-amber-300 text-sm sm:text-base">용인 파크골프 최신 공지사항</h3>
         </div>
-        <button type="button" onclick="closeNoticeBoardModal()" class="bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs px-2.5 py-1 rounded-lg border border-emerald-600 cursor-pointer">
-          ✕ 닫기
-        </button>
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="openNoticeRegisterModal()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-2.5 py-1 rounded-lg border border-amber-300 cursor-pointer shadow-2xs">
+            ✏️ 공지 등록
+          </button>
+          <button type="button" onclick="closeNoticeBoardModal()" class="bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs px-2.5 py-1 rounded-lg border border-emerald-600 cursor-pointer">
+            ✕ 닫기
+          </button>
+        </div>
       </div>
 
-      <!-- 공지 목록 (스크롤) -->
-      <div class="p-3.5 overflow-y-auto space-y-3 text-xs sm:text-sm">
-
-        <!-- 공지 1: 긴급 휴장 및 공사 -->
-        <div class="bg-amber-50 p-3 rounded-xl border border-amber-300 space-y-1.5 shadow-2xs">
-          <div class="flex justify-between items-center font-bold">
-            <span class="bg-red-600 text-white font-black text-[11px] px-2 py-0.5 rounded">긴급 휴장 / 공사</span>
-            <span class="text-slate-500 text-[11px]">2026-09-18</span>
-          </div>
-          <h4 class="font-black text-slate-900 text-sm">🚧 관내 파크골프장 임시 휴장 및 잔디 보수 공사 안내</h4>
-          <p class="text-slate-700 leading-relaxed font-medium">
-            잔디 보호 및 보수 공사, 구장 사정으로 인해 수지·포곡·기흥 구장의 임시/오전 휴장이 수시로 발생합니다. 
-            출구 전 <strong>최신 공지사항을 꼭 확인하시기 바랍니다.</strong>
-          </p>
-          <div class="pt-1 flex justify-end">
-            <a href="https://band.us" target="_blank" rel="noopener noreferrer" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-2.5 py-1 rounded-lg border border-emerald-600 shadow-2xs inline-flex items-center gap-1">
-              <span>💚</span>
-              <span>네이버 밴드 공식 공지 보기 🔗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- 공지 2: 정기 휴장일 안내 -->
-        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1 shadow-2xs">
-          <div class="flex justify-between items-center font-bold">
-            <span class="bg-emerald-700 text-white font-black text-[11px] px-2 py-0.5 rounded">정기 휴장 안내</span>
-            <span class="text-slate-500 text-[11px]">상시 적용</span>
-          </div>
-          <h4 class="font-black text-slate-900 text-sm">📅 주요 구장 정기 휴장일 안내</h4>
-          <ul class="text-slate-700 space-y-1 list-disc list-inside font-medium pt-1">
-            <li><strong>수지 아르피아 파크골프장:</strong> 매주 화요일 정기 휴장</li>
-            <li><strong>포곡 유운리 파크골프장:</strong> 매주 화요일 정기 휴장</li>
-            <li><strong>기흥 호수공원 파크골프장:</strong> 매주 화요일 정기 휴장</li>
-            <li><strong>용인실내체육관 스크린:</strong> 매주 일요일 및 공휴일 휴장</li>
-          </ul>
-        </div>
-
-        <!-- 공지 3: 스마트폰 스코어카드 오픈 -->
-        <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-300 space-y-1 shadow-2xs">
-          <div class="flex justify-between items-center font-bold">
-            <span class="bg-amber-400 text-slate-950 font-black text-[11px] px-2 py-0.5 rounded">신규 서비스</span>
-            <span class="text-slate-500 text-[11px]">NEW</span>
-          </div>
-          <h4 class="font-black text-slate-900 text-sm">📱 스마트폰 파크골프 스코어카드 서비스 정식 오픈</h4>
-          <p class="text-slate-700 leading-relaxed font-medium">
-            종이 스코어카드 대신 스마트폰에서 손쉽게 스코어를 기록하세요! 전국 모든 타구장 겸용, 1·2코스 탭 분리, -빨강/+파랑 자동 계산을 지원합니다.
-          </p>
-          <div class="pt-1 flex justify-end">
-            <a href="score.html" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-3 py-1 rounded-lg border border-amber-300 shadow-2xs inline-flex items-center gap-1">
-              <span>📱</span>
-              <span>스코어카드 바로가기 ➔</span>
-            </a>
-          </div>
-        </div>
-
+      <!-- 공지 목록 (실시간 동적 렌더링 스크롤) -->
+      <div id="modal-notice-list-container" class="p-3.5 overflow-y-auto space-y-3 text-xs sm:text-sm">
+        <!-- JS로 최신 공지사항 실시간 노출 -->
       </div>
 
       <!-- 모달 푸터 -->
-      <div class="bg-slate-100 p-3 border-t border-slate-200 text-right shrink-0">
-        <button type="button" onclick="closeNoticeBoardModal()" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs px-4 py-2 rounded-xl shadow active:scale-95 transition">
+      <div class="bg-slate-100 p-3 border-t border-slate-200 flex justify-between items-center text-xs shrink-0">
+        <button type="button" onclick="openNoticeRegisterModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-3.5 py-2 rounded-xl shadow active:scale-95 transition">
+          ✏️ 새 공지 등록하기
+        </button>
+        <button type="button" onclick="closeNoticeBoardModal()" class="bg-slate-900 hover:bg-slate-950 text-white font-bold px-4 py-2 rounded-xl shadow active:scale-95 transition">
           확인 (닫기)
         </button>
       </div>
     </div>
   </div>
 
+  <!-- ✏️ [신규] 최신 공지사항 등록 폼 모달 팝업 -->
+  <div id="notice-register-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[110] hidden flex items-center justify-center p-3">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border-2 border-emerald-500 overflow-hidden flex flex-col">
+      <!-- 모달 헤더 -->
+      <div class="bg-emerald-900 text-white p-3.5 flex justify-between items-center border-b border-emerald-800">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">✏️</span>
+          <h3 class="font-black text-amber-300 text-sm sm:text-base">최신 공지사항 등록</h3>
+        </div>
+        <button type="button" onclick="closeNoticeRegisterModal()" class="bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs px-2.5 py-1 rounded-lg border border-emerald-600 cursor-pointer">
+          ✕ 닫기
+        </button>
+      </div>
+
+      <!-- 등록 폼 본문 -->
+      <div class="p-4 space-y-3 text-xs sm:text-sm">
+        <div>
+          <label for="reg-notice-course" class="block font-bold text-slate-800 mb-1">📍 구장 선택 :</label>
+          <select id="reg-notice-course" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="전체 구장 공통" selected>전체 구장 공통 (전체 공지)</option>
+            <option value="수지 아르피아">수지 아르피아 파크골프장</option>
+            <option value="포곡 유운리">포곡 유운리 파크골프장</option>
+            <option value="기흥 호수공원">기흥 호수공원 파크골프장</option>
+            <option value="용인실내체육관 스크린">용인실내체육관 스크린 연습장</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="reg-notice-type" class="block font-bold text-slate-800 mb-1">🏷️ 공지 구분 :</label>
+          <select id="reg-notice-type" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="urgent" selected>🚨 긴급휴장 / 공사</option>
+            <option value="work">🚧 보수공사 / 정비</option>
+            <option value="weather">🌧️ 우천 / 기상휴장</option>
+            <option value="info">📢 일반 운영안내</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="reg-notice-title" class="block font-bold text-slate-800 mb-1">📝 공지 제목 :</label>
+          <input type="text" id="reg-notice-title" placeholder="예: 수지 구장 잔디 작업으로 인한 19일 오전 휴장" class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label for="reg-notice-body" class="block font-bold text-slate-800 mb-1">📜 상세 공지 내용 :</label>
+          <textarea id="reg-notice-body" rows="3" placeholder="예: 오전 09시부터 12시까지 잔디 보수 작업으로 오전 휴장합니다. 출구 전 최신 공지사항을 꼭 확인하시기 바랍니다." class="w-full bg-slate-50 border border-slate-300 font-bold text-slate-900 rounded-xl p-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+        </div>
+      </div>
+
+      <!-- 모달 푸터 -->
+      <div class="bg-slate-100 p-3 border-t border-slate-200 flex justify-end gap-2 shrink-0">
+        <button type="button" onclick="closeNoticeRegisterModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs px-4 py-2 rounded-xl">
+          취소
+        </button>
+        <button type="button" onclick="submitNewNotice()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-black text-xs px-5 py-2 rounded-xl shadow-md active:scale-95 transition">
+          🚀 최신 공지 올리기 (등록)
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    // 공지사항 로컬스토리지 관리 및 실시간 동기화 엔진
+    const NOTICE_STORAGE_KEY = 'yongin_parkgolf_notices_v2';
+
+    const DEFAULT_NOTICES = [
+      {
+        id: 1,
+        course: '전체 구장 공통',
+        type: 'urgent',
+        title: '🚧 관내 파크골프장 임시 휴장 및 잔디 보수 공사 안내',
+        body: '잔디 보호 및 보수 공사, 구장 사정으로 인해 수지·포곡·기흥 구장의 임시/오전 휴장이 수시로 발생합니다. 출구 전 최신 공지사항을 꼭 확인하시기 바랍니다.',
+        date: '2026-09-18'
+      },
+      {
+        id: 2,
+        course: '전체 구장 공통',
+        type: 'info',
+        title: '📅 주요 구장 정기 휴장일 안내',
+        body: '수지 아르피아, 포곡 유운리, 기흥 호수공원: 매주 화요일 정기 휴장 / 용인실내체육관 스크린: 매주 일요일 및 공휴일 휴장',
+        date: '상시 적용'
+      },
+      {
+        id: 3,
+        course: '전체 구장 공통',
+        type: 'info',
+        title: '📱 스마트폰 파크골프 스코어카드 서비스 정식 오픈',
+        body: '종이 스코어카드 대신 스마트폰에서 손쉽게 스코어를 기록하세요! 전국 모든 타구장 겸용, 1·2코스 탭 분리, -빨강/+파랑 자동 계산을 지원합니다.',
+        date: '2026-09-18'
+      }
+    ];
+
+    function getNotices() {
+      const saved = localStorage.getItem(NOTICE_STORAGE_KEY);
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+      return DEFAULT_NOTICES;
+    }
+
+    function saveNotices(notices) {
+      localStorage.setItem(NOTICE_STORAGE_KEY, JSON.stringify(notices));
+      renderNoticeBoardList();
+      updateMainBannerLatestNotice();
+    }
+
     function openNoticeBoardModal() {
+      renderNoticeBoardList();
       const modal = document.getElementById('notice-board-modal');
       if (modal) modal.classList.remove('hidden');
     }
+
     function closeNoticeBoardModal() {
       const modal = document.getElementById('notice-board-modal');
       if (modal) modal.classList.add('hidden');
     }
+
+    function openNoticeRegisterModal() {
+      const modal = document.getElementById('notice-register-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeNoticeRegisterModal() {
+      const modal = document.getElementById('notice-register-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function submitNewNotice() {
+      const course = document.getElementById('reg-notice-course').value;
+      const type = document.getElementById('reg-notice-type').value;
+      const title = document.getElementById('reg-notice-title').value.trim();
+      const body = document.getElementById('reg-notice-body').value.trim();
+
+      if (!title) {
+        alert('공지 제목을 입력해 주세요.');
+        document.getElementById('reg-notice-title').focus();
+        return;
+      }
+      if (!body) {
+        alert('상세 공지 내용을 입력해 주세요.');
+        document.getElementById('reg-notice-body').focus();
+        return;
+      }
+
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+      const newNotice = {
+        id: Date.now(),
+        course: course,
+        type: type,
+        title: title,
+        body: body,
+        date: dateStr,
+        userCreated: true
+      };
+
+      const notices = getNotices();
+      notices.unshift(newNotice); // 맨 위에 신규 공지 추가!
+      saveNotices(notices);
+
+      // 입력폼 초기화
+      document.getElementById('reg-notice-title').value = '';
+      document.getElementById('reg-notice-body').value = '';
+
+      closeNoticeRegisterModal();
+      openNoticeBoardModal();
+      
+      if (typeof showToast === 'function') {
+        showToast('✅ 새 최신 공지사항이 성공적으로 올렸습니다!');
+      } else {
+        alert('✅ 새 최신 공지사항이 성공적으로 올렸습니다!');
+      }
+    }
+
+    function deleteNotice(id) {
+      if (confirm('이 공지사항을 삭제하시겠습니까?')) {
+        let notices = getNotices();
+        notices = notices.filter(n => n.id !== id);
+        saveNotices(notices);
+      }
+    }
+
+    function renderNoticeBoardList() {
+      const container = document.getElementById('modal-notice-list-container');
+      if (!container) return;
+
+      const notices = getNotices();
+      container.innerHTML = '';
+
+      if (notices.length === 0) {
+        container.innerHTML = `<p class="text-slate-400 text-center py-4">등록된 공지사항이 없습니다.</p>`;
+        return;
+      }
+
+      notices.forEach(n => {
+        let badgeBg = 'bg-amber-50 border-amber-300';
+        let tagBg = 'bg-red-600 text-white';
+        let tagText = '긴급휴장/공사';
+
+        if (n.type === 'work') {
+          badgeBg = 'bg-amber-50 border-amber-300';
+          tagBg = 'bg-amber-600 text-white';
+          tagText = '보수공사/정비';
+        } else if (n.type === 'weather') {
+          badgeBg = 'bg-blue-50 border-blue-300';
+          tagBg = 'bg-blue-600 text-white';
+          tagText = '우천휴장';
+        } else if (n.type === 'info') {
+          badgeBg = 'bg-emerald-50 border-emerald-300';
+          tagBg = 'bg-emerald-700 text-white';
+          tagText = '운영안내';
+        }
+
+        container.innerHTML += `
+          <div class="${badgeBg} p-3.5 rounded-xl border space-y-1.5 shadow-2xs">
+            <div class="flex justify-between items-center font-bold">
+              <div class="flex items-center gap-1.5">
+                <span class="${tagBg} font-black text-[11px] px-2 py-0.5 rounded">${tagText}</span>
+                <span class="text-slate-700 text-xs font-bold">[${n.course}]</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500 text-[11px]">${n.date}</span>
+                ${n.userCreated ? `<button type="button" onclick="deleteNotice(${n.id})" class="text-red-600 font-bold text-[11px] hover:underline">[삭제]</button>` : ''}
+              </div>
+            </div>
+            <h4 class="font-black text-slate-900 text-sm leading-snug">${n.title}</h4>
+            <p class="text-slate-700 leading-relaxed font-medium whitespace-pre-line">${n.body}</p>
+          </div>
+        `;
+      });
+    }
+
+    function updateMainBannerLatestNotice() {
+      const notices = getNotices();
+      if (notices.length > 0) {
+        const topNotice = notices[0];
+        const badgeEl = document.getElementById('banner-notice-badge');
+        const titleEl = document.getElementById('banner-notice-title');
+        const dateEl = document.getElementById('banner-notice-date');
+        const bodyEl = document.getElementById('banner-notice-body');
+
+        if (badgeEl) badgeEl.textContent = topNotice.course;
+        if (titleEl) titleEl.textContent = topNotice.title;
+        if (dateEl) dateEl.textContent = topNotice.date;
+        if (bodyEl) bodyEl.innerHTML = topNotice.body;
+      }
+    }
+
+    // 페이지 로드 시 최신 공지 배너 동기화
+    document.addEventListener('DOMContentLoaded', () => {
+      updateMainBannerLatestNotice();
+    });
   </script>
 
 </body>
