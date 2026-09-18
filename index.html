@@ -281,19 +281,19 @@
 
       <!-- 📢 [신규] 용인 파크골프 긴급 휴장 & 공사 공지사항 배너 (최신공지 & 공지등록 연동) -->
       <div class="bg-gradient-to-r from-amber-50 to-amber-100/90 p-3 rounded-xl border-2 border-amber-400 shadow-sm space-y-2">
-        <div class="flex items-center justify-between border-b border-amber-200 pb-2">
-          <div class="flex items-center gap-1.5 min-w-0">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-amber-200 pb-2">
+          <div class="flex items-center gap-1.5 min-w-0 flex-1">
             <span class="bg-red-600 text-white font-black text-xs px-2 py-0.5 rounded-md animate-pulse shrink-0">📢 긴급공지</span>
-            <h3 class="font-black text-slate-900 text-xs sm:text-sm truncate">구장 임시 휴장 & 공사 안내</h3>
+            <h3 class="font-black text-slate-900 text-xs sm:text-sm font-bold truncate">구장 임시 휴장 & 공사 안내</h3>
           </div>
-          <div class="flex items-center gap-1 shrink-0">
-            <button type="button" onclick="openNoticeRegisterModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-2 py-1 rounded-lg border border-emerald-600 shadow-2xs flex items-center gap-1 transition active:scale-95 cursor-pointer">
+          <div class="flex items-center gap-1.5 shrink-0 ml-auto">
+            <button type="button" onclick="openNoticeRegisterModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-2 py-1 rounded-lg border border-emerald-600 shadow-2xs flex items-center gap-1 transition active:scale-95 cursor-pointer whitespace-nowrap">
               <span>✏️</span>
               <span>공지 등록</span>
             </button>
-            <button type="button" onclick="openNoticeBoardModal()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-2.5 py-1 rounded-lg border border-amber-300 shadow-2xs flex items-center gap-1 transition active:scale-95 cursor-pointer">
+            <button type="button" onclick="openNoticeBoardModal()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-2.5 py-1 rounded-lg border border-amber-300 shadow-2xs flex items-center gap-1 transition active:scale-95 cursor-pointer whitespace-nowrap">
               <span>📢</span>
-              <span>최신공지 ➔</span>
+              <span>공지사항보기 ➔</span>
             </button>
           </div>
         </div>
@@ -4080,8 +4080,11 @@
         <button type="button" onclick="closeLicenseGuideModal()" class="text-slate-950 hover:bg-amber-600/30 font-black text-2xl px-2.5 py-1 rounded-xl transition cursor-pointer">✕</button>
       </div>
 
+      <!-- 모달 바디 (스크롤) -->
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-5 text-xs sm:text-sm leading-relaxed">
+        
         <!-- ⛳ [공식 규정] 대한파크골프협회 핵심 장비 & 벌타 표준 가이드 -->
-        <div class="mb-4 p-3.5 bg-emerald-50 border-2 border-emerald-400 rounded-xl text-xs text-slate-800 space-y-1.5 shadow-xs">
+        <div class="p-3.5 bg-emerald-50 border-2 border-emerald-400 rounded-xl text-xs text-slate-800 space-y-1.5 shadow-xs">
           <div class="font-bold text-emerald-950 text-sm flex items-center gap-1.5 border-b border-emerald-300 pb-1">
             <span>⛳ 대한파크골프협회(KPOA) 공식 용구 & 경기 벌타 규정</span>
           </div>
@@ -4091,9 +4094,6 @@
           </div>
           <p class="text-xs text-emerald-900 font-semibold pt-0.5">• <strong>볼 규격:</strong> 직경 6cm, 중량 80~95g (공인 2피스/3피스 파크골프 전용 공)</p>
         </div>
-
-      <!-- 모달 바디 (스크롤) -->
-      <div class="p-4 sm:p-6 overflow-y-auto space-y-5 text-xs sm:text-sm leading-relaxed">
         
         <!-- 1. 국가공인 자격증: 2급 생활스포츠지도사(파크골프) -->
         <div class="bg-amber-50/90 p-4 rounded-xl border-2 border-amber-400 space-y-3 shadow-2xs">
