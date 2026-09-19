@@ -185,6 +185,11 @@
       </button>
     </div>
 
+    <!-- 터치 오류 방지 안내 문구 -->
+    <p class="text-[11px] sm:text-xs text-amber-800 font-bold text-center bg-amber-50 py-1.5 px-3 rounded-xl border border-amber-200">
+      ※ +/- 터치 오류를 방지하기 위해 조금 늦게 반응합니다. 천천히 터치하세요.
+    </p>
+
     <!-- 4. 홀별 스코어 입력 매트릭스 카드 (시니어 맞춤 대형 + / - 버튼) -->
     <div id="hole-cards-container" class="space-y-2.5">
       <!-- JS로 9개 홀 카드 동적 생성 -->
@@ -457,7 +462,8 @@
       // 18홀 각 홀별 설정 (index 0~17)
       holes: STANDARD_PARS.map(par => ({
         par: par,
-        scores: [par, par, par, par] // 초기 스코어를 홀 Par와 100% 동기화 (Diff 0 이븐파)
+        scores: [par, par, par, par], // 초기 스코어
+        played: [false, false, false, false] // 실제 라운드 진행 여부 (진행한 홀만 계산!)
       }))
     };
 
@@ -500,6 +506,15 @@
             for (let i = 0; i < 18; i++) {
               state.holes[i].par = presetPars[i];
             }
+          }
+
+          // played 배열 구버전 데이터 호환 처리
+          if (state.holes) {
+            state.holes.forEach(h => {
+              if (!h.played || !Array.isArray(h.played)) {
+                h.played = [false, false, false, false];
+              }
+            });
           }
 
           document.getElementById('course-preset-select').value = state.coursePreset || 'custom';
@@ -607,6 +622,18 @@
       const startHole = (state.currentTab - 1) * 9; // 0 or 9
       const courseLabel = state.currentTab === 1 ? '1코스 (전반)' : '2코스 (후반)';
 
+      // 상단 가이드 & 전홀 일괄 완료 버튼
+      container.innerHTML += `
+        <div class="flex justify-between items-center bg-emerald-50/90 p-2 rounded-xl border border-emerald-200 text-xs gap-1">
+          <span class="font-bold text-emerald-950 flex items-center gap-1 truncate">
+            <span>💡</span> <span class="truncate"><b>+ / -</b> 클릭 시 <b>진행 홀</b>로 자동 산정됩니다.</span>
+          </span>
+          <button type="button" onclick="markCourseAllPlayed(${state.currentTab})" class="bg-emerald-700 hover:bg-emerald-800 text-amber-300 font-bold px-2.5 py-1 rounded-lg shadow-2xs shrink-0 active:scale-95 transition cursor-pointer">
+            ✅ ${state.currentTab}코스 전홀 완료
+          </button>
+        </div>
+      `;
+
       for (let h = 0; h < 9; h++) {
         const holeIdx = startHole + h;
         const holeNumber = holeIdx + 1;
@@ -617,6 +644,7 @@
           const pName = state.players[p] || `선수 ${p+1}`;
           const stroke = holeData.scores[p];
           const diff = stroke - holeData.par;
+          const isPlayed = holeData.played && holeData.played[p];
 
           // -빨강 / +파랑 / 0이븐 색상 클래스 계산
           let scoreClass = 'score-even';
@@ -633,6 +661,24 @@
             diffStr = `+${diff} (오버파)`;
           }
 
+          let badgeHtml = '';
+          let strokeDisplayClass = scoreClass;
+
+          if (!isPlayed) {
+            strokeDisplayClass = 'text-slate-400 opacity-60';
+            badgeHtml = `
+              <button type="button" onclick="toggleHolePlayed(${holeIdx}, ${p})" class="text-[11px] sm:text-xs font-bold px-2 py-1 rounded-lg shrink-0 bg-slate-100 text-slate-500 border border-slate-300 hover:bg-emerald-100 hover:text-emerald-900 transition">
+                미기록 (터치기록)
+              </button>
+            `;
+          } else {
+            badgeHtml = `
+              <button type="button" onclick="toggleHolePlayed(${holeIdx}, ${p})" class="text-[11px] sm:text-xs font-black px-2 py-1 rounded-lg shrink-0 ${badgeClass}">
+                ${diffStr}
+              </button>
+            `;
+          }
+
           playersHtml += `
             <div class="flex items-center justify-between bg-slate-50/90 p-2 rounded-xl border border-slate-200 gap-2">
               <span class="font-black text-slate-800 text-xs sm:text-sm shrink-0 w-24 truncate">
@@ -645,9 +691,9 @@
                   -
                 </button>
                 
-                <span class="text-lg sm:text-xl font-black min-w-[2.2rem] text-center ${scoreClass}">
+                <button type="button" onclick="toggleHolePlayed(${holeIdx}, ${p})" class="text-lg sm:text-xl font-black min-w-[2.2rem] text-center ${strokeDisplayClass} hover:opacity-80">
                   ${stroke}타
-                </span>
+                </button>
                 
                 <button type="button" onclick="adjustScore(${holeIdx}, ${p}, 1)" class="w-10 h-10 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-lg rounded-lg shadow-2xs active:scale-90 transition flex items-center justify-center">
                   +
@@ -655,9 +701,7 @@
               </div>
 
               <!-- vs Par 성적 배지 (-빨강 / +파랑) -->
-              <span class="text-[11px] sm:text-xs font-black px-2 py-1 rounded-lg shrink-0 ${badgeClass}">
-                ${diffStr}
-              </span>
+              ${badgeHtml}
             </div>
           `;
         }
@@ -704,52 +748,130 @@
       renderHoleCards();
     }
 
-    // 8. 타수 증감 함수 (+ / -)
+    // 8. 타수 증감 함수 (+ / -) 및 기록 상태 자동 세팅
     function adjustScore(holeIdx, playerIdx, delta) {
       let current = state.holes[holeIdx].scores[playerIdx];
       current += delta;
       if (current < 1) current = 1; // 최소 1타 이상
       state.holes[holeIdx].scores[playerIdx] = current;
       
+      if (!state.holes[holeIdx].played) {
+        state.holes[holeIdx].played = [false, false, false, false];
+      }
+      state.holes[holeIdx].played[playerIdx] = true;
+      
       saveCurrentState();
       renderHoleCards();
     }
 
-    // 9. 리더 및 종합 업데이트
+    // 홀 진행 여부 토글 (터치 시 기록/미기록 전환)
+    function toggleHolePlayed(holeIdx, playerIdx) {
+      if (!state.holes[holeIdx].played) {
+        state.holes[holeIdx].played = [false, false, false, false];
+      }
+      state.holes[holeIdx].played[playerIdx] = !state.holes[holeIdx].played[playerIdx];
+      saveCurrentState();
+      renderHoleCards();
+    }
+
+    // 코스 전체 홀 한번에 진행 완료 처리 (이븐파 기본)
+    function markCourseAllPlayed(courseTabNum) {
+      const start = (courseTabNum - 1) * 9;
+      for (let h = start; h < start + 9; h++) {
+        if (!state.holes[h].played) {
+          state.holes[h].played = [false, false, false, false];
+        }
+        for (let p = 0; p < state.playerCount; p++) {
+          state.holes[h].played[p] = true;
+        }
+      }
+      saveCurrentState();
+      renderHoleCards();
+    }
+
+    // 9. 리더 및 종합 업데이트 (진행된 홀/타수만 정확히 집계!)
     function updateLeaderAndSummary() {
-      let totalParSum = 0;
-      state.holes.forEach(h => totalParSum += h.par);
-      document.getElementById('total-par-sum').textContent = `Total Par ${totalParSum}`;
-
       const nameShow = state.courseName || '전국 파크골프장';
-      const courseTitle = `${nameShow} • 18홀 라운딩`;
-      document.getElementById('summary-course-title').textContent = courseTitle;
-
-      // 각 플레이어별 18홀 총 타수 계산
+      
       let pTotals = [];
+      let maxPlayedCount = 0;
+
       for (let p = 0; p < state.playerCount; p++) {
-        let sum = 0;
-        state.holes.forEach(h => sum += (h.scores[p] || h.par));
-        const diff = sum - totalParSum;
+        let playedSum = 0;
+        let playedParSum = 0;
+        let playedCount = 0;
+
+        state.holes.forEach(h => {
+          if (h.played && h.played[p]) {
+            playedSum += h.scores[p];
+            playedParSum += h.par;
+            playedCount++;
+          }
+        });
+
+        if (playedCount > maxPlayedCount) maxPlayedCount = playedCount;
+
+        const diff = playedSum - playedParSum;
         pTotals.push({
           name: state.players[p] || `선수 ${p+1}`,
-          sum: sum,
+          playedSum: playedSum,
+          playedParSum: playedParSum,
+          playedCount: playedCount,
           diff: diff
         });
       }
 
-      // 최소 타수(1위) 탐색
-      pTotals.sort((a, b) => a.sum - b.sum);
-      
-      const allTied = pTotals.every(p => p.sum === pTotals[0].sum);
-      if (allTied) {
+      // 진행된 홀 기준 Par 합산
+      let playedParHeaderSum = 0;
+      let activeHolesCount = 0;
+      state.holes.forEach(h => {
+        if (h.played && h.played.some(b => b)) {
+          playedParHeaderSum += h.par;
+          activeHolesCount++;
+        }
+      });
+
+      const totalParElem = document.getElementById('total-par-sum');
+      if (totalParElem) {
+        if (activeHolesCount > 0) {
+          totalParElem.textContent = `진행Par ${playedParHeaderSum}`;
+        } else {
+          totalParElem.textContent = `Total Par 66`;
+        }
+      }
+
+      const courseTitle = maxPlayedCount > 0 
+        ? `${nameShow} • ${maxPlayedCount}홀 진행 중` 
+        : `${nameShow} • 18홀 라운딩`;
+      document.getElementById('summary-course-title').textContent = courseTitle;
+
+      const activePlayers = pTotals.filter(p => p.playedCount > 0);
+
+      if (activePlayers.length === 0) {
         document.getElementById('summary-leader-text').innerHTML = `
-          🏆 현재 1위 : <span class="text-amber-300 font-black">공동 1위 (전원 동점)</span> (${pTotals[0].sum}타 / <span class="${pTotals[0].diff < 0 ? 'text-red-400 font-black' : 'text-amber-300'}">${leaderLeaderDiffText(pTotals[0].diff)}</span>)
+          🏆 현재 1위 : <span class="text-amber-300 font-bold">라운드 진행 대기</span>
+        `;
+        return;
+      }
+
+      // 홀당 상대 성적(diff/count) 및 진행 타수 정렬
+      activePlayers.sort((a, b) => {
+        if (a.playedCount === b.playedCount) {
+          return a.playedSum - b.playedSum;
+        }
+        return (a.diff / a.playedCount) - (b.diff / b.playedCount);
+      });
+
+      const leader = activePlayers[0];
+      const allTied = activePlayers.every(p => p.playedCount === leader.playedCount && p.playedSum === leader.playedSum);
+
+      if (allTied && activePlayers.length > 1) {
+        document.getElementById('summary-leader-text').innerHTML = `
+          🏆 현재 1위 : <span class="text-amber-300 font-black">공동 1위</span> (${leader.playedSum}타 / ${leader.playedCount}홀) (<span class="${leader.diff < 0 ? 'text-red-400 font-black' : 'text-amber-300'}">${leaderLeaderDiffText(leader.diff)}</span>)
         `;
       } else {
-        const leader = pTotals[0];
         document.getElementById('summary-leader-text').innerHTML = `
-          🏆 현재 1위 : <span class="text-amber-300 font-black">${leader.name}</span> (${leader.sum}타 / <span class="${leader.diff < 0 ? 'text-red-400 font-black' : 'text-amber-300'}">${leaderLeaderDiffText(leader.diff)}</span>)
+          🏆 현재 1위 : <span class="text-amber-300 font-black">${leader.name}</span> (${leader.playedSum}타 / ${leader.playedCount}홀) (<span class="${leader.diff < 0 ? 'text-red-400 font-black' : 'text-amber-300'}">${leaderLeaderDiffText(leader.diff)}</span>)
         `;
       }
     }
@@ -760,7 +882,7 @@
       return '이븐파';
     }
 
-    // 10. 종합 스코어 표 렌더링
+    // 10. 종합 스코어 표 렌더링 (미진행 코스는 불필요한 기본값 타수 완전 제외!)
     function renderSummaryTable() {
       const tbody = document.getElementById('summary-table-body');
       tbody.innerHTML = '';
@@ -771,52 +893,88 @@
       const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
       document.getElementById('capture-date-str').textContent = `기록 일시 : ${dateStr}`;
 
-      // 1코스 Par 합, 2코스 Par 합, 전체 Par 합
-      let c1Par = 0, c2Par = 0;
-      for (let h = 0; h < 9; h++) c1Par += state.holes[h].par;
-      for (let h = 9; h < 18; h++) c2Par += state.holes[h].par;
-      const totalPar = c1Par + c2Par;
-
       for (let p = 0; p < state.playerCount; p++) {
-        let c1Score = 0, c2Score = 0;
-        for (let h = 0; h < 9; h++) c1Score += state.holes[h].scores[p];
-        for (let h = 9; h < 18; h++) c2Score += state.holes[h].scores[p];
+        const pName = state.players[p] || `선수 ${p+1}`;
         
-        const totalScore = c1Score + c2Score;
-        const totalDiff = totalScore - totalPar;
-
-        let diffBadge = `<span class="score-even font-bold">0 (E)</span>`;
-        if (totalDiff < 0) {
-          diffBadge = `<span class="score-under font-black">${totalDiff} (언더)</span>`;
-        } else if (totalDiff > 0) {
-          diffBadge = `<span class="score-over font-black">+${totalDiff} (오버)</span>`;
+        let c1Strokes = 0, c1Par = 0, c1Count = 0;
+        for (let h = 0; h < 9; h++) {
+          if (state.holes[h].played && state.holes[h].played[p]) {
+            c1Strokes += state.holes[h].scores[p];
+            c1Par += state.holes[h].par;
+            c1Count++;
+          }
         }
 
-        const pName = state.players[p] || `선수 ${p+1}`;
+        let c2Strokes = 0, c2Par = 0, c2Count = 0;
+        for (let h = 9; h < 18; h++) {
+          if (state.holes[h].played && state.holes[h].played[p]) {
+            c2Strokes += state.holes[h].scores[p];
+            c2Par += state.holes[h].par;
+            c2Count++;
+          }
+        }
+
+        let c1Html = '<span class="text-slate-400 font-normal">미진행</span>';
+        if (c1Count > 0) {
+          const diff = c1Strokes - c1Par;
+          const diffStr = diff > 0 ? `+${diff}` : `${diff}`;
+          c1Html = `${c1Strokes}타 <span class="text-[10px] text-slate-400">(${diffStr})</span>`;
+          if (c1Count < 9) c1Html += `<span class="text-[10px] text-amber-600 block">(${c1Count}홀)</span>`;
+        }
+
+        let c2Html = '<span class="text-slate-400 font-normal">미진행</span>';
+        if (c2Count > 0) {
+          const diff = c2Strokes - c2Par;
+          const diffStr = diff > 0 ? `+${diff}` : `${diff}`;
+          c2Html = `${c2Strokes}타 <span class="text-[10px] text-slate-400">(${diffStr})</span>`;
+          if (c2Count < 9) c2Html += `<span class="text-[10px] text-amber-600 block">(${c2Count}홀)</span>`;
+        }
+
+        const totalCount = c1Count + c2Count;
+        const totalStrokes = c1Strokes + c2Strokes;
+        const totalPar = c1Par + c2Par;
+        const totalDiff = totalStrokes - totalPar;
+
+        let totalHtml = '-';
+        let diffBadge = '<span class="text-slate-400 font-normal">미진행</span>';
+
+        if (totalCount > 0) {
+          totalHtml = `${totalStrokes}타`;
+          if (totalCount < 18) totalHtml += `<span class="text-[10px] text-amber-900 block font-normal">(${totalCount}홀)</span>`;
+
+          if (totalDiff < 0) {
+            diffBadge = `<span class="score-under font-black">${totalDiff} (언더)</span>`;
+          } else if (totalDiff > 0) {
+            diffBadge = `<span class="score-over font-black">+${totalDiff} (오버)</span>`;
+          } else {
+            diffBadge = `<span class="score-even font-bold">0 (이븐)</span>`;
+          }
+        }
 
         tbody.innerHTML += `
           <tr class="${p % 2 === 0 ? 'bg-white' : 'bg-slate-50'} border-b border-slate-200">
             <td class="p-2 border border-slate-200 font-black text-slate-900">${pName}</td>
-            <td class="p-2 border border-slate-200 text-slate-700">${c1Score}타 <span class="text-[10px] text-slate-400">(${c1Score - c1Par})</span></td>
-            <td class="p-2 border border-slate-200 text-slate-700">${c2Score}타 <span class="text-[10px] text-slate-400">(${c2Score - c2Par})</span></td>
-            <td class="p-2 border border-slate-200 font-black text-amber-950 bg-amber-50">${totalScore}타</td>
+            <td class="p-2 border border-slate-200 text-slate-700">${c1Html}</td>
+            <td class="p-2 border border-slate-200 text-slate-700">${c2Html}</td>
+            <td class="p-2 border border-slate-200 font-black text-amber-950 bg-amber-50">${totalHtml}</td>
             <td class="p-2 border border-slate-200 font-black">${diffBadge}</td>
           </tr>
         `;
       }
     }
 
-    // 11. 초기화 실행 (선수 이름도 깨끗이 초기화 & 표준 66타 복원)
+    // 11. 초기화 실행 (선수 이름도 깨끗이 초기화 & 미기록 복원)
     function confirmReset() {
       if (confirm('새 라운드를 시작하시겠습니까?\n모든 선수 이름, 구장 입력 및 스코어가 기본값으로 초기화됩니다.')) {
         state.coursePreset = 'custom';
         state.courseName = '';
         state.players = ['선수 1', '선수 2', '선수 3', '선수 4'];
         
-        // 표준 66타 (18홀) 레이아웃으로 완벽 리셋
+        // 표준 66타 (18홀) 레이아웃 및 미기록(played: false) 완벽 리셋
         state.holes = STANDARD_PARS.map(par => ({
           par: par,
-          scores: [par, par, par, par]
+          scores: [par, par, par, par],
+          played: [false, false, false, false]
         }));
 
         document.getElementById('course-preset-select').value = 'custom';
@@ -880,13 +1038,17 @@
         for (let p = 0; p < rec.playerCount; p++) {
           let sum = 0;
           let parSum = 0;
+          let count = 0;
           rec.holes.forEach(h => {
-            sum += (h.scores[p] || h.par);
-            parSum += h.par;
+            if (h.played && h.played[p]) {
+              sum += h.scores[p];
+              parSum += h.par;
+              count++;
+            }
           });
           const diff = sum - parSum;
           const name = rec.players[p] || `선수 ${p+1}`;
-          playersSummary += `${name}: ${sum}타(${diff > 0 ? '+'+diff : diff})  `;
+          playersSummary += count > 0 ? `${name}: ${sum}타(${diff > 0 ? '+'+diff : diff}) ` : `${name}: 미진행 `;
         }
 
         container.innerHTML += `
@@ -947,7 +1109,7 @@
       });
     }
 
-    // 15. 🎯 [신규] 1~9홀 한눈에 표로 보기 모달 엔진
+    // 15. 🎯 1~9홀 한눈에 표로 보기 모달 엔진
     function openTableViewModal() {
       state.modalTab = state.currentTab; // 현재 선택된 코스로 모달 탭 동기화
       const modal = document.getElementById('table-view-modal');
@@ -1006,41 +1168,63 @@
       for (let p = 0; p < state.playerCount; p++) {
         const pName = state.players[p] || `선수 ${p+1}`;
         let nineScoreTotal = 0;
+        let nineParSumPlayed = 0;
+        let nineCountPlayed = 0;
         let cellsHtml = '';
 
         for (let h = 0; h < 9; h++) {
           const holeIdx = startHole + h;
-          const stroke = state.holes[holeIdx].scores[p];
-          const diff = stroke - state.holes[holeIdx].par;
-          nineScoreTotal += stroke;
+          const isPlayed = state.holes[holeIdx].played && state.holes[holeIdx].played[p];
+          
+          if (isPlayed) {
+            const stroke = state.holes[holeIdx].scores[p];
+            const diff = stroke - state.holes[holeIdx].par;
+            nineScoreTotal += stroke;
+            nineParSumPlayed += state.holes[holeIdx].par;
+            nineCountPlayed++;
 
-          let cellClass = 'score-even';
-          let diffMark = '';
-          if (diff < 0) {
-            cellClass = 'score-under bg-red-50';
-            diffMark = `<span class="text-[9px] block text-red-500">(${diff})</span>`;
-          } else if (diff > 0) {
-            cellClass = 'score-over bg-blue-50';
-            diffMark = `<span class="text-[9px] block text-blue-500">(+${diff})</span>`;
+            let cellClass = 'score-even';
+            let diffMark = '';
+            if (diff < 0) {
+              cellClass = 'score-under bg-red-50';
+              diffMark = `<span class="text-[9px] block text-red-500">(${diff})</span>`;
+            } else if (diff > 0) {
+              cellClass = 'score-over bg-blue-50';
+              diffMark = `<span class="text-[9px] block text-blue-500">(+${diff})</span>`;
+            }
+
+            cellsHtml += `
+              <td class="p-1 border border-slate-200 ${cellClass}">
+                ${stroke}
+                ${diffMark}
+              </td>
+            `;
+          } else {
+            cellsHtml += `
+              <td class="p-1 border border-slate-200 text-slate-300 font-normal">
+                -
+              </td>
+            `;
           }
-
-          cellsHtml += `
-            <td class="p-1 border border-slate-200 ${cellClass}">
-              ${stroke}
-              ${diffMark}
-            </td>
-          `;
         }
 
-        const nineDiff = nineScoreTotal - nineParTotal;
-        let sumDiffText = '0(E)';
-        let sumDiffClass = 'score-even';
-        if (nineDiff < 0) {
-          sumDiffText = `${nineDiff}`;
-          sumDiffClass = 'score-under';
-        } else if (nineDiff > 0) {
-          sumDiffText = `+${nineDiff}`;
-          sumDiffClass = 'score-over';
+        let sumDiffText = '미진행';
+        let sumDiffClass = 'text-slate-400 font-normal';
+        let totalScoreDisplay = '-';
+
+        if (nineCountPlayed > 0) {
+          totalScoreDisplay = `${nineScoreTotal}타`;
+          const nineDiff = nineScoreTotal - nineParSumPlayed;
+          if (nineDiff < 0) {
+            sumDiffText = `${nineDiff}`;
+            sumDiffClass = 'score-under';
+          } else if (nineDiff > 0) {
+            sumDiffText = `+${nineDiff}`;
+            sumDiffClass = 'score-over';
+          } else {
+            sumDiffText = '0(E)';
+            sumDiffClass = 'score-even';
+          }
         }
 
         tbody.innerHTML += `
@@ -1048,7 +1232,7 @@
             <td class="p-2 border border-slate-200 font-black text-slate-900 sticky left-0 ${p % 2 === 0 ? 'bg-white' : 'bg-slate-50'} shadow-2xs">${pName}</td>
             ${cellsHtml}
             <td class="p-2 border border-slate-200 font-black bg-amber-50 text-slate-900">
-              ${nineScoreTotal}타
+              ${totalScoreDisplay}
               <span class="text-[10px] block ${sumDiffClass}">(${sumDiffText})</span>
             </td>
           </tr>
