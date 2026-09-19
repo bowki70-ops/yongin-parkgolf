@@ -88,20 +88,26 @@
 <body class="pb-20 min-h-screen flex flex-col justify-between">
 
   <!-- 📱 상단 헤더 바 -->
-  <header class="bg-emerald-900 text-white p-3 shadow-md sticky top-0 z-40 border-b-2 border-emerald-600">
-    <div class="max-w-2xl mx-auto flex justify-between items-center">
-      <a href="index.html" class="bg-emerald-800 hover:bg-emerald-700 text-amber-300 font-bold text-xs px-2.5 py-1.5 rounded-lg border border-emerald-600 flex items-center gap-1 active:scale-95 transition">
+  <header class="bg-emerald-900 text-white p-2.5 sm:p-3 shadow-md sticky top-0 z-40 border-b-2 border-emerald-600">
+    <div class="max-w-2xl mx-auto flex justify-between items-center gap-1">
+      <a href="index.html" class="bg-emerald-800 hover:bg-emerald-700 text-amber-300 font-bold text-xs px-2 py-1.5 rounded-lg border border-emerald-600 flex items-center gap-1 active:scale-95 transition shrink-0">
         <span>🏠</span>
         <span>메인 홈</span>
       </a>
-      <h1 class="font-black text-sm sm:text-base text-amber-300 flex items-center gap-1">
+      <h1 class="font-black text-xs sm:text-base text-amber-300 flex items-center gap-1 truncate min-w-0">
         <span>📱</span>
-        <span>파크골프 스코어카드</span>
+        <span class="truncate">파크골프 스코어카드</span>
       </h1>
-      <button type="button" onclick="confirmReset()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-2.5 py-1.5 rounded-lg shadow border border-amber-300 active:scale-95 transition flex items-center gap-1">
-        <span>🔄</span>
-        <span>초기화</span>
-      </button>
+      <div class="flex items-center gap-1 shrink-0">
+        <button type="button" onclick="openScorecardGuideModal()" class="bg-emerald-700 hover:bg-emerald-600 text-amber-300 font-bold text-xs px-2 py-1.5 rounded-lg border border-emerald-500 shadow-2xs flex items-center gap-1 active:scale-95 transition cursor-pointer">
+          <span>📖</span>
+          <span>사용설명서</span>
+        </button>
+        <button type="button" onclick="confirmReset()" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-2 py-1.5 rounded-lg shadow border border-amber-300 active:scale-95 transition flex items-center gap-1 cursor-pointer">
+          <span>🔄</span>
+          <span>초기화</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -328,6 +334,84 @@
           확인 (닫기)
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- 📖 [신규] 스마트폰 스코어카드 사용설명서 & 기능 가이드 모달 -->
+  <div id="scorecardGuideModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-[100] hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white w-full max-w-lg max-h-[90vh] rounded-2xl shadow-2xl flex flex-col text-slate-800 border-2 border-emerald-500 overflow-hidden">
+      
+      <!-- 모달 헤더 -->
+      <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-emerald-900 text-white p-3.5 sm:p-4 flex justify-between items-center shrink-0 border-b border-emerald-700">
+        <div class="flex items-center gap-2">
+          <span class="text-xl sm:text-2xl">📖</span>
+          <div>
+            <h3 class="text-base sm:text-lg font-black text-amber-300 leading-tight">스마트폰 스코어카드 사용설명서</h3>
+            <p class="text-[11px] text-emerald-100 font-medium">전국 타구장 겸용 무료 스코어카드 가이드</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeScorecardGuideModal()" class="text-white hover:bg-emerald-800/60 font-black text-xl px-2.5 py-1 rounded-xl transition cursor-pointer">✕</button>
+      </div>
+
+      <!-- 모달 본문 (스크롤) -->
+      <div class="p-4 overflow-y-auto space-y-4 text-xs sm:text-sm leading-relaxed">
+        
+        <!-- 🌟 핵심 기능 5가지 -->
+        <div class="bg-emerald-50 p-3.5 rounded-xl border border-emerald-200 space-y-2">
+          <h4 class="font-black text-emerald-950 text-sm flex items-center gap-1 border-b border-emerald-200 pb-1">
+            <span>🌟</span> <span>핵심 기능 5가지</span>
+          </h4>
+          <ul class="space-y-2 text-xs text-slate-800">
+            <li class="flex items-start gap-1.5">
+              <span class="bg-emerald-700 text-white font-black text-[10px] px-1.5 py-0.2 rounded shrink-0 mt-0.5">1</span>
+              <div><strong>앱 설치 & 회원가입 NO:</strong> 카톡 링크나 주소 접속만으로 1초 만에 무료 이용!</div>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="bg-emerald-700 text-white font-black text-[10px] px-1.5 py-0.2 rounded shrink-0 mt-0.5">2</span>
+              <div><strong>전국 구장 겸용 & Par 자동 셋팅:</strong> 수지 아르피아, 포곡 유운리 선택 시 Par 자동 설정! 전국 모든 타구장 직접 입력 가능!</div>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="bg-emerald-700 text-white font-black text-[10px] px-1.5 py-0.2 rounded shrink-0 mt-0.5">3</span>
+              <div><strong>왕대형 + / - 타수 조절:</strong> 1~4인 인원 선택 지원. <span class="text-red-600 font-bold">-언더파(빨강)</span>, <span class="text-blue-600 font-bold">+오버파(파랑)</span> 색상 자동 계산!</div>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="bg-emerald-700 text-white font-black text-[10px] px-1.5 py-0.2 rounded shrink-0 mt-0.5">4</span>
+              <div><strong>1~9홀 / 10~18홀 한눈에 표 보기:</strong> 종이 스코어카드처럼 전·후반 점수와 Total Par 합계 자동 계산!</div>
+            </li>
+            <li class="flex items-start gap-1.5">
+              <span class="bg-emerald-700 text-white font-black text-[10px] px-1.5 py-0.2 rounded shrink-0 mt-0.5">5</span>
+              <div><strong>이미지 저장 & 카톡 공유:</strong> 오늘 라운딩 성적표를 사진(PNG)으로 내 폰에 저장하고 카카오톡 단체방에 바로 공유!</div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 📱 초간단 사용법 4단계 -->
+        <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-300 space-y-2">
+          <h4 class="font-black text-amber-950 text-sm flex items-center gap-1 border-b border-amber-200 pb-1">
+            <span>📱</span> <span>10초 만에 끝나는 초간단 사용법</span>
+          </h4>
+          <ol class="space-y-1.5 text-xs text-slate-800 font-medium">
+            <li>1️⃣ <strong>구장 선택:</strong> 드롭다운에서 구장 선택 (포곡/수지 Par 자동 셋팅 or 전국 구장 직접 입력)</li>
+            <li>2️⃣ <strong>인원수 선택:</strong> 1인~4인 선택 후 선수 이름을 입력합니다.</li>
+            <li>3️⃣ <strong>타수 기록:</strong> 각 홀 카드에서 <strong>-</strong> 및 <strong>+</strong> 버튼을 눌러 타수를 기록합니다.</li>
+            <li>4️⃣ <strong>결과 확인 & 저장:</strong> 좌측 하단 <strong>[📊 1~9홀 표로 보기]</strong>나 <strong>[📸 이미지 저장]</strong>으로 성적표를 동반자들과 공유하세요!</li>
+          </ol>
+        </div>
+
+        <!-- 💾 자동 저장 안내 -->
+        <div class="bg-slate-100 p-3 rounded-xl border border-slate-300 text-xs text-slate-700">
+          💡 <strong>자동 저장 기능:</strong> 인터넷 연결이 끊겨도 브라우저 내부에 안전하게 스코어가 자동 저장됩니다. 언제든 다시 접속하시면 작성 중이던 스코어가 그대로 유지됩니다.
+        </div>
+
+      </div>
+
+      <!-- 모달 푸터 -->
+      <div class="bg-slate-50 p-3 border-t border-slate-200 flex justify-end shrink-0">
+        <button type="button" onclick="closeScorecardGuideModal()" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs px-4 py-2 rounded-xl shadow active:scale-95 transition">
+          확인 (닫기)
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -965,6 +1049,17 @@
           </tr>
         `;
       }
+    }
+
+    // 16. 📖 [신규] 스코어카드 사용설명서 모달 열기/닫기
+    function openScorecardGuideModal() {
+      const modal = document.getElementById('scorecardGuideModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeScorecardGuideModal() {
+      const modal = document.getElementById('scorecardGuideModal');
+      if (modal) modal.classList.add('hidden');
     }
   </script>
 </body>
