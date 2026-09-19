@@ -2823,6 +2823,7 @@
 
     // 🌐 실시간 클라우드 현장 제보 동기화 엔진 (스마트폰 ↔ PC 모바일/데스크톱 실시간 연동)
     const REPORT_API_URL = '/.netlify/functions/report';
+    const RAW_GIST_FALLBACK_URL = 'https://gist.githubusercontent.com/bowki70-ops/84aba230dbd80fa4dcf3ccd0c431eee6/raw/initial_reports.json';
     const reportChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('parkgolf_reports_channel') : null;
 
     async function sendReportToCloud(courseKey, reportData) {
@@ -2844,12 +2845,27 @@
 
     async function fetchReportsFromCloud() {
       try {
-        const res = await fetch(REPORT_API_URL);
-        if (!res.ok) return;
-        const json = await res.json();
-        if (json && json.data) {
+        let reportsData = null;
+        try {
+          const res = await fetch(REPORT_API_URL + '?t=' + Date.now());
+          if (res.ok) {
+            const json = await res.json();
+            if (json && json.data) reportsData = json.data;
+          }
+        } catch(e){}
+
+        if (!reportsData) {
+          try {
+            const resFallback = await fetch(RAW_GIST_FALLBACK_URL + '?v=' + Date.now());
+            if (resFallback.ok) {
+              reportsData = await resFallback.json();
+            }
+          } catch(e){}
+        }
+
+        if (reportsData) {
           ['suji', 'pogok', 'giheung', 'screen'].forEach(key => {
-            const cloudData = json.data[key];
+            const cloudData = reportsData[key];
             if (!cloudData) return;
 
             const localSaved = localStorage.getItem('parkgolf_report_' + key);
@@ -2860,8 +2876,8 @@
 
             if (!localData || (cloudData.timestamp && cloudData.timestamp > (localData.timestamp || 0))) {
               localStorage.setItem('parkgolf_report_' + key, JSON.stringify(cloudData));
-              updateCourseUI(key, cloudData);
             }
+            updateCourseUI(key, cloudData);
           });
         }
       } catch(e) {
@@ -3572,9 +3588,9 @@
         }
       });
 
-      // 🌐 클라우드 현장 제보 즉시 동기화 및 20초 자동 폴링
+      // 🌐 클라우드 현장 제보 즉시 동기화 및 10초 자동 폴링
       fetchReportsFromCloud();
-      setInterval(fetchReportsFromCloud, 20000);
+      setInterval(fetchReportsFromCloud, 10000);
 
       // 🌐 동일 기기 다중 탭 실시간 브로드캐스트 수신
       if (reportChannel) {
