@@ -185,10 +185,15 @@
       </button>
     </div>
 
-    <!-- 터치 오류 방지 안내 문구 -->
-    <p class="text-[11px] sm:text-xs text-amber-800 font-bold text-center bg-amber-50 py-1.5 px-3 rounded-xl border border-amber-200">
-      ※ +/- 터치 오류를 방지하기 위해 조금 늦게 반응합니다. 천천히 터치하세요.
-    </p>
+    <!-- 터치 오류 방지 및 PAR 기록 방법 안내 문구 -->
+    <div class="bg-amber-50/90 p-2.5 rounded-xl border border-amber-300 text-center space-y-1 shadow-2xs">
+      <p class="text-[12px] sm:text-xs text-amber-950 font-black flex items-center justify-center gap-1">
+        <span>💡</span> <span>PAR는 <b>( + <span class="bg-amber-200 text-emerald-950 px-1.5 py-0.5 rounded border border-amber-400">3타</span> - )</b>에서 숫자를 터치하세요.</span>
+      </p>
+      <p class="text-[11px] sm:text-xs text-amber-800 font-bold">
+        ※ +/- 터치 오류를 방지하기 위해 조금 늦게 반응합니다. 천천히 터치하세요.
+      </p>
+    </div>
 
     <!-- 4. 홀별 스코어 입력 매트릭스 카드 (시니어 맞춤 대형 + / - 버튼) -->
     <div id="hole-cards-container" class="space-y-2.5">
@@ -626,7 +631,7 @@
       container.innerHTML += `
         <div class="flex justify-between items-center bg-emerald-50/90 p-2 rounded-xl border border-emerald-200 text-xs gap-1">
           <span class="font-bold text-emerald-950 flex items-center gap-1 truncate">
-            <span>💡</span> <span class="truncate"><b>+ / -</b> 클릭 시 <b>진행 홀</b>로 자동 산정됩니다.</span>
+            <span>💡</span> <span class="truncate">PAR는 <b>( + 3타 - )</b>에서 숫자를 터치하세요.</span>
           </span>
           <button type="button" onclick="markCourseAllPlayed(${state.currentTab})" class="bg-emerald-700 hover:bg-emerald-800 text-amber-300 font-bold px-2.5 py-1 rounded-lg shadow-2xs shrink-0 active:scale-95 transition cursor-pointer">
             ✅ ${state.currentTab}코스 전홀 완료
@@ -748,6 +753,19 @@
       renderHoleCards();
     }
 
+    // 이전 미기록 홀들 PAR(이븐파) 자동 산정 함수
+    function autoRecordPrecedingHoles(holeIdx, playerIdx) {
+      const courseStart = holeIdx >= 9 ? 9 : 0;
+      for (let h = courseStart; h < holeIdx; h++) {
+        if (!state.holes[h].played) {
+          state.holes[h].played = [false, false, false, false];
+        }
+        if (!state.holes[h].played[playerIdx]) {
+          state.holes[h].played[playerIdx] = true;
+        }
+      }
+    }
+
     // 8. 타수 증감 함수 (+ / -) 및 기록 상태 자동 세팅
     function adjustScore(holeIdx, playerIdx, delta) {
       let current = state.holes[holeIdx].scores[playerIdx];
@@ -759,17 +777,27 @@
         state.holes[holeIdx].played = [false, false, false, false];
       }
       state.holes[holeIdx].played[playerIdx] = true;
+
+      // 이전 미기록 홀 PAR 자동 산정 처리
+      autoRecordPrecedingHoles(holeIdx, playerIdx);
       
       saveCurrentState();
       renderHoleCards();
     }
 
-    // 홀 진행 여부 토글 (터치 시 기록/미기록 전환)
+    // 홀 진행 여부 토글 (숫자 3타 터치 시 PAR 또는 기록 완료)
     function toggleHolePlayed(holeIdx, playerIdx) {
       if (!state.holes[holeIdx].played) {
         state.holes[holeIdx].played = [false, false, false, false];
       }
-      state.holes[holeIdx].played[playerIdx] = !state.holes[holeIdx].played[playerIdx];
+      const newStatus = !state.holes[holeIdx].played[playerIdx];
+      state.holes[holeIdx].played[playerIdx] = newStatus;
+
+      if (newStatus) {
+        // 이전 미기록 홀 PAR 자동 산정 처리
+        autoRecordPrecedingHoles(holeIdx, playerIdx);
+      }
+
       saveCurrentState();
       renderHoleCards();
     }
