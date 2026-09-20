@@ -76,6 +76,13 @@
       border: 1.5px solid #cbd5e1 !important;
     }
 
+    /* 📱 아이폰 더블 터치 화면 확대(Double-Tap Zoom) 및 텍스트 선택 방지 */
+    button, input[type="button"], select, .p-btn-cnt {
+      touch-action: manipulation !important;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
     /* 애니메이션 효과 */
     .tab-active {
       background-color: #047857 !important;
@@ -191,7 +198,7 @@
         <span>💡</span> <span>PAR는 <b>( + <span class="bg-amber-200 text-emerald-950 px-1.5 py-0.5 rounded border border-amber-400">타수</span> - )</b>에서 숫자를 터치하세요.</span>
       </p>
       <p class="text-[11px] sm:text-xs text-amber-800 font-bold">
-        ※ +/- 터치 오류를 방지하기 위해 조금 늦게 반응합니다. 천천히 터치하세요.
+        ※ + / - 버튼을 가볍게 한 번씩 터치해 주세요.
       </p>
     </div>
 
