@@ -195,7 +195,7 @@
     <!-- 터치 오류 방지 및 PAR 기록 방법 안내 문구 -->
     <div class="bg-amber-50/90 p-2.5 rounded-xl border border-amber-300 text-center space-y-1 shadow-2xs">
       <p class="text-[12px] sm:text-xs text-amber-950 font-black flex items-center justify-center gap-1">
-        <span>💡</span> <span>PAR는 <b>( + <span class="bg-amber-200 text-emerald-950 px-1.5 py-0.5 rounded border border-amber-400">타수</span> - )</b>에서 숫자를 터치하세요.</span>
+        <span>💡</span> <span>PAR는 <b>( - <span class="bg-amber-200 text-emerald-950 px-1.5 py-0.5 rounded border border-amber-400">타수</span> + )</b>에서 타수를 터치하세요.</span>
       </p>
       <p class="text-[11px] sm:text-xs text-amber-800 font-bold">
         ※ + / - 버튼을 가볍게 한 번씩 터치해 주세요.
@@ -634,15 +634,10 @@
       const startHole = (state.currentTab - 1) * 9; // 0 or 9
       const courseLabel = state.currentTab === 1 ? '1코스 (전반)' : '2코스 (후반)';
 
-      // 상단 가이드 & 전홀 일괄 완료 버튼
+      // 상단 가이드 바 (혼동을 주던 일괄 완료 버튼 제거)
       container.innerHTML += `
-        <div class="flex justify-between items-center bg-emerald-50/90 p-2 rounded-xl border border-emerald-200 text-xs gap-1">
-          <span class="font-bold text-emerald-950 flex items-center gap-1 truncate">
-            <span>💡</span> <span class="truncate">터치하지 않으면 <b>PAR</b>로 기록됩니다.</span>
-          </span>
-          <button type="button" onclick="markCourseAllPlayed(${state.currentTab})" class="bg-emerald-700 hover:bg-emerald-800 text-amber-300 font-bold px-2.5 py-1 rounded-lg shadow-2xs shrink-0 active:scale-95 transition cursor-pointer">
-            ✅ ${state.currentTab}코스 전홀 완료
-          </button>
+        <div class="bg-emerald-50/90 p-2.5 rounded-xl border border-emerald-300 text-xs font-bold text-emerald-950 text-center flex items-center justify-center gap-1 shadow-2xs">
+          <span>💡</span> <span>터치하지 않으면 <b>PAR(이븐파)</b>로 자동 기록됩니다.</span>
         </div>
       `;
 
