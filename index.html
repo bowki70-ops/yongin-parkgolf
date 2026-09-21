@@ -614,16 +614,22 @@
   <!-- 2. 메인 헤더 (용인 파크골프 정보 포털 - 모바일 잘림 방지 콤팩트 레이아웃) -->
   <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
     <div class="max-w-6xl mx-auto px-3 py-2 sm:py-3 flex flex-wrap sm:flex-nowrap justify-between items-center gap-2">
-      <div class="flex items-center gap-2 min-w-0 shrink">
+      <div onclick="handleMainHomeClick(event)" class="flex items-center gap-2 min-w-0 shrink cursor-pointer active:scale-95 transition" title="모바일 대시보드로 돌아가기">
         <div class="bg-emerald-800 text-white p-1.5 sm:p-2 rounded-xl text-base sm:text-lg font-bold shadow-sm shrink-0">⛳</div>
         <div class="min-w-0">
           <h1 class="text-sm sm:text-base md:text-2xl font-black text-slate-900 tracking-tight leading-tight whitespace-nowrap">
             <span>용인 파크골프 정보 포털</span>
           </h1>
-          <p class="text-[9px] sm:text-xs md:text-xs text-emerald-800 font-bold truncate">용인 파크골프 동호인을 위한 정보 포털</p>
+          <p class="text-[9px] sm:text-xs md:text-xs text-emerald-800 font-bold truncate">용인 파크골프 동호인을 위한 정보 포털 (모바일홈 🏠)</p>
         </div>
       </div>
       <div class="flex items-center gap-1 sm:gap-2 shrink-0 flex-wrap max-w-full">
+        <!-- 📱 모바일 대시보드 복귀 원터치 버튼 -->
+        <button onclick="handleMainHomeClick(event)" type="button" title="모바일 대시보드로 돌아가기" class="bg-amber-400 text-slate-950 font-black px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[11px] sm:text-xs md:text-sm hover:bg-amber-300 transition shadow-md flex items-center gap-0.5 sm:gap-1 cursor-pointer border-2 border-amber-300 active:scale-95 shrink-0 min-h-[30px] sm:min-h-[32px]">
+          <span>📱</span>
+          <span>모바일홈</span>
+        </button>
+
         <!-- 🔍 시니어 돋보기 글자 크기 3단계 스마트폰 전용 네이티브 셀렉트 -->
         <div class="relative flex items-center shrink-0">
           <label for="font-scale-select" class="sr-only">글자 크기 조절</label>
