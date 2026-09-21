@@ -610,11 +610,11 @@
           <p class="text-[9px] sm:text-xs md:text-xs text-emerald-800 font-bold truncate">용인 파크골프 동호인을 위한 정보 포털</p>
         </div>
       </div>
-      <div class="flex items-center gap-1 sm:gap-2 shrink-0 flex-wrap">
+      <div class="flex items-center gap-1 sm:gap-2 shrink-0 flex-wrap max-w-full">
         <!-- 🔍 시니어 돋보기 글자 크기 3단계 스마트폰 전용 네이티브 셀렉트 -->
         <div class="relative flex items-center shrink-0">
           <label for="font-scale-select" class="sr-only">글자 크기 조절</label>
-          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-xs sm:text-xs md:text-sm border border-amber-300 shadow-xs cursor-pointer appearance-none pr-4 sm:pr-6 active:scale-95 focus:outline-none min-h-[32px]">
+          <select id="font-scale-select" onchange="setFontScale(this.value)" class="bg-amber-400 text-slate-950 font-black px-1 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[11px] sm:text-xs md:text-sm border border-amber-300 shadow-xs cursor-pointer appearance-none pr-3.5 sm:pr-6 active:scale-95 focus:outline-none min-h-[30px] sm:min-h-[32px]">
             <option value="100">글자크기 100%</option>
             <option value="130" selected>글자크기 130% ⭐</option>
             <option value="160">글자크기 160% 🔍</option>
@@ -622,20 +622,20 @@
           <span class="pointer-events-none absolute right-1 sm:right-2 text-[8px] sm:text-[9px] text-slate-950 font-black">▼</span>
         </div>
 
-        <button onclick="openLicenseGuideModal()" type="button" title="파크골프 지도자·심판 자격증 안내" class="bg-amber-400 text-slate-950 font-black px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-xs sm:text-xs md:text-sm hover:bg-amber-300 transition shadow-xs flex items-center gap-1 cursor-pointer border border-amber-300 active:scale-95 shrink-0 min-h-[32px]">
+        <button onclick="openLicenseGuideModal()" type="button" title="파크골프 지도자·심판 자격증 안내" class="bg-amber-400 text-slate-950 font-black px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[11px] sm:text-xs md:text-sm hover:bg-amber-300 transition shadow-xs flex items-center gap-0.5 sm:gap-1 cursor-pointer border border-amber-300 active:scale-95 shrink-0 min-h-[30px] sm:min-h-[32px]">
           <span>🏅</span>
           <span class="hidden sm:inline">자격증 가이드</span>
-          <span class="sm:hidden text-xs">자격증</span>
+          <span class="sm:hidden">자격증</span>
         </button>
-        <button onclick="copyPortalUrlForKakao()" type="button" title="주소 복사 (카톡 공유용)" class="bg-yellow-400 text-slate-950 font-black px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-xs sm:text-xs md:text-sm hover:bg-yellow-300 transition shadow-xs flex items-center gap-1 cursor-pointer border border-yellow-300 active:scale-95 shrink-0 min-h-[32px]">
+        <button onclick="copyPortalUrlForKakao()" type="button" title="주소 복사 (카톡 공유용)" class="bg-yellow-400 text-slate-950 font-black px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[11px] sm:text-xs md:text-sm hover:bg-yellow-300 transition shadow-xs flex items-center gap-0.5 sm:gap-1 cursor-pointer border border-yellow-300 active:scale-95 shrink-0 min-h-[30px] sm:min-h-[32px]">
           <span>📋</span>
           <span class="hidden sm:inline">주소 복사(카톡보내기용)</span>
-          <span class="sm:hidden text-xs">주소복사</span>
+          <span class="sm:hidden">주소복사</span>
         </button>
-        <button onclick="downloadDesktopShortcut()" type="button" title="바탕화면에 바로가기 만들기" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-xs sm:text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-xs flex items-center gap-1 cursor-pointer border border-emerald-600 active:scale-95 shrink-0 min-h-[32px]">
+        <button onclick="downloadDesktopShortcut()" type="button" title="바탕화면에 바로가기 만들기" class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white font-black px-1.5 py-1 sm:px-2.5 sm:py-1.5 rounded-lg text-[11px] sm:text-xs md:text-sm hover:from-emerald-700 hover:to-teal-800 transition shadow-xs flex items-center gap-0.5 sm:gap-1 cursor-pointer border border-emerald-600 active:scale-95 shrink-0 min-h-[30px] sm:min-h-[32px]">
           <span>📱</span>
           <span class="hidden sm:inline">바탕화면에 바로가기 만들기</span>
-          <span class="sm:hidden text-xs">바로가기</span>
+          <span class="sm:hidden">바로가기</span>
         </button>
       </div>
     </div>
