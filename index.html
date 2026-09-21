@@ -255,10 +255,10 @@
           <span>🏅</span>
           <span>자격증</span>
         </button>
-        <a href="index.html" onclick="handleMainHomeClick(event)" id="btn-toggle-pcview" class="bg-amber-400 text-slate-950 font-black text-[11px] px-1.5 py-1 rounded-md shadow border border-amber-300 active:scale-95 flex items-center gap-0.5 cursor-pointer min-h-[32px] shrink-0">
-          <span>🏠</span>
-          <span id="txt-toggle-pcview">메인홈</span>
-        </a>
+        <button type="button" onclick="toggleFullPcView(event)" id="btn-toggle-pcview" class="bg-amber-400 text-slate-950 font-black text-[11px] px-1.5 py-1 rounded-md shadow border border-amber-300 active:scale-95 flex items-center gap-0.5 cursor-pointer min-h-[32px] shrink-0">
+          <span>📋</span>
+          <span id="txt-toggle-pcview">전체메뉴</span>
+        </button>
       </div>
     </header>
 
@@ -2519,33 +2519,47 @@
       }
     };
 
-    // 📱 모바일 / PC 전환 토글 함수
-    function toggleFullPcView() {
+    // 📱 모바일 대시보드 ↔ 전체 포털 (PC 모드) 토글 함수
+    function toggleFullPcView(e) {
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      
+      // 열려 있는 모달 팝업이 있다면 즉시 닫기
+      const modals = document.querySelectorAll('.fixed[id*="Modal"], .fixed[id*="modal"]');
+      modals.forEach(el => {
+        if (el && !el.classList.contains('hidden')) el.classList.add('hidden');
+      });
+      currentActiveModalId = null;
+
       const pcContainer = document.getElementById('pc-full-content-container');
       const mobileContainer = document.getElementById('mobile-dashboard-container');
       const btnTxt = document.getElementById('txt-toggle-pcview');
 
       if (!pcContainer) return;
+
       if (pcContainer.classList.contains('hidden')) {
+        // PC 모드로 전환
         pcContainer.classList.remove('hidden');
         if (mobileContainer) mobileContainer.classList.add('hidden');
-        if (btnTxt) btnTxt.innerText = '📱 모바일 대시보드';
+        if (btnTxt) btnTxt.innerText = '📱 모바일홈';
         showToast('📋 전체 포털 (PC 모드)로 전환되었습니다.', '📋');
       } else {
+        // 모바일 대시보드로 복귀
         pcContainer.classList.add('hidden');
         if (mobileContainer) mobileContainer.classList.remove('hidden');
-        if (btnTxt) btnTxt.innerText = '📋 전체메뉴 보기';
+        if (btnTxt) btnTxt.innerText = '전체메뉴';
         showToast('📱 모바일 실시간 대시보드로 전환되었습니다.', '📱');
       }
+      document.body.style.overflow = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 🏠 메인홈 버튼 클릭 처리 (모달 팝업만 닫기 + 스크롤 복원 + 모바일 대시보드 최상단 이동)
+    // 🏠 메인홈 (로고/홈) 클릭 처리 (모달 닫기 + 모바일 대시보드 복귀 + 최상단 이동)
     function handleMainHomeClick(e) {
       if (e && typeof e.preventDefault === 'function') {
         e.preventDefault();
       }
 
-      // 1. 화면에 열려 있는 '모달 팝업'만 정확히 탐색하여 닫기 (플로팅 스코어카드 버튼, 푸터 바 등 다른 fixed 요소 절대 제외!)
+      // 1. 화면에 열려 있는 '모달 팝업'만 정확히 탐색하여 닫기
       const modals = document.querySelectorAll('.fixed[id*="Modal"], .fixed[id*="modal"]');
       modals.forEach(el => {
         if (el && !el.classList.contains('hidden')) {
@@ -2554,7 +2568,7 @@
       });
       currentActiveModalId = null;
 
-      // 2. 히스토리 상태 안전 리셋 (history.back() 호출 시 페이지 이탈/먹통 방지)
+      // 2. 히스토리 상태 안전 리셋
       if (history.state && history.state.modalId) {
         try { history.replaceState(null, '', window.location.href); } catch(err) {}
       }
@@ -2562,8 +2576,11 @@
       // 3. 모바일 대시보드 보이기 & PC 전용 뷰 숨기기
       const pcContainer = document.getElementById('pc-full-content-container');
       const mobileContainer = document.getElementById('mobile-dashboard-container');
+      const btnTxt = document.getElementById('txt-toggle-pcview');
+
       if (pcContainer) pcContainer.classList.add('hidden');
       if (mobileContainer) mobileContainer.classList.remove('hidden');
+      if (btnTxt) btnTxt.innerText = '전체메뉴';
 
       // 4. 스크롤 잠금 해제 및 메인 최상단으로 즉시 이동
       document.body.style.overflow = '';
@@ -2575,7 +2592,7 @@
         window.location.href = 'index.html';
       } else {
         if (typeof showToast === 'function') {
-          showToast('🏠 메인 홈으로 이동했습니다.', '🏠');
+          showToast('📱 모바일 실시간 대시보드로 이동했습니다.', '🏠');
         }
       }
     }
