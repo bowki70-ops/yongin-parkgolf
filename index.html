@@ -2554,9 +2554,9 @@
       });
       currentActiveModalId = null;
 
-      // 2. 히스토리 popstate 뒤로가기 연동 초기화
+      // 2. 히스토리 상태 안전 리셋 (history.back() 호출 시 페이지 이탈/먹통 방지)
       if (history.state && history.state.modalId) {
-        try { history.back(); } catch(err) {}
+        try { history.replaceState(null, '', window.location.href); } catch(err) {}
       }
 
       // 3. 모바일 대시보드 보이기 & PC 전용 뷰 숨기기
