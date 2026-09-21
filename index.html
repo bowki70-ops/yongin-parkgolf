@@ -751,7 +751,7 @@
           </div>
         </div>
 
-        <!-- 6. 문의·제휴 (💬 1:1 카톡·이메일 광고 제휴) -->
+        <!-- 6. 문의·제휴 (💬 1:1 카톡·이메일 제휴) -->
         <div class="relative group py-2.5 sm:py-3 cursor-pointer px-1.5 sm:px-2 hover:bg-emerald-800 transition rounded-t-lg shrink-0">
           <a href="#contact-section" class="flex items-center gap-0.5 sm:gap-1 text-amber-300 font-bold hover:text-amber-200 whitespace-nowrap">
             <span>💬 문의·제휴</span>
@@ -763,7 +763,7 @@
               <span class="text-xs bg-[#FEE500] text-slate-950 px-2 py-0.5 rounded font-black border border-amber-300">오픈채팅</span>
             </a>
             <button type="button" onclick="copyContactEmail()" class="w-full text-left px-4 py-3 hover:bg-emerald-50 text-emerald-900 font-bold transition flex items-center justify-between min-h-[48px]">
-              <span class="flex items-center gap-1.5"><span class="text-base">✉️</span> 광고/제휴 이메일 복사</span>
+              <span class="flex items-center gap-1.5"><span class="text-base">✉️</span> 제휴 이메일 복사</span>
               <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">복사</span>
             </button>
           </div>
@@ -1818,10 +1818,10 @@
           💬 소통 & 파트너십
         </span>
         <h3 class="text-xl md:text-2xl font-black text-white leading-tight">
-          불편사항 제보 · 구장 정보 수정 · 배너 광고 문의
+          불편사항 제보 · 구장 정보 수정 · 제휴 문의
         </h3>
         <p class="text-base md:text-lg font-bold text-amber-300 leading-relaxed max-w-2xl mx-auto">
-          용인 파크골프 포털 이용 중 불편하신 점이나 수정이 필요한 정보, 광고 제휴 문의는 편하신 채널로 언제든 말씀해 주세요!
+          용인 파크골프 포털 이용 중 불편하신 점이나 수정이 필요한 정보, 제휴 문의는 편하신 채널로 언제든 말씀해 주세요!
         </p>
       </div>
 
@@ -1834,11 +1834,11 @@
           <span>카톡 1:1 문의하기 ↗</span>
         </a>
 
-        <!-- [광고 및 제휴 문의] 이메일 주소 노출 + 원터치 복사 -->
+        <!-- [제휴 문의] 이메일 주소 노출 + 원터치 복사 -->
         <button type="button" onclick="copyContactEmail()" class="bg-emerald-800 hover:bg-emerald-700 text-white font-black py-4 px-6 rounded-2xl shadow-xl border-2 border-emerald-500 text-base md:text-lg flex items-center justify-center gap-2.5 transition active:scale-95 cursor-pointer min-h-[56px]">
           <span class="text-2xl">✉️</span>
           <div class="text-left leading-tight">
-            <span class="block text-xs font-bold text-emerald-200">광고 & 제휴 문의 (이메일 복사)</span>
+            <span class="block text-xs font-bold text-emerald-200">제휴 문의 (이메일 복사)</span>
             <span class="block text-sm md:text-base font-black text-amber-300">bowki70@gmail.com 📋</span>
           </div>
         </button>
@@ -1856,7 +1856,7 @@
   <footer class="bg-slate-900 text-slate-400 py-8 px-4 text-center text-xs">
     <div class="max-w-6xl mx-auto space-y-3">
       <div class="flex flex-wrap justify-center items-center gap-4 text-slate-300 font-bold text-xs pb-2 border-b border-slate-800">
-        <a href="#contact-section" class="hover:text-amber-300 transition">💬 불편사항 제보 / 구장정보수정 / 광고문의</a>
+        <a href="#contact-section" class="hover:text-amber-300 transition">💬 불편사항 제보 / 구장정보수정 / 제휴문의</a>
         <span class="text-slate-700">|</span>
         <a href="https://open.kakao.com/o/sxosTuNi" target="_blank" rel="noopener noreferrer" class="text-amber-300 hover:text-amber-200 transition">🟡 카카오톡 1:1 문의</a>
         <span class="text-slate-700">|</span>
@@ -2672,17 +2672,17 @@
       }
     }
 
-    // ✉️ 광고 및 제휴 문의 이메일 (bowki70@gmail.com) 복사 기능
+    // ✉️ 제휴 문의 이메일 (bowki70@gmail.com) 복사 기능
     function copyContactEmail() {
       const email = 'bowki70@gmail.com';
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(email).then(() => {
-          showToast('✉️ 제휴/광고 문의 이메일(bowki70@gmail.com)이 복사되었습니다!', '🎉');
+          showToast('✉️ 제휴 문의 이메일(bowki70@gmail.com)이 복사되었습니다!', '🎉');
         }).catch(() => {
-          copyAddress(email, '광고/제휴 문의 이메일');
+          copyAddress(email, '제휴 문의 이메일');
         });
       } else {
-        copyAddress(email, '광고/제휴 문의 이메일');
+        copyAddress(email, '제휴 문의 이메일');
       }
     }
 
