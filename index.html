@@ -21,6 +21,19 @@
         !window.location.hostname.includes('netlify.app')) {
       window.location.replace('https://yonginparkgolf.co.kr' + window.location.pathname + window.location.search + window.location.hash);
     }
+
+    // ⚡ 구버전 PWA 스마트폰 캐시 강제 파기 및 실시간 최신 버전 동기화 (v32)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let reg of registrations) {
+          if (reg.active && !reg.active.scriptURL.includes('v=32')) {
+            reg.unregister().then(function() {
+              window.location.reload();
+            });
+          }
+        }
+      }).catch(function(){});
+    }
   </script>
 
   <!-- SEO 및 카카오톡/네이버 블로그 공유 (OG Tag) -->
@@ -3679,7 +3692,7 @@
 
       // PWA Service Worker 및 1초 바탕화면 앱 설치 로직
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js?v=13').then(reg => {
+        navigator.serviceWorker.register('/sw.js?v=32').then(reg => {
           reg.update();
         }).catch(err => console.log('SW reg fail:', err));
       }
