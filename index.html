@@ -233,7 +233,7 @@
   <div id="mobile-dashboard-container" class="block lg:hidden bg-[#faf7f2] min-h-screen pb-20">
     
     <!-- 1. 모바일 전용 상단 헤더 (375px 모바일 화면 완벽 밀착 맞춤) -->
-    <header class="bg-emerald-900 text-white px-2 py-2 sticky top-0 z-40 shadow-md flex justify-between items-center border-b-2 border-emerald-950 gap-1 overflow-x-hidden">
+    <header class="bg-emerald-900 text-white px-2 py-2 sticky top-0 z-[100] shadow-md flex justify-between items-center border-b-2 border-emerald-950 gap-1 overflow-x-hidden">
       <div onclick="handleMainHomeClick(event)" class="flex items-center gap-1 min-w-0 shrink cursor-pointer active:scale-95 transition">
         <span class="text-base sm:text-lg shrink-0">⛳</span>
         <div class="min-w-0">
@@ -2541,13 +2541,15 @@
 
     // 🏠 메인홈 버튼 클릭 처리 (모달 닫기 + 모바일 대시보드 복귀 + 최상단 이동 또는 새로고침)
     function handleMainHomeClick(e) {
-      if (e) e.preventDefault();
+      if (e && typeof e.preventDefault === 'function') {
+        e.preventDefault();
+      }
 
       // 1. 열려 있는 모든 모달 닫기
-      const modalIds = ['licenseGuideModal', 'pwaInstallModal', 'noticeBoardModal', 'noticeRegisterModal', 'wait-report-modal'];
+      const modalIds = ['licenseGuideModal', 'pwaInstallModal', 'noticeBoardModal', 'noticeRegisterModal', 'wait-report-modal', 'notice-board-modal', 'notice-register-modal'];
       modalIds.forEach(id => {
         const el = document.getElementById(id);
-        if (el && !el.classList.contains('hidden')) {
+        if (el) {
           el.classList.add('hidden');
         }
       });
@@ -2560,7 +2562,7 @@
       if (mobileContainer) mobileContainer.classList.remove('hidden');
 
       // 3. 최상단으로 이동 (이미 최상단이면 페이지 새로고침)
-      if (window.scrollY > 30) {
+      if (window.scrollY > 10) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         window.location.href = 'index.html';
@@ -4315,9 +4317,14 @@
           </a>
         </div>
 
-        <button type="button" onclick="closeLicenseGuideModal()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-xl text-xs text-center transition cursor-pointer">
-          닫기
-        </button>
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button type="button" onclick="closeLicenseGuideModal()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-xl text-xs text-center transition cursor-pointer">
+            ✕ 닫기
+          </button>
+          <button type="button" onclick="handleMainHomeClick(event)" class="w-full bg-amber-400 hover:bg-amber-500 text-slate-950 font-black py-3 rounded-xl text-xs text-center transition cursor-pointer shadow">
+            🏠 메인 홈으로
+          </button>
+        </div>
 
       </div>
     </div>
