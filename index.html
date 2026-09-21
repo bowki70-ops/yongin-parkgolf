@@ -234,7 +234,7 @@
     
     <!-- 1. 모바일 전용 상단 헤더 (375px 모바일 화면 완벽 밀착 맞춤) -->
     <header class="bg-emerald-900 text-white px-2 py-2 sticky top-0 z-40 shadow-md flex justify-between items-center border-b-2 border-emerald-950 gap-1 overflow-x-hidden">
-      <div class="flex items-center gap-1 min-w-0 shrink">
+      <div onclick="handleMainHomeClick(event)" class="flex items-center gap-1 min-w-0 shrink cursor-pointer active:scale-95 transition">
         <span class="text-base sm:text-lg shrink-0">⛳</span>
         <div class="min-w-0">
           <h1 class="font-black text-xs leading-tight text-amber-300 truncate">용인 파크골프</h1>
@@ -255,7 +255,7 @@
           <span>🏅</span>
           <span>자격증</span>
         </button>
-        <a href="index.html" id="btn-toggle-pcview" class="bg-amber-400 text-slate-950 font-black text-[11px] px-1.5 py-1 rounded-md shadow border border-amber-300 active:scale-95 flex items-center gap-0.5 cursor-pointer min-h-[32px] shrink-0">
+        <a href="index.html" onclick="handleMainHomeClick(event)" id="btn-toggle-pcview" class="bg-amber-400 text-slate-950 font-black text-[11px] px-1.5 py-1 rounded-md shadow border border-amber-300 active:scale-95 flex items-center gap-0.5 cursor-pointer min-h-[32px] shrink-0">
           <span>🏠</span>
           <span id="txt-toggle-pcview">메인홈</span>
         </a>
@@ -2536,6 +2536,34 @@
         if (mobileContainer) mobileContainer.classList.remove('hidden');
         if (btnTxt) btnTxt.innerText = '📋 전체메뉴 보기';
         showToast('📱 모바일 실시간 대시보드로 전환되었습니다.', '📱');
+      }
+    }
+
+    // 🏠 메인홈 버튼 클릭 처리 (모달 닫기 + 모바일 대시보드 복귀 + 최상단 이동 또는 새로고침)
+    function handleMainHomeClick(e) {
+      if (e) e.preventDefault();
+
+      // 1. 열려 있는 모든 모달 닫기
+      const modalIds = ['licenseGuideModal', 'pwaInstallModal', 'noticeBoardModal', 'noticeRegisterModal', 'wait-report-modal'];
+      modalIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && !el.classList.contains('hidden')) {
+          el.classList.add('hidden');
+        }
+      });
+      currentActiveModalId = null;
+
+      // 2. 모바일 대시보드 보이기 & PC 뷰 숨기기
+      const pcContainer = document.getElementById('pc-full-content-container');
+      const mobileContainer = document.getElementById('mobile-dashboard-container');
+      if (pcContainer) pcContainer.classList.add('hidden');
+      if (mobileContainer) mobileContainer.classList.remove('hidden');
+
+      // 3. 최상단으로 이동 (이미 최상단이면 페이지 새로고침)
+      if (window.scrollY > 30) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.location.href = 'index.html';
       }
     }
 
