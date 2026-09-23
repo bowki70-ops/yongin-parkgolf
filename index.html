@@ -3754,7 +3754,44 @@
       const mPogokRestBadge = document.getElementById('m-pogok-rest-badge');
       const mGiheungRestBadge = document.getElementById('m-giheung-rest-badge');
 
-      if (currentDay === 1) { // 월요일 (전 구장 정상개장)
+      const fullDateKey = `${year}-${month}-${date}`;
+
+      // 추석 연휴 (2026.09.24 ~ 2026.09.26) 자동 연동 판별 엔진
+      if (fullDateKey >= '2026-09-24' && fullDateKey <= '2026-09-26') {
+        if (headerStatus) {
+          headerStatus.innerHTML = `🌾 <strong>추석 연휴:</strong> 수지(정상개장) | 기흥(24~26일 휴장) | 포곡(25일 휴장)`;
+        }
+
+        // 1. 수지 아르피아 (휴장 없이 정기 개장)
+        if (sujiRestBadge) { sujiRestBadge.innerHTML = `🟢 추석 정상개장`; sujiRestBadge.className = `text-emerald-300 font-bold bg-emerald-950/90 px-2.5 py-1 rounded-lg border border-emerald-500 text-xs`; }
+        if (mSujiRestBadge) { mSujiRestBadge.innerHTML = '🟢 추석 정상개장'; mSujiRestBadge.className = 'bg-emerald-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs shrink-0'; }
+        const sujiChuseokHtml = `🚫 <strong>휴장:</strong> <span class="text-emerald-700 font-bold">추석 연휴 기간 휴장 없이 정상 개장</span> (☎ 070-5175-3928)`;
+        if (sujiCardRest) sujiCardRest.innerHTML = sujiChuseokHtml;
+        if (mSujiCardRest) mSujiCardRest.innerHTML = sujiChuseokHtml;
+
+        // 2. 기흥 호수공원 (24~26일 휴장)
+        if (giheungRestBadge) { giheungRestBadge.innerHTML = `🔴 24~26일 휴장`; giheungRestBadge.className = `text-red-300 font-bold bg-red-950/90 px-2.5 py-1 rounded-lg border border-red-500 text-xs`; }
+        if (mGiheungRestBadge) { mGiheungRestBadge.innerHTML = '🔴 24~26일 휴장'; mGiheungRestBadge.className = 'bg-red-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs shrink-0 animate-pulse'; }
+        const giheungChuseokHtml = `🚫 <strong>휴장:</strong> <span class="text-red-600 font-bold">추석 연휴 기간(24~26일) 휴장</span> (☎ 031-6193-6047)`;
+        if (giheungCardRest) giheungCardRest.innerHTML = giheungChuseokHtml;
+        if (mGiheungCardRest) mGiheungCardRest.innerHTML = giheungChuseokHtml;
+
+        // 3. 포곡 유운리 (25일 추석 당일만 휴장)
+        if (fullDateKey === '2026-09-25') {
+          if (pogokRestBadge) { pogokRestBadge.innerHTML = `🔴 오늘(25일) 추석휴장`; pogokRestBadge.className = `text-red-300 font-bold bg-red-950/90 px-2.5 py-1 rounded-lg border border-red-500 text-xs`; }
+          if (mPogokRestBadge) { mPogokRestBadge.innerHTML = '🔴 25일(추석) 휴장'; mPogokRestBadge.className = 'bg-red-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs shrink-0 animate-pulse'; }
+          const pogokClosedHtml = `🚫 <strong>휴장:</strong> <span class="text-red-600 font-bold">오늘 25일(추석 당일) 휴장</span> (☎ 031-6193-5052)`;
+          if (pogokCardRest) pogokCardRest.innerHTML = pogokClosedHtml;
+          if (mPogokCardRest) mPogokCardRest.innerHTML = pogokClosedHtml;
+        } else {
+          if (pogokRestBadge) { pogokRestBadge.innerHTML = `🟢 오늘 정상개장`; pogokRestBadge.className = `text-emerald-300 font-bold bg-emerald-950/90 px-2.5 py-1 rounded-lg border border-emerald-500 text-xs`; }
+          if (mPogokRestBadge) { mPogokRestBadge.innerHTML = '🟢 오늘 정상개장'; mPogokRestBadge.className = 'bg-emerald-600 text-white font-black text-xs px-2 py-1 rounded-md shadow-2xs shrink-0'; }
+          const pogokOpenHtml = `🚫 <strong>휴장:</strong> <span class="text-emerald-700 font-bold">오늘 정상 개장 중</span> (25일 추석 당일만 휴장 / ☎ 031-6193-5052)`;
+          if (pogokCardRest) pogokCardRest.innerHTML = pogokOpenHtml;
+          if (mPogokCardRest) mPogokCardRest.innerHTML = pogokOpenHtml;
+        }
+
+      } else if (currentDay === 1) { // 월요일 (전 구장 정상개장)
         if (headerStatus) {
           headerStatus.innerHTML = `⛳ <strong>포곡·수지·기흥: 전 구장 정상 개장 중</strong> (월요일)`;
         }
