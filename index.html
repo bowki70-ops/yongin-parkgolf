@@ -576,19 +576,25 @@
           <span id="m-daily-video-badge" class="bg-amber-400 text-slate-950 font-black text-[11px] px-2 py-0.5 rounded-full shadow-2xs">추천 영상</span>
         </div>
 
-        <!-- 유튜브 동영상 플레이어 (16:9 반응형) -->
-        <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-black">
-          <iframe 
-            id="m-daily-video-iframe"
-            class="absolute top-0 left-0 w-full h-full" 
-            src="https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw" 
-            title="용인 파크골프 추천 힐링 &amp; 생활 유용한 팁 영상" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            allowfullscreen 
-            loading="lazy">
-          </iframe>
+        <!-- 유튜브 동영상 플레이어 및 원터치 바로보기 버튼 -->
+        <div class="space-y-2">
+          <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-black">
+            <iframe 
+              id="m-daily-video-iframe"
+              class="absolute top-0 left-0 w-full h-full" 
+              src="https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw" 
+              title="용인 파크골프 추천 힐링 &amp; 생활 유용한 팁 영상" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerpolicy="strict-origin-when-cross-origin" 
+              allowfullscreen 
+              loading="lazy">
+            </iframe>
+          </div>
+          <a href="https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw" target="_blank" rel="noopener noreferrer" class="block w-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold py-2.5 px-3 rounded-xl text-center text-xs transition shadow-2xs flex items-center justify-center gap-1.5">
+            <span>▶️</span>
+            <span>유튜브 앱/웹에서 바로보기 ↗</span>
+          </a>
         </div>
 
         <!-- 신규 구장 및 연습장 추가 등록 안내 -->
@@ -1122,18 +1128,24 @@
 
           <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center flex-1">
             <!-- 유튜브 플레이어 영역 (col-span-7) -->
-            <div class="md:col-span-7 relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-black">
-              <iframe 
-                id="pc-daily-video-iframe"
-                class="absolute top-0 left-0 w-full h-full" 
-                src="https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw" 
-                title="용인 파크골프 추천 힐링 &amp; 생활 유용한 팁 영상" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen 
-                loading="lazy">
-              </iframe>
+            <div class="md:col-span-7 space-y-2">
+              <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-black">
+                <iframe 
+                  id="pc-daily-video-iframe"
+                  class="absolute top-0 left-0 w-full h-full" 
+                  src="https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw" 
+                  title="용인 파크골프 추천 힐링 &amp; 생활 유용한 팁 영상" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin" 
+                  allowfullscreen 
+                  loading="lazy">
+                </iframe>
+              </div>
+              <a href="https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw" target="_blank" rel="noopener noreferrer" class="block w-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold py-2 px-3 rounded-xl text-center text-xs transition shadow-2xs flex items-center justify-center gap-1.5">
+                <span>▶️</span>
+                <span>유튜브에서 큰 화면으로 바로보기 ↗</span>
+              </a>
             </div>
 
             <!-- 안내 문구 영역 (col-span-5) -->
