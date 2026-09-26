@@ -566,36 +566,44 @@
         </p>
       </a>
 
-      <!-- 5) 🎬 힐링 & 생활 유용한 팁 영상 및 신규 구장 안내 박스 (모바일) -->
+      <!-- 5) 🎬 추천 영상 및 신규 구장 안내 박스 (모바일) -->
       <div class="bg-slate-50/90 p-3.5 rounded-xl border-2 border-dashed border-gray-300 text-center space-y-3 shadow-2xs">
         <div class="flex items-center justify-between border-b border-gray-200 pb-2">
           <div class="flex items-center gap-1.5">
             <span class="text-lg">🎬</span>
-            <span id="m-daily-video-title" class="font-bold text-slate-900 text-sm">힐링 &amp; 생활 유용한 팁</span>
+            <span id="m-daily-video-header" class="font-bold text-slate-900 text-sm">추천 콘텐츠</span>
           </div>
-          <span id="m-daily-video-badge" class="bg-amber-400 text-slate-950 font-black text-[11px] px-2 py-0.5 rounded-full shadow-2xs">추천 영상</span>
+          <span id="m-daily-video-badge" class="bg-amber-400 text-slate-950 font-black text-[11px] px-2 py-0.5 rounded-full shadow-2xs">오늘의 추천</span>
         </div>
 
-        <!-- 유튜브 동영상 플레이어 및 원터치 바로보기 버튼 -->
-        <div class="space-y-2">
-          <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-black">
-            <iframe 
-              id="m-daily-video-iframe"
-              class="absolute top-0 left-0 w-full h-full" 
-              src="https://www.youtube.com/embed/kXoY9QJpD4g" 
-              title="용인 파크골프 추천 힐링 &amp; 생활 유용한 팁 영상" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-              referrerpolicy="strict-origin-when-cross-origin" 
-              allowfullscreen 
-              loading="lazy">
-            </iframe>
+        <!-- 커스텀 유튜브 썸네일 & 플레이 버튼 프리뷰 카드 -->
+        <a id="m-daily-video-link" href="https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw" target="_blank" rel="noopener noreferrer" 
+           class="group relative block w-full aspect-video rounded-xl overflow-hidden shadow-md border border-gray-200 bg-slate-900 active:scale-[0.98] transition cursor-pointer">
+          <!-- 썸네일 배경 이미지 -->
+          <img 
+            id="m-daily-video-thumb"
+            src="https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg" 
+            alt="장비빨이 먹힐까?" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80"
+          />
+          <!-- 오버레이 레이어 -->
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-slate-950/50 flex flex-col items-center justify-center p-3 text-center">
+            <!-- 유튜브 플레이 버튼 -->
+            <div class="w-12 h-12 sm:w-14 sm:h-14 bg-red-600 group-hover:bg-red-500 text-white rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-200 mb-1.5 border-2 border-white/20">
+              <svg class="w-6 h-6 sm:w-7 sm:h-7 ml-0.5 fill-current" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            <!-- 가운데 영상 제목 -->
+            <h3 id="m-daily-video-title" class="text-white font-black text-base sm:text-lg drop-shadow-md tracking-tight group-hover:underline">
+              "장비빨이 먹힐까?"
+            </h3>
+            <p class="text-amber-300 text-[11px] sm:text-xs font-bold mt-1 flex items-center gap-1 drop-shadow-xs">
+              <span>▶ 터치시 유튜브에서 바로 감상하기</span>
+              <span class="text-white">↗</span>
+            </p>
           </div>
-          <a href="https://youtu.be/kXoY9QJpD4g" target="_blank" rel="noopener noreferrer" class="block w-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold py-2.5 px-3 rounded-xl text-center text-xs transition shadow-2xs flex items-center justify-center gap-1.5">
-            <span>▶️</span>
-            <span>유튜브 앱/웹에서 바로보기 ↗</span>
-          </a>
-        </div>
+        </a>
 
         <!-- 신규 구장 및 연습장 추가 등록 안내 -->
         <div class="space-y-1.5 pt-1">
@@ -1113,38 +1121,48 @@
           </div>
         </div>
 
-        <!-- 5. 🎬 힐링 & 생활 유용한 팁 영상 및 신규 구장 안내 박스 -->
+        <!-- 5. 🎬 추천 영상 및 신규 구장 안내 박스 -->
         <div class="p-5 sm:p-6 bg-slate-50/90 rounded-2xl border-2 border-dashed border-gray-300 shadow-2xs h-full col-span-1 md:col-span-2 flex flex-col justify-between space-y-4">
           <div class="flex items-center justify-between border-b border-gray-200 pb-3">
             <div class="flex items-center gap-2">
               <span class="text-2xl">🎬</span>
               <div>
-                <h4 id="pc-daily-video-title" class="font-bold text-base md:text-lg text-slate-900">힐링 &amp; 생활 유용한 팁 (추천 영상)</h4>
-                <p id="pc-daily-video-desc" class="text-xs text-gray-500 font-medium">동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠</p>
+                <h4 class="font-bold text-base md:text-lg text-slate-900">추천 힐링 &amp; 생활 콘텐츠</h4>
+                <p id="pc-daily-video-desc" class="text-xs text-gray-500 font-medium">동호인 여러분을 위한 따뜻한 감동과 유용한 영상 콘텐츠</p>
               </div>
             </div>
             <span id="pc-daily-video-badge" class="bg-amber-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow-2xs shrink-0">추천 콘텐츠</span>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center flex-1">
-            <!-- 유튜브 플레이어 영역 (col-span-7) -->
-            <div class="md:col-span-7 space-y-2">
-              <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-black">
-                <iframe 
-                  id="pc-daily-video-iframe"
-                  class="absolute top-0 left-0 w-full h-full" 
-                  src="https://www.youtube.com/embed/kXoY9QJpD4g" 
-                  title="용인 파크골프 추천 힐링 &amp; 생활 유용한 팁 영상" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  referrerpolicy="strict-origin-when-cross-origin" 
-                  allowfullscreen 
-                  loading="lazy">
-                </iframe>
-              </div>
-              <a href="https://youtu.be/kXoY9QJpD4g" target="_blank" rel="noopener noreferrer" class="block w-full bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold py-2 px-3 rounded-xl text-center text-xs transition shadow-2xs flex items-center justify-center gap-1.5">
-                <span>▶️</span>
-                <span>유튜브에서 큰 화면으로 바로보기 ↗</span>
+            <!-- 유튜브 썸네일 & 플레이 버튼 카드 영역 (col-span-7) -->
+            <div class="md:col-span-7">
+              <a id="pc-daily-video-link" href="https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw" target="_blank" rel="noopener noreferrer" 
+                 class="group relative block w-full aspect-video rounded-xl overflow-hidden shadow-md border border-gray-200 bg-slate-900 active:scale-[0.98] transition cursor-pointer">
+                <!-- 썸네일 배경 이미지 -->
+                <img 
+                  id="pc-daily-video-thumb"
+                  src="https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg" 
+                  alt="장비빨이 먹힐까?" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80"
+                />
+                <!-- 오버레이 레이어 -->
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-slate-950/50 flex flex-col items-center justify-center p-4 text-center">
+                  <!-- 유튜브 플레이 버튼 -->
+                  <div class="w-14 h-14 sm:w-16 sm:h-16 bg-red-600 group-hover:bg-red-500 text-white rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-200 mb-2 border-2 border-white/20">
+                    <svg class="w-7 h-7 sm:w-8 sm:h-8 ml-1 fill-current" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                  <!-- 가운데 영상 제목 -->
+                  <h3 id="pc-daily-video-title" class="text-white font-black text-base sm:text-lg md:text-xl drop-shadow-md tracking-tight group-hover:underline">
+                    "장비빨이 먹힐까?"
+                  </h3>
+                  <p class="text-amber-300 text-xs sm:text-xs font-bold mt-1.5 flex items-center gap-1 drop-shadow-xs">
+                    <span>▶ 클릭시 유튜브에서 바로 감상하기</span>
+                    <span class="text-white">↗</span>
+                  </p>
+                </div>
               </a>
             </div>
 
@@ -4870,56 +4888,63 @@
       }
     }
 
-    // 📺 힐링 & 생활 유용한 팁 추천 영상 데이터셋
+    // 📺 추천 힐링 & 생활 영상 데이터셋
     const DAILY_RECOMMENDED_VIDEOS = [
       {
         day: "일요일",
-        badge: "추천 콘텐츠",
-        title: "🎬 힐링 & 생활 유용한 팁 (추천 영상)",
-        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠",
-        embedUrl: "https://www.youtube.com/embed/kXoY9QJpD4g"
+        badge: "오늘의 추천",
+        title: '"장비빨이 먹힐까?"',
+        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 영상 콘텐츠",
+        videoUrl: "https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw",
+        thumbUrl: "https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg"
       },
       {
         day: "월요일",
-        badge: "추천 콘텐츠",
-        title: "🎬 힐링 & 생활 유용한 팁 (추천 영상)",
-        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠",
-        embedUrl: "https://www.youtube.com/embed/kXoY9QJpD4g"
+        badge: "오늘의 추천",
+        title: '"장비빨이 먹힐까?"',
+        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 영상 콘텐츠",
+        videoUrl: "https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw",
+        thumbUrl: "https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg"
       },
       {
         day: "화요일",
-        badge: "추천 콘텐츠",
-        title: "🎬 힐링 & 생활 유용한 팁 (추천 영상)",
-        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠",
-        embedUrl: "https://www.youtube.com/embed/kXoY9QJpD4g"
+        badge: "오늘의 추천",
+        title: '"장비빨이 먹힐까?"',
+        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 영상 콘텐츠",
+        videoUrl: "https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw",
+        thumbUrl: "https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg"
       },
       {
         day: "수요일",
-        badge: "추천 콘텐츠",
-        title: "🎬 힐링 & 생활 유용한 팁 (추천 영상)",
-        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠",
-        embedUrl: "https://www.youtube.com/embed/kXoY9QJpD4g"
+        badge: "오늘의 추천",
+        title: '"장비빨이 먹힐까?"',
+        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 영상 콘텐츠",
+        videoUrl: "https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw",
+        thumbUrl: "https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg"
       },
       {
         day: "목요일",
-        badge: "추천 콘텐츠",
-        title: "🎬 힐링 & 생활 유용한 팁 (추천 영상)",
-        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠",
-        embedUrl: "https://www.youtube.com/embed/kXoY9QJpD4g"
+        badge: "오늘의 추천",
+        title: '"장비빨이 먹힐까?"',
+        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 영상 콘텐츠",
+        videoUrl: "https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw",
+        thumbUrl: "https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg"
       },
       {
         day: "금요일",
-        badge: "추천 콘텐츠",
-        title: "🎬 힐링 & 생활 유용한 팁 (추천 영상)",
-        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠",
-        embedUrl: "https://www.youtube.com/embed/kXoY9QJpD4g"
+        badge: "오늘의 추천",
+        title: '"장비빨이 먹힐까?"',
+        desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 영상 콘텐츠",
+        videoUrl: "https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw",
+        thumbUrl: "https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg"
       },
       {
         day: "토요일",
-        badge: "추천 콘텐츠",
-        title: "🎬 힐링 & 생활 유용한 팁 (추천 영상)",
+        badge: "오늘의 추천",
+        title: '"장비빨이 먹힐까?"',
         desc: "동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠",
-        embedUrl: "https://www.youtube.com/embed/kXoY9QJpD4g"
+        videoUrl: "https://youtu.be/BzMWncGDhnY?list=PLcY8IArmMryw",
+        thumbUrl: "https://img.youtube.com/vi/BzMWncGDhnY/hqdefault.jpg"
       }
     ];
 
@@ -4928,22 +4953,32 @@
       const videoData = DAILY_RECOMMENDED_VIDEOS[today] || DAILY_RECOMMENDED_VIDEOS[0];
 
       // PC 버전 동기화
-      const pcIframe = document.getElementById('pc-daily-video-iframe');
+      const pcLink = document.getElementById('pc-daily-video-link');
+      const pcThumb = document.getElementById('pc-daily-video-thumb');
       const pcTitle = document.getElementById('pc-daily-video-title');
       const pcDesc = document.getElementById('pc-daily-video-desc');
       const pcBadge = document.getElementById('pc-daily-video-badge');
 
-      if (pcIframe) pcIframe.src = videoData.embedUrl;
+      if (pcLink) pcLink.href = videoData.videoUrl;
+      if (pcThumb) {
+        pcThumb.src = videoData.thumbUrl;
+        pcThumb.alt = videoData.title;
+      }
       if (pcTitle) pcTitle.textContent = videoData.title;
       if (pcDesc) pcDesc.textContent = videoData.desc;
       if (pcBadge) pcBadge.textContent = videoData.badge;
 
       // 모바일 버전 동기화
-      const mIframe = document.getElementById('m-daily-video-iframe');
+      const mLink = document.getElementById('m-daily-video-link');
+      const mThumb = document.getElementById('m-daily-video-thumb');
       const mTitle = document.getElementById('m-daily-video-title');
       const mBadge = document.getElementById('m-daily-video-badge');
 
-      if (mIframe) mIframe.src = videoData.embedUrl;
+      if (mLink) mLink.href = videoData.videoUrl;
+      if (mThumb) {
+        mThumb.src = videoData.thumbUrl;
+        mThumb.alt = videoData.title;
+      }
       if (mTitle) mTitle.textContent = videoData.title;
       if (mBadge) mBadge.textContent = videoData.badge;
     }
