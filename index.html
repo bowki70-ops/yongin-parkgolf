@@ -566,11 +566,40 @@
         </p>
       </a>
 
-      <!-- 5) 신규 구장 및 연습장 추가 등록 예정 안내 박스 (모바일) -->
-      <div class="bg-slate-50/90 p-3.5 rounded-xl border-2 border-dashed border-gray-300 text-center space-y-1 shadow-2xs">
-        <p class="text-xs text-amber-950 font-bold bg-amber-100/90 px-3 py-2 rounded-lg border border-amber-300 inline-block shadow-2xs">
-          📢 시범 운영 후에 신규 구장 및 연습장 추가 등록 예정
-        </p>
+      <!-- 5) 🎬 힐링 & 생활 유용한 팁 영상 및 신규 구장 안내 박스 (모바일) -->
+      <div class="bg-slate-50/90 p-3.5 rounded-xl border-2 border-dashed border-gray-300 text-center space-y-3 shadow-2xs">
+        <div class="flex items-center justify-between border-b border-gray-200 pb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="text-lg">🎬</span>
+            <span id="m-daily-video-title" class="font-bold text-slate-900 text-sm">힐링 &amp; 생활 유용한 팁</span>
+          </div>
+          <span id="m-daily-video-badge" class="bg-amber-400 text-slate-950 font-black text-[11px] px-2 py-0.5 rounded-full shadow-2xs">일요일 추천</span>
+        </div>
+
+        <!-- 유튜브 동영상 플레이어 (16:9 반응형) -->
+        <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-black">
+          <iframe 
+            id="m-daily-video-iframe"
+            class="absolute top-0 left-0 w-full h-full" 
+            src="https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw" 
+            title="용인 파크골프 추천 힐링 &amp; 생활 유용한 팁 영상" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen 
+            loading="lazy">
+          </iframe>
+        </div>
+
+        <!-- 신규 구장 및 연습장 추가 등록 안내 -->
+        <div class="space-y-1.5 pt-1">
+          <p class="text-xs text-amber-950 font-bold bg-amber-100/90 px-3 py-2 rounded-lg border border-amber-300 inline-block shadow-2xs leading-relaxed">
+            📢 시범 운영 후에 신규 구장 및 연습장 추가 등록 예정
+          </p>
+          <p class="text-[11px] sm:text-xs text-gray-500 font-semibold leading-relaxed">
+            용인 관내 신규 파크골프장 및 연습장 개장 시 안내가 지속 업데이트됩니다.
+          </p>
+        </div>
       </div>
 
     </main>
@@ -1078,17 +1107,48 @@
           </div>
         </div>
 
-        <!-- 5. 신규 구장 및 연습장 추가 등록 예정 안내 박스 -->
-        <div class="p-6 bg-slate-50/90 rounded-2xl border-2 border-dashed border-gray-300 flex flex-col justify-center items-center text-center shadow-2xs h-full min-h-[240px] col-span-1 md:col-span-2">
-          <div class="p-3 bg-white rounded-full border border-gray-200 mb-2.5 shadow-xs">
-            <span class="text-2.5xl">⛳</span>
+        <!-- 5. 🎬 힐링 & 생활 유용한 팁 영상 및 신규 구장 안내 박스 -->
+        <div class="p-5 sm:p-6 bg-slate-50/90 rounded-2xl border-2 border-dashed border-gray-300 shadow-2xs h-full col-span-1 md:col-span-2 flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🎬</span>
+              <div>
+                <h4 id="pc-daily-video-title" class="font-bold text-base md:text-lg text-slate-900">힐링 &amp; 생활 유용한 팁 (추천 영상)</h4>
+                <p id="pc-daily-video-desc" class="text-xs text-gray-500 font-medium">동호인 여러분을 위한 따뜻한 감동과 유용한 생활 팁 콘텐츠</p>
+              </div>
+            </div>
+            <span id="pc-daily-video-badge" class="bg-amber-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow-2xs shrink-0">일요일 추천</span>
           </div>
-          <p class="text-xs md:text-sm text-slate-800 font-bold max-w-md leading-relaxed bg-amber-100/90 text-amber-950 px-4 py-3 rounded-xl border border-amber-300 shadow-2xs">
-            📢 시범 운영 후에 신규 구장 및 연습장 추가 등록 예정
-          </p>
-          <p class="text-xs text-gray-500 mt-2.5 font-semibold">
-            용인 관내 신규 파크골프장 및 연습장 개장 시 안내가 지속 업데이트됩니다.
-          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center flex-1">
+            <!-- 유튜브 플레이어 영역 (col-span-7) -->
+            <div class="md:col-span-7 relative w-full aspect-video rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-black">
+              <iframe 
+                id="pc-daily-video-iframe"
+                class="absolute top-0 left-0 w-full h-full" 
+                src="https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw" 
+                title="용인 파크골프 추천 힐링 &amp; 생활 유용한 팁 영상" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen 
+                loading="lazy">
+              </iframe>
+            </div>
+
+            <!-- 안내 문구 영역 (col-span-5) -->
+            <div class="md:col-span-5 flex flex-col justify-center items-center text-center space-y-3 bg-white p-4.5 rounded-xl border border-gray-200 shadow-2xs h-full">
+              <div class="p-2.5 bg-amber-50 rounded-full border border-amber-200 shadow-2xs">
+                <span class="text-2xl">⛳</span>
+              </div>
+              <p class="text-xs md:text-sm text-slate-900 font-bold leading-relaxed bg-amber-100/90 text-amber-950 px-3.5 py-2.5 rounded-xl border border-amber-300 shadow-2xs w-full">
+                📢 시범 운영 후에 신규 구장 및 연습장 추가 등록 예정
+              </p>
+              <p class="text-xs text-gray-600 font-semibold leading-relaxed">
+                용인 관내 신규 파크골프장 및 연습장 개장 시 안내가 지속 업데이트됩니다.
+              </p>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -4798,9 +4858,88 @@
       }
     }
 
-    // 페이지 로드 시 최신 공지 배너 동기화
+    // 📺 [신규] 7일 주기 매일 자동 로테이션 추천 영상 데이터셋 (월~일 자동 변경)
+    const DAILY_RECOMMENDED_VIDEOS = [
+      {
+        day: "일요일",
+        badge: "일요일 힐링",
+        title: "🎬 [일요일 힐링] 감동과 쉼터 추천 영상",
+        desc: "사령관님 추천! 마음이 따뜻해지는 감동 스토리와 생활 팁",
+        embedUrl: "https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw&index=1"
+      },
+      {
+        day: "월요일",
+        badge: "월요일 지혜",
+        title: "💡 [월요일 생활 팁] 알아두면 평생 써먹는 알짜 살림 노하우",
+        desc: "돈 안 써도 효과 확실한 일상 속 실용 생활 꿀팁 모음",
+        embedUrl: "https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw&index=2"
+      },
+      {
+        day: "화요일",
+        badge: "화요일 감동",
+        title: "❤️ [화요일 감동] 가슴 따뜻해지는 인생 사연 & 마음 오디오북",
+        desc: "잔잔한 위로와 가슴 깊은 울림을 전해주는 감동 실화 이야기",
+        embedUrl: "https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw&index=3"
+      },
+      {
+        day: "수요일",
+        badge: "수요일 건강",
+        title: "🌱 [수요일 건강] 10년 젊어지는 시니어 관절 건강 & 운동 팁",
+        desc: "활력 넘치는 라운딩을 위한 필수 스트레칭 및 100세 건강 수칙",
+        embedUrl: "https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw&index=4"
+      },
+      {
+        day: "목요일",
+        badge: "목요일 살림",
+        title: "✨ [목요일 살림] 돈 안 들고 집안이 깨끗해지는 청소·정리 비법",
+        desc: "주방·욕실 묵은 때 한 방에 해결하는 스마트 살림 아이디어",
+        embedUrl: "https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw&index=5"
+      },
+      {
+        day: "금요일",
+        badge: "금요일 휴식",
+        title: "🎵 [금요일 휴식] 마음이 편안해지는 잔잔한 힐링 음악 & 쉼터",
+        desc: "한 주 동안 쌓인 피로를 씻어주는 따뜻한 쉼터 음악",
+        embedUrl: "https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw&index=6"
+      },
+      {
+        day: "토요일",
+        badge: "토요일 골프",
+        title: "⛳ [토요일 골프] 파크골프 비거리 증대 & 명품 스윙 특강",
+        desc: "타수를 확 줄여주는 파크골프 포인트 레슨 및 핵심 가이드",
+        embedUrl: "https://www.youtube.com/embed/BzMWncGDhnY?list=PLcY8IArmMryw&index=7"
+      }
+    ];
+
+    function initDailyRotatingVideo() {
+      const today = new Date().getDay(); // 0 = 일요일, 1 = 월요일 ... 6 = 토요일
+      const videoData = DAILY_RECOMMENDED_VIDEOS[today] || DAILY_RECOMMENDED_VIDEOS[0];
+
+      // PC 버전 동기화
+      const pcIframe = document.getElementById('pc-daily-video-iframe');
+      const pcTitle = document.getElementById('pc-daily-video-title');
+      const pcDesc = document.getElementById('pc-daily-video-desc');
+      const pcBadge = document.getElementById('pc-daily-video-badge');
+
+      if (pcIframe) pcIframe.src = videoData.embedUrl;
+      if (pcTitle) pcTitle.textContent = videoData.title;
+      if (pcDesc) pcDesc.textContent = videoData.desc;
+      if (pcBadge) pcBadge.textContent = videoData.badge;
+
+      // 모바일 버전 동기화
+      const mIframe = document.getElementById('m-daily-video-iframe');
+      const mTitle = document.getElementById('m-daily-video-title');
+      const mBadge = document.getElementById('m-daily-video-badge');
+
+      if (mIframe) mIframe.src = videoData.embedUrl;
+      if (mTitle) mTitle.textContent = videoData.title;
+      if (mBadge) mBadge.textContent = videoData.badge;
+    }
+
+    // 페이지 로드 시 최신 공지 배너 및 요일별 자동 추천 영상 동기화
     document.addEventListener('DOMContentLoaded', () => {
       updateMainBannerLatestNotice();
+      initDailyRotatingVideo();
     });
   </script>
 
