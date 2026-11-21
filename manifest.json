@@ -1,8 +1,8 @@
 {
-  "name": "용인 파크골프 정보 포털",
-  "short_name": "용인파크골프",
-  "description": "용인특례시 파크골프 동호인 공식 대표 종합 정보망 (수지·포곡·기흥)",
-  "start_url": "/",
+  "name": "파크골프 스코어카드 | 전국 타구장 겸용",
+  "short_name": "파크골프 스코어",
+  "description": "종이 스코어카드 대신 스마트폰에서 간편하게! 전국 파크골프장 겸용 실시간 자동저장 스코어카드",
+  "start_url": "/score.html",
   "display": "standalone",
   "background_color": "#064e3b",
   "theme_color": "#064e3b",

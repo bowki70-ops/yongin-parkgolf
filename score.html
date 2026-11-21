@@ -106,6 +106,11 @@
         <span class="truncate">파크골프 스코어카드</span>
       </h1>
       <div class="flex items-center gap-1 shrink-0">
+        <!-- 📲 PWA 설치 유도 버튼 (설치 가능 시 자동 노출) -->
+        <button id="pwa-install-header-btn" type="button" onclick="triggerPwaInstall()" class="hidden bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs px-2 py-1.5 rounded-lg shadow-sm border border-emerald-300 flex items-center gap-1 active:scale-95 transition cursor-pointer animate-pulse">
+          <span>📲</span>
+          <span>앱 설치</span>
+        </button>
         <button type="button" onclick="openScorecardGuideModal()" class="bg-emerald-700 hover:bg-emerald-600 text-amber-300 font-bold text-xs px-2 py-1.5 rounded-lg border border-emerald-500 shadow-2xs flex items-center gap-1 active:scale-95 transition cursor-pointer">
           <span>📖</span>
           <span>사용설명서</span>
@@ -117,6 +122,57 @@
       </div>
     </div>
   </header>
+
+  <!-- 📲 [PWA 스마트폰 바로가기 설치 배너] (앱 모드가 아닐 때 최상단 안내) -->
+  <div id="pwa-install-banner" class="hidden bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 text-white px-3 py-2.5 shadow-inner border-b border-emerald-500">
+    <div class="max-w-2xl mx-auto flex items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">📲</span>
+        <div>
+          <p class="font-extrabold text-amber-300">스마트폰 홈 화면에 스코어카드 설치</p>
+          <p class="text-[11px] text-emerald-100">터치 한 번으로 구장에서 주소창 없이 바로 실행!</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-1 shrink-0">
+        <button id="pwa-install-action-btn" type="button" onclick="triggerPwaInstall()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-3 py-1.5 rounded-lg shadow transition active:scale-95 cursor-pointer">
+          설치하기
+        </button>
+        <button type="button" onclick="dismissPwaBanner()" class="text-emerald-200 hover:text-white px-1.5 py-1 text-sm font-bold cursor-pointer" title="닫기">
+          ✕
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🍏 iOS(아이폰) 사용자를 위한 홈화면 추가 안내 모달 -->
+  <div id="ios-install-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-4 border-2 border-emerald-500 shadow-xl space-y-3 text-slate-800">
+      <div class="flex justify-between items-center border-b pb-2">
+        <h3 class="font-black text-base text-emerald-900 flex items-center gap-1.5">
+          <span>🍏</span>
+          <span>아이폰 홈 화면에 앱 추가하기</span>
+        </h3>
+        <button type="button" onclick="closeIosInstallModal()" class="text-slate-400 hover:text-slate-600 text-lg font-bold">✕</button>
+      </div>
+      <div class="space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        <div class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <span class="font-black text-emerald-700 text-sm">1</span>
+          <p>사파리(Safari) 브라우저 하단 중앙의 <strong>[공유(내보내기) 버튼 ⬆️]</strong>을 터치합니다.</p>
+        </div>
+        <div class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <span class="font-black text-emerald-700 text-sm">2</span>
+          <p>스크롤을 아래로 내려 <strong>[홈 화면에 추가 ➕]</strong>를 선택합니다.</p>
+        </div>
+        <div class="flex items-start gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          <span class="font-black text-emerald-700 text-sm">3</span>
+          <p>우측 상단의 <strong>[추가]</strong>를 누르면 바탕화면에 스코어카드 아이콘이 생성됩니다!</p>
+        </div>
+      </div>
+      <button type="button" onclick="closeIosInstallModal()" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 rounded-xl text-xs sm:text-sm transition">
+        확인했습니다
+      </button>
+    </div>
+  </div>
 
   <!-- 본문 컨테이너 -->
   <main class="max-w-2xl mx-auto p-2.5 space-y-3 w-full flex-grow">
@@ -1279,6 +1335,76 @@
     function closeScorecardGuideModal() {
       const modal = document.getElementById('scorecardGuideModal');
       if (modal) modal.classList.add('hidden');
+    }
+
+    // 17. 📲 [PWA & 서비스 워커 연동 스크립트]
+    let deferredPrompt = null;
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // 브라우저 기본 미니 정보모음 배너 방지
+      e.preventDefault();
+      deferredPrompt = e;
+
+      // 앱 모드가 아닐 때만 설치 배너 및 헤더 버튼 노출
+      if (!isStandalone) {
+        const headerBtn = document.getElementById('pwa-install-header-btn');
+        const banner = document.getElementById('pwa-install-banner');
+        if (headerBtn) headerBtn.classList.remove('hidden');
+        if (banner && !sessionStorage.getItem('pwa_banner_dismissed')) {
+          banner.classList.remove('hidden');
+        }
+      }
+    });
+
+    function triggerPwaInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted PWA installation');
+          }
+          deferredPrompt = null;
+          dismissPwaBanner();
+        });
+      } else if (isIos && !isStandalone) {
+        // 아이폰 Safari 대응 안내 팝업 노출
+        const iosModal = document.getElementById('ios-install-modal');
+        if (iosModal) iosModal.classList.remove('hidden');
+      } else {
+        alert('스마트폰 브라우저 메뉴(⋮ 또는 공유)에서 [홈 화면에 추가]를 선택하시면 앱으로 설치할 수 있습니다.');
+      }
+    }
+
+    function dismissPwaBanner() {
+      const banner = document.getElementById('pwa-install-banner');
+      if (banner) banner.classList.add('hidden');
+      sessionStorage.setItem('pwa_banner_dismissed', 'true');
+    }
+
+    function closeIosInstallModal() {
+      const iosModal = document.getElementById('ios-install-modal');
+      if (iosModal) iosModal.classList.add('hidden');
+    }
+
+    // 서비스 워커 등록 (Network-First 캐싱 및 오프라인 지원)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js?v=35').then((reg) => {
+          console.log('PWA ServiceWorker registered successfully:', reg.scope);
+        }).catch((err) => {
+          console.warn('PWA ServiceWorker registration failed:', err);
+        });
+      });
+    }
+
+    // 아이폰 접속 시 standalone이 아니면 헤더 버튼 활성화
+    if (isIos && !isStandalone) {
+      window.addEventListener('DOMContentLoaded', () => {
+        const headerBtn = document.getElementById('pwa-install-header-btn');
+        if (headerBtn) headerBtn.classList.remove('hidden');
+      });
     }
   </script>
 </body>
