@@ -1,11 +1,12 @@
-const CACHE_NAME = 'yongin-parkgolf-score-v35';
+const CACHE_NAME = 'yongin-parkgolf-score-v36';
 
 // 핵심 오프라인 캐시 대상 리소스
 const PRECACHE_URLS = [
   '/score.html',
   '/manifest.json',
   '/icon-192.png',
-  '/icon-512.png'
+  '/icon-512.png',
+  '/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (event) => {
